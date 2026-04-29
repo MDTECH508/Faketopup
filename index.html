@@ -3,243 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Topup Premium - Official</title>
+    <title>Fake Topup Premium - Luxury Glass</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-red: #e60000;
-            --glass: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --bg-dark: #080808;
+            --primary-red: #ff003c;
+            --glass: rgba(255, 255, 255, 0.03);
+            --deep-glass: rgba(0, 0, 0, 0.6);
+            --border: 1px solid rgba(255, 255, 255, 0.12);
+            --neon-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
         }
 
-        body {
+        body, html {
             margin: 0; padding: 0;
-            background: var(--bg-dark);
-            background-image: radial-gradient(circle at top right, #2a0000, #080808);
-            color: #fff; font-family: 'Inter', sans-serif;
-            overflow-x: hidden; min-height: 100vh;
+            background: #050505;
+            color: #fff; font-family: 'Poppins', sans-serif;
+            min-height: 100vh; overflow-x: hidden;
         }
 
-        /* --- AUTH SYSTEM --- */
-        #auth-screen {
+        /* BACKGROUND ANIME */
+        .bg-vibe {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 9999;
+            background: url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
+            filter: brightness(0.3) blur(2px); z-index: -2;
+        }
+
+        .red-light {
+            position: fixed; width: 300px; height: 300px; background: var(--primary-red);
+            filter: blur(150px); border-radius: 50%; opacity: 0.2; z-index: -1;
+            animation: move 10s infinite alternate;
+        }
+        @keyframes move { from { top: 10%; left: 10%; } to { top: 70%; left: 80%; } }
+
+        /* AUTH SCREEN - GLASS EFFECT */
+        #auth-screen {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px); z-index: 10000;
             display: flex; justify-content: center; align-items: center;
         }
-        .glass-card {
+
+        .glass-box {
             background: var(--glass); backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); padding: 30px;
-            border-radius: 30px; width: 85%; max-width: 380px; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: var(--border); padding: 40px 30px; border-radius: 35px;
+            width: 85%; max-width: 380px; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
+
         .auth-input {
-            width: 100%; padding: 14px; margin-top: 10px; border-radius: 12px;
-            border: 1px solid var(--glass-border); background: rgba(0,0,0,0.5);
-            color: #fff; outline: none; box-sizing: border-box;
+            width: 100%; padding: 15px; margin-top: 15px; border-radius: 15px;
+            border: var(--border); background: rgba(0,0,0,0.5); color: #fff;
+            outline: none; box-sizing: border-box; transition: 0.3s;
         }
-        .btn-red { 
-            background: var(--primary-red); color: #fff; border: none;
-            width: 100%; padding: 14px; border-radius: 12px; font-weight: bold;
-            margin-top: 15px; cursor: pointer; transition: 0.3s;
+        .auth-input:focus { border-color: var(--primary-red); box-shadow: var(--neon-shadow); }
+
+        .btn-glow {
+            width: 100%; padding: 15px; border-radius: 15px; border: none;
+            background: linear-gradient(45deg, var(--primary-red), #b3002a);
+            color: #fff; font-weight: 800; margin-top: 20px; cursor: pointer;
+            box-shadow: var(--neon-shadow); text-transform: uppercase;
         }
 
-        /* --- DASHBOARD --- */
+        /* DASHBOARD UI */
         header {
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.6); border-bottom: 1px solid var(--glass-border);
-            position: sticky; top: 0; z-index: 100;
-        }
-        .promo-bar {
-            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
-            text-align: center; font-size: 11px; padding: 5px; font-weight: bold;
+            padding: 20px; display: flex; justify-content: space-between; align-items: center;
+            background: var(--deep-glass); backdrop-filter: blur(10px);
+            border-bottom: var(--border); position: sticky; top: 0; z-index: 100;
         }
 
-        /* --- SLIDER 1 SEC --- */
-        .slider-box {
-            width: 92%; height: 170px; margin: 15px auto;
-            border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border);
+        .slider-wrap {
+            width: 92%; height: 190px; margin: 20px auto;
+            border-radius: 25px; overflow: hidden; border: var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .slides { display: flex; width: 400%; height: 100%; transition: 0.5s ease-in-out; }
+        .slides { display: flex; width: 500%; height: 100%; transition: 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95); }
         .slide { width: 100%; height: 100%; background-size: cover; background-position: center; }
 
-        /* --- PAGES --- */
-        .page { display: none; padding: 10px 20px 110px; animation: fadeIn 0.4s; }
+        /* PAGES */
+        .page { display: none; padding: 10px 20px 120px; animation: fadeIn 0.5s; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
 
-        /* --- RECHARGE BOX --- */
-        .recharge-box {
-            background: var(--glass); border-radius: 20px; border: 1px solid var(--glass-border);
-            padding: 20px; margin-top: 15px;
-        }
-        .natcash-info {
-            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
-            margin-bottom: 10px; border-left: 4px solid var(--primary-red);
+        .card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: var(--border); border-radius: 25px; padding: 20px; margin-top: 15px;
         }
 
-        /* --- PRODUCT GRID --- */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .item { 
-            background: var(--glass); padding: 15px; border-radius: 18px; 
-            border: 1px solid var(--glass-border); text-align: center;
+        /* RECHARGE SECTION */
+        .info-row {
+            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;
+            margin-bottom: 10px; border-left: 5px solid var(--primary-red);
         }
 
-        /* --- NAV --- */
-        .nav {
-            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
-            width: 90%; background: rgba(15,15,15,0.95); backdrop-filter: blur(20px);
+        /* NAVIGATION BAR */
+        .bottom-nav {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 85%; background: rgba(10,10,10,0.8); backdrop-filter: blur(20px);
             border-radius: 30px; display: flex; justify-content: space-around;
-            padding: 12px 0; border: 1px solid var(--glass-border); z-index: 1000;
+            padding: 15px 0; border: var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.8);
         }
-        .nav-link { color: #555; text-align: center; font-size: 10px; text-decoration: none; cursor: pointer; }
-        .nav-link.active { color: var(--primary-red); }
-        .nav-link i { display: block; font-size: 20px; margin-bottom: 4px; }
+        .nav-item { color: rgba(255,255,255,0.4); text-align: center; font-size: 11px; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--primary-red); text-shadow: var(--neon-shadow); }
+        .nav-item i { display: block; font-size: 22px; margin-bottom: 5px; }
+
     </style>
 </head>
 <body>
 
+    <div class="bg-vibe"></div>
+    <div class="red-light"></div>
+
     <div id="auth-screen">
-        <div class="glass-card" id="step-choice">
-            <h2 style="margin-top:0">FAKE <span style="color:var(--primary-red)">TOPUP</span></h2>
-            <p style="font-size:13px; opacity:0.7">Bienvenue! Connectez-vous pour continuer.</p>
-            <button class="btn-red" onclick="handleAuth('google')"><i class="fa-brands fa-google"></i> Auto Login Google</button>
-            <button class="btn-red" style="background:#333;" onclick="showStep('step-create')">Créer un compte</button>
-            <p style="font-size:12px; margin-top:15px; cursor:pointer" onclick="showStep('step-login')">Déjà un compte? <b>Login</b></p>
-        </div>
-
-        <div class="glass-card" id="step-create" style="display:none">
-            <h3>Nouveau Compte</h3>
-            <input type="text" id="reg-name" class="auth-input" placeholder="Nom Complet">
-            <input type="password" id="reg-pass" class="auth-input" placeholder="Modpas (4 chif)">
-            <button class="btn-red" onclick="handleAuth('create')">S'inscrire</button>
-            <p onclick="showStep('step-choice')" style="font-size:12px; margin-top:10px">Retour</p>
-        </div>
-
-        <div class="glass-card" id="step-login" style="display:none">
-            <h3>Connexion</h3>
-            <input type="text" id="log-name" class="auth-input" placeholder="Nom Complet">
-            <input type="password" id="log-pass" class="auth-input" placeholder="Modpas">
-            <button class="btn-red" onclick="handleAuth('login')">Login</button>
-            <p onclick="showStep('step-choice')" style="font-size:12px; margin-top:10px">Retour</p>
+        <div class="glass-box" id="auth-main">
+            <h1 style="margin:0; letter-spacing: 2px;">FAKE <span style="color:var(--primary-red)">TOPUP</span></h1>
+            <p style="font-size:12px; opacity:0.6; margin-bottom: 30px;">LUXURY PREMIUM SERVICES</p>
+            
+            <div id="login-form">
+                <input type="text" id="user-input" class="auth-input" placeholder="Non konplè">
+                <input type="password" id="pass-input" class="auth-input" placeholder="PIN (4 chif)">
+                <button class="btn-glow" onclick="initSession()">KONEKTE KOUNYE A</button>
+                <p style="font-size:11px; margin-top:15px; opacity:0.5" onclick="alert('Auto-Login Google Active')">
+                    <i class="fa-brands fa-google"></i> Login ak Google
+                </p>
+            </div>
         </div>
     </div>
 
-    <div id="main-app" style="display:none">
-        <div class="promo-bar">🔥 PROMO : 10 Recharges/Semaine = 20% BONUS sur votre Wallet ! 🔥</div>
+    <div id="app-content" style="display:none">
         <header>
-            <div style="font-weight:900; font-size:18px">FAKE <span style="color:var(--primary-red)">TOPUP</span></div>
-            <div id="user-id" style="font-size:10px; padding:5px 12px; background:rgba(255,0,0,0.1); border:1px solid var(--primary-red); border-radius:20px">ID: 000000</div>
+            <div style="font-weight:900; font-size:20px;">F-T <span style="color:var(--primary-red)">PREMIUM</span></div>
+            <div id="client-id" style="font-size:10px; padding:6px 15px; background:rgba(255,0,60,0.15); border-radius:20px; border: 1px solid var(--primary-red);">ID: LOADING</div>
         </header>
 
+        <div style="background: var(--primary-red); color:#fff; font-size:10px; text-align:center; padding:4px; font-weight:bold; letter-spacing:1px">
+            OFFRE SPÉCIALE: +20% BONUS SUR CHAQUE RECHARGE!
+        </div>
+
         <div id="home" class="page active">
-            <div class="slider-box">
-                <div class="slides" id="slider-run">
+            <div class="slider-wrap">
+                <div class="slides" id="main-slider">
                     <div class="slide" style="background-image: url('https://wallpapers.com/images/featured/free-fire-j56as76e6p44p80n.jpg');"></div>
                     <div class="slide" style="background-image: url('https://images.wallpapersden.com/wallpaper/d/lamborghini-huracan-gt3-evo_65874.jpg');"></div>
-                    <div class="slide" style="background-image: url('https://p16-va.lemon8cdn.com/obj/tos-alisg-v-a3e477-sg/o0A6AnEIAfIeC6QAeIAEABAf0vA8Q9ADIE0AFA');"></div>
                     <div class="slide" style="background-image: url('https://i.pinimg.com/originals/6a/82/3e/6a823e8006e88536f903080e70415394.jpg');"></div>
+                    <div class="slide" style="background-image: url('https://p16-va.lemon8cdn.com/obj/tos-alisg-v-a3e477-sg/o0A6AnEIAfIeC6QAeIAEABAf0vA8Q9ADIE0AFA');"></div>
                 </div>
             </div>
 
-            <div class="grid">
-                <div class="item"><b>Free Fire</b><br><span style="color:var(--primary-red)">165 HTG</span></div>
-                <div class="item"><b>Netflix</b><br><span style="color:var(--primary-red)">500 HTG</span></div>
-                <div class="item"><b>Apple Gift</b><br><span style="color:var(--primary-red)">165 HTG</span></div>
-                <div class="item" style="opacity:0.5"><b>eFootball</b><br><small>Bientôt</small></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="card" style="text-align:center">
+                    <i class="fa-solid fa-gem" style="color:var(--primary-red); font-size:25px"></i><br>
+                    <b>Free Fire</b><br><small>165.00 HTG</small>
+                </div>
+                <div class="card" style="text-align:center">
+                    <i class="fa-solid fa-tv" style="color:#fff; font-size:25px"></i><br>
+                    <b>Netflix</b><br><small>500.00 HTG</small>
+                </div>
             </div>
         </div>
 
-        <div id="wallet" class="page">
-            <div class="recharge-box" style="text-align:center">
-                <small>BALANCE</small>
-                <h1 style="margin:5px 0">0.00 HTG</h1>
+        <div id="recharge" class="page">
+            <div class="card" style="text-align:center; background: linear-gradient(135deg, rgba(255,0,60,0.2), transparent);">
+                <small>SOLDE DISPONIBLE</small>
+                <h1 style="margin:10px 0; font-size:45px">0.00<span style="font-size:15px"> HTG</span></h1>
             </div>
 
-            <div class="recharge-box">
-                <h3 style="margin-top:0; color:var(--primary-red)">INFO RECHARGE NATCASH</h3>
-                
-                <div class="natcash-info">
-                    <small>Agent 1:</small><br>
-                    <b>509 5511-2990</b><br>
-                    <span>ENELSON PIERRE</span>
+            <div class="card">
+                <h3 style="color:var(--primary-red); margin-top:0"><i class="fa-solid fa- receipt"></i> DEPÔT NATCASH</h3>
+                <div class="info-row">
+                    <b>509 5511-2990</b><br><small>ENELSON PIERRE</small>
                 </div>
-
-                <div class="natcash-info">
-                    <small>Agent 2:</small><br>
-                    <b>509 4241-6107</b><br>
-                    <span>FAKE TECH</span>
-                </div>
-
-                <div style="margin-top:20px">
-                    <label style="font-size:12px; opacity:0.7">Antre Transcode la a :</label>
-                    <input type="text" class="auth-input" placeholder="Ex: 56987412">
-                    <button class="btn-red" onclick="alert('Transcode reçu! Validation en cours...')">VALIDER LE PAIEMENT</button>
+                <div class="info-row">
+                    <b>509 4241-6107</b><br><small>FAKE TECH</small>
                 </div>
                 
-                <p style="text-align:center; font-size:12px; margin-top:15px">Ou kontakte support la :</p>
-                <div style="display:flex; gap:10px">
-                    <button class="btn-red" style="background:#25D366" onclick="window.location.href='https://wa.me/50934946793'">WhatsApp 1</button>
-                    <button class="btn-red" style="background:#25D366" onclick="window.location.href='https://wa.me/50941951159'">WhatsApp 2</button>
-                </div>
+                <input type="text" class="auth-input" placeholder="Antre Transcode la isit la...">
+                <button class="btn-glow">VERIFIER PAIEMENT</button>
             </div>
         </div>
 
-        <div id="account" class="page">
-            <div class="recharge-box" style="text-align:center">
-                <div style="width:60px; height:60px; background:var(--primary-red); border-radius:50%; margin: 0 auto 10px; display:flex; justify-content:center; align-items:center; font-size:25px">
-                    <i class="fa-solid fa-user"></i>
+        <div id="profile" class="page">
+            <div class="card" style="text-align:center">
+                <div style="width:70px; height:70px; background:var(--primary-red); border-radius:50%; margin:0 auto 15px; display:flex; justify-content:center; align-items:center; font-size:30px">
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
-                <h3 id="user-name-display">Utilisateur</h3>
-                <p style="font-size:12px; opacity:0.6">Statut: Membre Premium</p>
-                <button class="btn-red" onclick="logout()" style="width:auto; padding:8px 25px; font-size:12px">Déconnecter</button>
+                <h2 id="display-user" style="margin:0">Utilisateur</h2>
+                <p style="font-size:12px; opacity:0.5">Statut: Premium Verified</p>
+                
+                <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0">
+                
+                <div style="text-align:left; font-size:14px">
+                    <p><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> Admin 1: +509 3494-6793</p>
+                    <p><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> Admin 2: +509 4195-1159</p>
+                </div>
+
+                <button class="btn-glow" style="background:#333; box-shadow:none" onclick="logout()">DEKONEKTE</button>
             </div>
         </div>
 
-        <nav class="nav">
-            <div class="nav-link active" onclick="navTo('home', this)"><i class="fa-solid fa-house"></i>Accueil</div>
-            <div class="nav-link" onclick="navTo('wallet', this)"><i class="fa-solid fa-wallet"></i>Recharge</div>
-            <div class="nav-link" onclick="navTo('account', this)"><i class="fa-solid fa-user-gear"></i>Compte</div>
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="showPage('home', this)"><i class="fa-solid fa-ghost"></i>Accueil</div>
+            <div class="nav-item" onclick="showPage('recharge', this)"><i class="fa-solid fa-wallet"></i>Recharge</div>
+            <div class="nav-item" onclick="showPage('profile', this)"><i class="fa-solid fa-user-ninja"></i>Compte</div>
         </nav>
     </div>
 
     <script>
-        // --- AUTH & SESSION (1H) ---
-        function showStep(id) {
-            document.querySelectorAll('.glass-card').forEach(c => c.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
+        // SESSION & AUTH
+        function initSession() {
+            const user = document.getElementById('user-input').value;
+            const pin = document.getElementById('pass-input').value;
+
+            if(user && pin.length >= 4) {
+                const id = "FT-" + Math.floor(Math.random() * 900000 + 100000);
+                localStorage.setItem('session_start', Date.now());
+                localStorage.setItem('user_name', user);
+                localStorage.setItem('user_id', id);
+                
+                renderApp(user, id);
+            } else {
+                alert("Tanpri antre yon non ak yon PIN valab!");
+            }
         }
 
-        function handleAuth(type) {
-            let name = "Google User";
-            if(type === 'create') name = document.getElementById('reg-name').value;
-            if(type === 'login') name = document.getElementById('log-name').value;
-
-            if(!name && type !== 'google') return alert("Remplissez les champs!");
-
-            let id = "FT-" + Math.floor(100000 + Math.random() * 900000);
-            localStorage.setItem('ft_session', Date.now());
-            localStorage.setItem('ft_user', name);
-            localStorage.setItem('ft_id', id);
-
-            startApp(name, id);
-        }
-
-        function startApp(name, id) {
+        function renderApp(name, id) {
             document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            document.getElementById('user-name-display').innerText = name;
-            document.getElementById('user-id').innerText = "ID: " + id;
-            checkSession();
+            document.getElementById('app-content').style.display = 'block';
+            document.getElementById('display-user').innerText = name;
+            document.getElementById('client-id').innerText = "ID: " + id;
+            
+            // Check Session every 1 minute
+            setInterval(checkExpiry, 60000);
         }
 
-        function checkSession() {
-            const start = localStorage.getItem('ft_session');
-            if(start && (Date.now() - start > 3600000)) { // 1 heure
-                alert("Session expirée!");
+        function checkExpiry() {
+            const start = localStorage.getItem('session_start');
+            if(start && (Date.now() - start > 3600000)) { // 1h
+                alert("Session expirée. Reconnectez-vous.");
                 logout();
             }
-            setTimeout(checkSession, 60000);
         }
 
         function logout() {
@@ -247,27 +247,28 @@
             location.reload();
         }
 
-        // --- NAVIGATION ---
-        function navTo(id, el) {
+        // NAVIGATION
+        function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
         }
 
-        // --- SLIDER (1 SEC) ---
-        let sIdx = 0;
+        // AUTO-SLIDER 1s
+        let currentIdx = 0;
         setInterval(() => {
-            sIdx++;
-            if(sIdx > 3) sIdx = 0;
-            document.getElementById('slider-run').style.transform = `translateX(-${sIdx * 100}%)`;
+            currentIdx++;
+            if(currentIdx > 3) currentIdx = 0;
+            document.getElementById('main-slider').style.transform = `translateX(-${currentIdx * 100}%)`;
         }, 1000);
 
-        // Check if logged in
+        // Check if already logged in
         window.onload = () => {
-            const user = localStorage.getItem('ft_user');
-            if(user) startApp(user, localStorage.getItem('ft_id'));
+            const savedUser = localStorage.getItem('user_name');
+            if(savedUser) renderApp(savedUser, localStorage.getItem('user_id'));
         }
     </script>
 </body>
 </html>
+                                            
