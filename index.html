@@ -1,275 +1,227 @@
-<!DOCTYPE html>
+           <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Topup - Premium Edition</title>
+    <title>Fake Topup - Pro Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-deep: #050505; /* Noir profond */
-            --card-gray: #1a1a1a; /* Gris foncé */
-            --soft-gray: #2d2d2d; /* Gris moyen */
-            --accent-silver: #e0e0e0; /* Gris clair/Argent */
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-deep: #05070a;
+            --card-gray: rgba(26, 28, 35, 0.9);
+            --accent-blue: #00e5ff;
+            --ff-orange: #ff9d00;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-deep);
+            /* Sèvi ak imaj teksti nwa/gri a kòm background */
+            background: linear-gradient(rgba(5, 7, 10, 0.8), rgba(5, 7, 10, 0.8)), 
+                        url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg'); 
+            background-size: cover;
+            background-attachment: fixed;
             color: #ffffff;
-            font-family: 'Inter', -apple-system, sans-serif;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* --- MENU DU HAUT (TOP NAVBAR) --- */
-        .top-nav {
-            position: sticky;
-            top: 0;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-        }
-
-        .nav-link {
-            text-align: center;
-            color: #888;
-            text-decoration: none;
-            font-size: 11px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .nav-link.active { color: var(--accent-silver); border-bottom: 2px solid var(--accent-silver); padding-bottom: 5px; }
-        .nav-link i { display: block; font-size: 18px; margin-bottom: 4px; }
-
-        /* --- LOGO --- */
-        .header-main {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .logo-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .diamond-logo {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #333, #000);
-            border: 1px solid var(--accent-silver);
-            transform: rotate(45deg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .diamond-logo i { transform: rotate(-45deg); color: var(--accent-silver); }
-
-        .logo-text { font-size: 20px; font-weight: 800; letter-spacing: 2px; text-align: center; }
-        .logo-text span { font-size: 9px; color: #666; display: block; }
-
-        /* --- PAGES --- */
-        .page { display: none; padding: 20px; animation: slideUp 0.4s ease; }
-        .page.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- GRID DE BOUTIQUE (ACCUEIL) --- */
-        .grid-services {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .service-card {
-            background: var(--card-gray);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .service-card:active { transform: scale(0.95); background: var(--soft-gray); }
-        .service-card i { font-size: 30px; color: var(--accent-silver); margin-bottom: 10px; display: block; }
-        .service-card span { font-size: 13px; font-weight: 600; color: #ccc; }
-
-        /* --- WALLET & TRANSACTIONS --- */
-        .wallet-card {
-            background: linear-gradient(145deg, #111, #1a1a1a);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--border);
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .balance-label { font-size: 12px; color: #666; text-transform: uppercase; }
-        .balance-value { font-size: 40px; font-weight: 800; margin: 10px 0; color: #fff; }
-
-        .btn-deposit {
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: bold;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .history-title { font-size: 16px; margin: 20px 0 15px; color: #888; }
-        .transaction-item {
-            background: var(--glass);
-            padding: 15px;
-            border-radius: 12px;
+        /* --- HEADER --- */
+        header {
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            border: 1px solid var(--border);
+            align-items: center;
+            background: rgba(11, 14, 20, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
 
-        .status-empty { text-align: center; opacity: 0.3; padding: 40px; font-size: 14px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-diamond {
+            width: 35px; height: 35px;
+            background: linear-gradient(135deg, #ff0055, #7000ff);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+        .logo-text { font-weight: 800; font-size: 18px; letter-spacing: 1px; }
+        .logo-text span { color: #ff0055; font-size: 10px; display: block; margin-top: -5px; }
 
-        /* --- FOOTER --- */
-        .footer-info { text-align: center; font-size: 11px; color: #444; margin-top: 40px; padding-bottom: 20px; }
+        /* --- NAVIGATION --- */
+        .page { display: none; padding: 20px 15px 100px; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- BANNER (Sèvi ak imaj machin yo) --- */
+        .hero-slider {
+            width: 100%;
+            height: 180px;
+            border-radius: 20px;
+            background: url('https://images.wallpapersden.com/wallpaper/d/lamborghini-huracan-gt3-evo_65874.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .hero-text { background: rgba(0,0,0,0.6); padding: 10px; border-radius: 10px; backdrop-filter: blur(5px); }
+
+        /* --- GRID PRODUITS --- */
+        .section-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .product-card {
+            background: var(--card-gray);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: 0.3s;
+        }
+        .product-img { width: 100%; height: 130px; object-fit: cover; }
+        .ff-img { content: url('https://i.pinimg.com/originals/6a/82/3e/6a823e8006e88536f903080e70415394.jpg'); } /* Imaj Free Fire ou a */
+        
+        .product-info { padding: 12px; }
+        .product-name { font-weight: 600; font-size: 14px; display: block; }
+        .product-price { color: var(--accent-blue); font-weight: 800; font-size: 13px; }
+
+        /* --- WALLET (Style Dizi) --- */
+        .wallet-box {
+            background: linear-gradient(135deg, #161c23 0%, #0b0e14 100%);
+            border-radius: 25px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .wallet-balance { font-size: 32px; font-weight: 800; color: #ffcc00; margin: 10px 0; }
+        .btn-action {
+            background: linear-gradient(to right, #00d2ff, #3a7bd5);
+            border: none; padding: 15px; width: 100%; border-radius: 12px;
+            color: white; font-weight: bold; margin-bottom: 10px; cursor: pointer;
+        }
+
+        /* --- NAVBAR --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%;
+            background: rgba(11, 14, 20, 0.95);
+            display: flex; justify-content: space-around;
+            padding: 15px 0; border-top: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .nav-item { text-align: center; color: #555; font-size: 10px; transition: 0.3s; cursor: pointer; }
+        .nav-item.active { color: var(--accent-blue); }
+        .nav-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div class="nav-link active" onclick="showPage('accueil', this)">
-            <i class="fa-solid fa-house-bolt"></i>Accueil
+    <header>
+        <div class="logo-area">
+            <div class="logo-diamond"></div>
+            <div class="logo-text">FAKE TOPUP <span>SERVICE RAPIDE</span></div>
         </div>
-        <div class="nav-link" onclick="showPage('boutique', this)">
-            <i class="fa-solid fa-shop"></i>Boutique
+        <div style="display:flex; gap:15px; font-size:18px; color:#888;">
+            <i class="fa-solid fa-sun"></i>
+            <i class="fa-solid fa-bell"></i>
+            <i class="fa-solid fa-gear"></i>
         </div>
-        <div class="nav-link" onclick="showPage('wallet', this)">
-            <i class="fa-solid fa-wallet"></i>Portefeuille
-        </div>
-        <div class="nav-link" onclick="showPage('compte', this)">
-            <i class="fa-solid fa-circle-user"></i>Profil
-        </div>
-    </nav>
+    </header>
 
-    <div class="header-main">
-        <div class="logo-box">
-            <div class="diamond-logo"><i class="fa-solid fa-bolt"></i></div>
-            <div class="logo-text">FAKE TOPUP <span>SYSTEM PREMIUM</span></div>
-        </div>
-    </div>
-
-    <div id="accueil" class="page active">
-        <div class="wallet-card" style="padding: 20px; text-align: left;">
-            <p style="margin: 0; font-size: 14px;">Bienvenue sur <b>Fake Tech</b></p>
-            <small style="color: #666;">Sélectionnez un service pour commencer.</small>
+    <div id="home" class="page active">
+        <div class="hero-slider">
+            <div class="hero-text">
+                <small>PROMOTION FLASH</small>
+                <div style="font-weight:bold; color:var(--accent-blue);">Gade film ak serie</div>
+            </div>
         </div>
 
-        <div class="grid-services">
-            <div class="service-card" onclick="showPage('boutique', null)">
-                <i class="fa-brands fa-tiktok"></i>
-                <span>TikTok Coins</span>
-            </div>
-            <div class="service-card" onclick="showPage('boutique', null)">
-                <i class="fa-solid fa-globe"></i>
-                <span>Numéro Int.</span>
-            </div>
-            <div class="service-card" onclick="showPage('boutique', null)">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <span>Recharge Acc.</span>
-            </div>
-            <div class="service-card" onclick="showPage('boutique', null)">
-                <i class="fa-solid fa-ellipsis"></i>
-                <span>Autres</span>
-            </div>
+        <div class="section-title">
+            Produits Disponibles <span style="color:var(--accent-blue); font-size:12px;">Voir plus +2</span>
         </div>
-    </div>
 
-    <div id="boutique" class="page">
-        <h2 style="font-size: 18px; color: #888;">Services Disponibles</h2>
-        <div class="grid-services">
-            <div class="service-card">
-                <i class="fa-solid fa-gem" style="color: #00d2ff;"></i>
-                <span>Free Fire</span>
+        <div class="grid-container">
+            <div class="product-card" onclick="alert('110 Diamonds - 165 HTG')">
+                <img class="product-img ff-img">
+                <div class="product-info">
+                    <span class="product-name">Free Fire</span>
+                    <span class="product-price">165 HTG</span>
+                </div>
             </div>
-            <div class="service-card">
-                <i class="fa-brands fa-netflix" style="color: #e50914;"></i>
-                <span>Netflix</span>
+            <div class="product-card">
+                <img src="https://images.ctfassets.net/4cd45et68cgf/4nBn7nSpS0fCfs9BRiC6MM/8520745a3323c4c048c054e65ec90061/Netflix-Logo.jpg" class="product-img">
+                <div class="product-info">
+                    <span class="product-name">Netflix</span>
+                    <span class="product-price">330 HTG</span>
+                </div>
             </div>
-            <div class="service-card">
-                <i class="fa-brands fa-google-play"></i>
-                <span>Google Play</span>
+            <div class="product-card">
+                <img src="https://i.pinimg.com/736x/8a/8d/2c/8a8d2c49983991f24d77598687752e5c.jpg" class="product-img">
+                <div class="product-info">
+                    <span class="product-name">Accès Premium</span>
+                    <span class="product-price">500 HTG</span>
+                </div>
             </div>
-            <div class="service-card">
-                <i class="fa-solid fa-key"></i>
-                <span>Prox / Accès</span>
+            <div class="product-card">
+                <img src="https://p16-va.lemon8cdn.com/obj/tos-alisg-v-a3e477-sg/o0A6AnEIAfIeC6QAeIAEABAf0vA8Q9ADIE0AFA" class="product-img">
+                <div class="product-info">
+                    <span class="product-name">TikTok Coins</span>
+                    <span class="product-price">120 HTG</span>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="wallet" class="page">
-        <div class="wallet-card">
-            <span class="balance-label">Solde disponible</span>
-            <div class="balance-value">0,00 HTG</div>
-            <button class="btn-deposit" onclick="alert('Redirection vers les modes de paiement Natcash/MonCash...')">
-                <i class="fa-solid fa-plus"></i> RECHARGER LE COMPTE
+        <div class="wallet-box">
+            <small style="opacity:0.6;">Mon portefeuille FAKE</small>
+            <div class="wallet-balance">HTG 175,00</div>
+            <button class="btn-action"><i class="fa-solid fa-plus"></i> Ajouter de l'argent</button>
+            <button class="btn-action" style="background:rgba(255,255,255,0.05); border:1px solid var(--border);">
+                <i class="fa-solid fa-paper-plane"></i> Envoyer de l'argent
             </button>
         </div>
 
-        <div class="history-title">Historique des transactions</div>
-        <div class="status-empty">
-            <i class="fa-solid fa-receipt" style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
-            Aucune transaction effectuée
-        </div>
-    </div>
-
-    <div id="compte" class="page">
-        <div class="service-card" style="text-align: left; display: flex; align-items: center; gap: 20px;">
-            <div style="width: 50px; height: 50px; background: #333; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-                <i class="fa-solid fa-user" style="margin: 0; font-size: 20px;"></i>
-            </div>
+        <div class="section-title">Transactions</div>
+        <div style="background:var(--card-gray); border-radius:15px; padding:15px; border:1px solid var(--border); display:flex; justify-content:space-between;">
             <div>
-                <b style="display: block;">Utilisateur Invité</b>
-                <small style="color: #666;">Connecté via Google</small>
+                <b style="display:block; font-size:14px;">PIN GIFT 2 $</b>
+                <small style="color:#666;">29 avr. 2026</small>
             </div>
-        </div>
-        
-        <div style="margin-top: 20px;">
-            <div class="transaction-item"><span>Paramètres</span> <i class="fa-solid fa-chevron-right"></i></div>
-            <div class="transaction-item"><span>Support Client</span> <i class="fa-solid fa-chevron-right"></i></div>
-            <div class="transaction-item" style="color: #ff4444;"><span>Déconnexion</span></div>
+            <span style="color:#ff4444; font-weight:bold;">-330.00</span>
         </div>
     </div>
 
-    <div class="footer-info">
-        &copy; 2026 FAKE TECH SYSTEM - TOUS DROITS RÉSERVÉS
-    </div>
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="navTo('home', this)">
+            <i class="fa-solid fa-house"></i>Accueil
+        </div>
+        <div class="nav-item" onclick="navTo('home', this)">
+            <i class="fa-solid fa-cart-shopping"></i>Boutique
+        </div>
+        <div class="nav-item" onclick="navTo('home', this)">
+            <i class="fa-solid fa-key"></i>Mes accès
+        </div>
+        <div class="nav-item" onclick="navTo('wallet', this)">
+            <i class="fa-solid fa-wallet"></i>Wallet
+        </div>
+    </nav>
 
     <script>
-        function showPage(pageId, element) {
-            // Cacher toutes les pages
+        function navTo(pageId, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Afficher la page choisie
             document.getElementById(pageId).classList.add('active');
-            
-            // Gérer le menu actif
-            if(element) {
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                element.classList.add('active');
-            }
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
         }
     </script>
 </body>
 </html>
-                    
+ 
