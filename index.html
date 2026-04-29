@@ -1,214 +1,241 @@
-                              <!DOCTYPE html>
+                                      <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Tech - Premium Services</title>
+    <title>Fake Tech - Système Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #050505;
-            --card-gray: #121212;
-            --accent-silver: #e0e0e0;
-            --pink-neon: #ff0055;
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-body: #050505;
+            --card-gray: rgba(20, 20, 20, 0.95);
+            --accent-silver: #f5f5f5;
+            --neon-pink: #ff0055;
+            --border-style: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0; padding: 0;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-body);
             background-image: url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg');
             background-size: cover;
             background-attachment: fixed;
-            color: #ffffff;
-            font-family: 'Inter', -apple-system, sans-serif;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- TOP MENU --- */
-        .header-top {
-            position: sticky; top: 0;
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(15px);
-            padding: 15px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
+        /* --- NAVIGATION HAUT --- */
+        header {
+            position: sticky; top: 0; z-index: 2000;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: var(--border-style);
         }
 
-        .logo-box { display: flex; align-items: center; gap: 10px; }
-        .diamond-logo {
-            width: 30px; height: 30px; border: 1px solid var(--accent-silver);
-            transform: rotate(45deg); display: flex; justify-content: center; align-items: center;
-        }
-        .diamond-logo i { transform: rotate(-45deg); font-size: 14px; }
-        .logo-text { font-weight: 900; letter-spacing: 1px; font-size: 16px; }
+        .logo { font-weight: 900; font-size: 18px; letter-spacing: 1px; }
+        .logo span { color: var(--neon-pink); }
 
-        /* --- AUTO-LOGIN SIMULATION --- */
-        .user-profile-mini {
-            display: flex; align-items: center; gap: 10px;
-            background: var(--card-gray); padding: 5px 12px; border-radius: 20px;
-            border: 1px solid var(--border);
+        .user-status {
+            background: #1a1a1a; padding: 6px 12px; border-radius: 20px;
+            font-size: 11px; border: var(--border-style); display: flex; align-items: center; gap: 8px;
         }
-        .user-img { width: 20px; height: 20px; border-radius: 50%; background: #444; }
 
-        /* --- AUTOMATIC SLIDER (PUB) --- */
-        .slider-wrapper {
-            width: 90%; height: 180px; margin: 20px auto;
-            border-radius: 20px; overflow: hidden; border: 1px solid var(--border);
+        /* --- SLIDER AUTOMATIQUE (CHAQUE SECONDE) --- */
+        .slider-box {
+            width: 90%; height: 200px; margin: 20px auto;
+            border-radius: 20px; overflow: hidden; border: var(--border-style);
             position: relative;
         }
-        .slides { display: flex; width: 300%; height: 100%; transition: 0.8s ease; }
-        .slide { 
-            width: 100%; height: 100%; background-size: cover; background-position: center;
-            display: flex; align-items: flex-end; padding: 20px; box-sizing: border-box;
-        }
-
-        /* --- BALANCE SECTION --- */
-        .balance-container {
-            width: 90%; margin: 0 auto 20px;
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-            border-radius: 25px; padding: 25px; border: 1px solid var(--border);
-            text-align: center;
-        }
-        .balance-amount { font-size: 38px; font-weight: 800; margin: 10px 0; color: #fff; }
-        .btn-deposit {
-            background: #fff; color: #000; border: none; width: 100%;
-            padding: 14px; border-radius: 12px; font-weight: bold; cursor: pointer;
-        }
-
-        /* --- SERVICES GRID --- */
-        .section-label { padding: 0 25px; font-size: 14px; font-weight: bold; color: #666; text-transform: uppercase; }
-        .grid-services {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px 20px;
-        }
-        .service-card {
-            background: var(--card-gray); border-radius: 18px; border: 1px solid var(--border);
-            padding: 20px; text-align: center; transition: 0.3s;
-        }
-        .service-card i { font-size: 28px; color: var(--accent-silver); margin-bottom: 10px; display: block; }
-        .service-card b { font-size: 13px; }
+        .slides-container { display: flex; width: 400%; height: 100%; transition: 0.5s ease-in-out; }
+        .slide { width: 100%; height: 100%; background-size: cover; background-position: center; }
 
         /* --- TICKER PROMO --- */
-        .promo-bar {
-            background: rgba(255, 0, 85, 0.1); border-y: 1px solid var(--pink-neon);
-            padding: 10px; overflow: hidden; white-space: nowrap; margin-bottom: 15px;
+        .promo-ticker {
+            background: rgba(255, 0, 85, 0.15); border-y: 1px solid var(--neon-pink);
+            padding: 10px; overflow: hidden; white-space: nowrap;
         }
-        .promo-text {
-            display: inline-block; animation: scrollText 12s linear infinite;
-            color: var(--pink-neon); font-weight: bold; font-size: 12px;
+        .ticker-move {
+            display: inline-block; animation: moveText 15s linear infinite;
+            font-weight: bold; color: var(--neon-pink); font-size: 13px;
         }
-        @keyframes scrollText { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+        @keyframes moveText { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-        /* --- POPUP --- */
-        #bonus-modal {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 80%; background: #111; border: 1px solid var(--pink-neon);
-            padding: 30px; border-radius: 20px; z-index: 2000; text-align: center;
-            display: none; box-shadow: 0 0 40px rgba(255,0,85,0.4);
+        /* --- BALANCE & RECHARGE --- */
+        .wallet-card {
+            width: 85%; margin: 25px auto; background: linear-gradient(145deg, #111, #000);
+            padding: 30px; border-radius: 25px; border: var(--border-style); text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+        .bal-val { font-size: 42px; font-weight: 800; color: #fff; margin: 10px 0; }
+        .btn-natcash {
+            background: #fff; color: #000; border: none; width: 100%;
+            padding: 15px; border-radius: 12px; font-weight: 900; cursor: pointer;
+            text-transform: uppercase; margin-top: 15px;
         }
 
-        /* --- NAVIGATION --- */
-        .nav-bottom {
-            position: fixed; bottom: 0; width: 100%; background: rgba(5,5,5,0.95);
-            display: flex; justify-content: space-around; padding: 15px 0;
-            border-top: 1px solid var(--border); backdrop-filter: blur(10px);
-        }
-        .nav-item { color: #555; text-align: center; font-size: 10px; cursor: pointer; }
-        .nav-item.active { color: var(--accent-silver); }
-        .nav-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+        /* --- PAGES --- */
+        .page { display: none; padding-bottom: 100px; animation: slideUp 0.3s; }
+        .page.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- GRID SERVICES --- */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .item-card {
+            background: var(--card-gray); border-radius: 20px; border: var(--border-style);
+            padding: 20px; text-align: center;
+        }
+        .item-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+
+        /* --- MODAL RECHARGE --- */
+        #recharge-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 3000; display: none;
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: #111; padding: 30px; border-radius: 25px; width: 85%;
+            border: 1px solid var(--neon-pink); text-align: center;
+        }
+
+        /* --- NAVIGATION BAS --- */
+        .nav-bar {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 90%; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(20px);
+            border-radius: 30px; display: flex; justify-content: space-around;
+            padding: 15px 0; border: var(--border-style); z-index: 2000;
+        }
+        .nav-btn { color: #555; text-align: center; font-size: 10px; cursor: pointer; }
+        .nav-btn.active { color: #fff; }
+        .nav-btn i { display: block; font-size: 22px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
-    <header class="header-top">
-        <div class="logo-box">
-            <div class="diamond-logo"><i class="fa-solid fa-bolt"></i></div>
-            <div class="logo-text">FAKE TECH</div>
-        </div>
-        <div class="user-profile-mini">
-            <div class="user-img"></div>
-            <span style="font-size: 11px;">Google Auto-login <i class="fa-solid fa-check-circle" style="color:#00ff88"></i></span>
+    <header>
+        <div class="logo">FAKE <span>TECH</span></div>
+        <div class="user-status">
+            <i class="fa-brands fa-google" style="color: #4285F4;"></i>
+            Auto-Login Actif
         </div>
     </header>
 
-    <div class="promo-bar">
-        <div class="promo-text">OFFRE SPÉCIALE : Effectuez 10 recharges cette semaine et recevez un Bonus de 20% sur votre solde !</div>
+    <div class="promo-ticker">
+        <div class="ticker-move">🎁 PROMO : 10 Recharges par semaine = 20% de BONUS GRATUIT sur votre compte ! 🎁</div>
     </div>
 
-    <div class="slider-wrapper">
-        <div class="slides" id="main-slider">
-            <div class="slide" style="background-image: linear-gradient(transparent, rgba(0,0,0,0.8)), url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg');">
-                <div class="slide-content"><b>RECHARGE TIKTOK</b><br><small>Instantatné 24/7</small></div>
-            </div>
-            <div class="slide" style="background-image: linear-gradient(transparent, rgba(0,0,0,0.8)), url('https://images.wallpapersden.com/wallpaper/d/lamborghini-huracan-gt3-evo_65874.jpg');">
-                <div class="slide-content"><b>SERVICES VIP</b><br><small>Accès Premium & Proxies</small></div>
-            </div>
-            <div class="slide" style="background-image: linear-gradient(transparent, rgba(0,0,0,0.8)), url('https://wallpapers.com/images/featured/free-fire-j56as76e6p44p80n.jpg');">
-                <div class="slide-content"><b>TOPUP FREE FIRE</b><br><small>Meilleurs prix garantis</small></div>
+    <div id="home" class="page active">
+        <div class="slider-box">
+            <div class="slides-container" id="slider">
+                <div class="slide" style="background-image: url('https://i.pinimg.com/originals/6a/82/3e/6a823e8006e88536f903080e70415394.jpg');"></div>
+                <div class="slide" style="background-image: url('https://images.wallpapersden.com/wallpaper/d/lamborghini-huracan-gt3-evo_65874.jpg');"></div>
+                <div class="slide" style="background-image: url('https://wallpapers.com/images/featured/free-fire-j56as76e6p44p80n.jpg');"></div>
+                <div class="slide" style="background-image: url('https://p16-va.lemon8cdn.com/obj/tos-alisg-v-a3e477-sg/o0A6AnEIAfIeC6QAeIAEABAf0vA8Q9ADIE0AFA');"></div>
             </div>
         </div>
-    </div>
 
-    <div class="balance-container">
-        <span style="font-size: 12px; color: #666; text-transform: uppercase;">Solde de votre compte</span>
-        <div class="balance-amount">0,00 HTG</div>
-        <button class="btn-deposit" onclick="alert('Redirection vers Natcash...')">
-            <i class="fa-solid fa-plus"></i> RECHARGER MAINTENANT
-        </button>
-    </div>
-
-    <span class="section-label">Nos Services</span>
-    <div class="grid-services">
-        <div class="service-card">
-            <i class="fa-brands fa-tiktok"></i>
-            <b>TikTok Coins</b>
-        </div>
-        <div class="service-card">
-            <i class="fa-solid fa-globe"></i>
-            <b>Numéros Int.</b>
-        </div>
-        <div class="service-card">
-            <i class="fa-solid fa-key"></i>
-            <b>Accès / Prox</b>
-        </div>
-        <div class="service-card">
-            <i class="fa-solid fa-bolt"></i>
-            <b>Recharge Rapide</b>
+        <div class="grid">
+            <div class="item-card" onclick="showPage('shop')">
+                <i class="fa-solid fa-gem" style="color: #00e5ff; font-size: 30px;"></i><br><br>
+                <b>Topup FF</b>
+            </div>
+            <div class="item-card" onclick="showPage('shop')">
+                <i class="fa-brands fa-tiktok" style="color: #fff; font-size: 30px;"></i><br><br>
+                <b>TikTok Coins</b>
+            </div>
         </div>
     </div>
 
-    <div id="bonus-modal">
-        <i class="fa-solid fa-gift" style="font-size: 50px; color: var(--pink-neon);"></i>
-        <h2>BONUS 20%</h2>
-        <p style="font-size: 14px; opacity: 0.8;">Faites 10 achats durant la semaine et le système créditera 20% de bonus sur votre prochain dépôt !</p>
-        <button onclick="document.getElementById('bonus-modal').style.display='none'" style="background:var(--pink-neon); color:#fff; border:none; padding:10px 20px; border-radius:10px; font-weight:bold;">COMPRIS</button>
+    <div id="shop" class="page">
+        <div class="grid">
+            <div class="item-card">
+                <img src="https://i.pinimg.com/originals/6a/82/3e/6a823e8006e88536f903080e70415394.jpg">
+                <b>110 Diamonds</b><br><small>165.00 HTG</small>
+            </div>
+            <div class="item-card">
+                <img src="https://images.ctfassets.net/4cd45et68cgf/4nBn7nSpS0fCfs9BRiC6MM/8520745a3323c4c048c054e65ec90061/Netflix-Logo.jpg">
+                <b>Netflix 1 Mois</b><br><small>330.00 HTG</small>
+            </div>
+        </div>
     </div>
 
-    <nav class="nav-bottom">
-        <div class="nav-item active"><i class="fa-solid fa-house"></i>Accueil</div>
-        <div class="nav-item"><i class="fa-solid fa-shop"></i>Boutique</div>
-        <div class="nav-item"><i class="fa-solid fa-wallet"></i>Wallet</div>
-        <div class="nav-item"><i class="fa-solid fa-user"></i>Compte</div>
+    <div id="wallet" class="page">
+        <div class="wallet-card">
+            <small style="color: #666;">SOLDE ACTUEL</small>
+            <div class="bal-val">0,00 HTG</div>
+            <button class="btn-natcash" onclick="openRecharge()">
+                <i class="fa-solid fa-plus"></i> Recharge Maintenant
+            </button>
+        </div>
+        <div style="padding: 20px;">
+            <b>Historique</b>
+            <div style="margin-top: 10px; opacity: 0.3; text-align: center; padding: 20px;">Aucune transaction.</div>
+        </div>
+    </div>
+
+    <div id="profile" class="page">
+        <div style="text-align: center; padding: 40px 20px;">
+            <div style="width: 80px; height: 80px; background: #222; border-radius: 50%; margin: 0 auto 15px; display: flex; justify-content: center; align-items: center; border: 1px solid var(--neon-pink);">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <b>Utilisateur Google</b><br>
+            <small style="color: #666;">ID: 98273645</small>
+        </div>
+        <div class="item-card" style="margin: 0 20px; text-align: left;">
+            <i class="fa-solid fa-shield-halved"></i> Sécurité du compte
+        </div>
+    </div>
+
+    <div id="recharge-modal">
+        <div class="modal-content">
+            <h2 style="color: var(--neon-pink);">NATCASH RECHARGE</h2>
+            <p>Veuillez envoyer le montant sur ce numéro :</p>
+            <div style="background: #222; padding: 15px; border-radius: 10px; font-size: 20px; font-weight: 900; margin-bottom: 20px;">
+                +509 3546-XXXX </div>
+            <p style="font-size: 12px; opacity: 0.7;">Après l'envoi, votre balance sera créditée automatiquement dans 2 minutes.</p>
+            <button class="btn-natcash" onclick="closeRecharge()">FERMER</button>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <div class="nav-btn active" onclick="showPage('home', this)">
+            <i class="fa-solid fa-house"></i>Accueil
+        </div>
+        <div class="nav-btn" onclick="showPage('shop', this)">
+            <i class="fa-solid fa-bag-shopping"></i>Boutique
+        </div>
+        <div class="nav-btn" onclick="showPage('wallet', this)">
+            <i class="fa-solid fa-wallet"></i>Portefeuille
+        </div>
+        <div class="nav-btn" onclick="showPage('profile', this)">
+            <i class="fa-solid fa-circle-user"></i>Compte
+        </div>
     </nav>
 
     <script>
-        // SLIDER LOGIC
-        let idx = 0;
-        const slides = document.getElementById('main-slider');
+        // SLIDER CHANGER CHAK 1 SECONDE
+        let currentSlide = 0;
+        const slider = document.getElementById('slider');
         setInterval(() => {
-            idx++;
-            if(idx > 2) idx = 0;
-            slides.style.transform = `translateX(-${idx * 100}%)`;
-        }, 3000);
+            currentSlide++;
+            if(currentSlide > 3) currentSlide = 0;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }, 1000); // 1 seconde jan w mande l la
 
-        // POPUP LOGIC
-        setTimeout(() => {
-            document.getElementById('bonus-modal').style.display = 'block';
-        }, 3000);
+        // GESTION PAGES
+        function showPage(id, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            
+            if(el) {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                el.classList.add('active');
+            }
+        }
+
+        // MODAL RECHARGE
+        function openRecharge() { document.getElementById('recharge-modal').style.display = 'flex'; }
+        function closeRecharge() { document.getElementById('recharge-modal').style.display = 'none'; }
     </script>
 </body>
 </html>
-
- 
