@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
         :root {
             --primary-red: #ff003c;
             --glass: rgba(255, 255, 255, 0.03);
-            --deep-glass: rgba(0, 0, 0, 0.6);
+            --deep-glass: rgba(0, 0, 0, 0.85);
             --border: 1px solid rgba(255, 255, 255, 0.12);
             --neon-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
         }
@@ -21,122 +21,84 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
-        /* BACKGROUND ANIME */
         .bg-vibe {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
             filter: brightness(0.3) blur(2px); z-index: -2;
         }
 
-        .red-light {
-            position: fixed; width: 300px; height: 300px; background: var(--primary-red);
-            filter: blur(150px); border-radius: 50%; opacity: 0.2; z-index: -1;
-            animation: move 10s infinite alternate;
-        }
-        @keyframes move { from { top: 10%; left: 10%; } to { top: 70%; left: 80%; } }
-
-        /* AUTH SCREEN - GLASS EFFECT */
-        #auth-screen {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(15px); z-index: 10000;
-            display: flex; justify-content: center; align-items: center;
+        /* Modal Style */
+        #game-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(15px); z-index: 20000;
+            display: none; justify-content: center; align-items: center;
         }
 
-        .glass-box {
-            background: var(--glass); backdrop-filter: blur(25px);
-            border: var(--border); padding: 40px 30px; border-radius: 35px;
-            width: 85%; max-width: 380px; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        .modal-content {
+            background: var(--glass); border: var(--border);
+            padding: 30px; border-radius: 30px; width: 85%; max-width: 400px;
+            text-align: center; backdrop-filter: blur(20px);
         }
 
-        .auth-input {
-            width: 100%; padding: 15px; margin-top: 15px; border-radius: 15px;
-            border: var(--border); background: rgba(0,0,0,0.5); color: #fff;
-            outline: none; box-sizing: border-box; transition: 0.3s;
-        }
-        .auth-input:focus { border-color: var(--primary-red); box-shadow: var(--neon-shadow); }
-
-        .btn-glow {
-            width: 100%; padding: 15px; border-radius: 15px; border: none;
-            background: linear-gradient(45deg, var(--primary-red), #b3002a);
-            color: #fff; font-weight: 800; margin-top: 20px; cursor: pointer;
-            box-shadow: var(--neon-shadow); text-transform: uppercase;
+        .price-list-item {
+            background: rgba(255,255,255,0.05); padding: 12px;
+            border-radius: 12px; margin-bottom: 8px; border: var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        /* DASHBOARD UI */
-        header {
-            padding: 20px; display: flex; justify-content: space-between; align-items: center;
-            background: var(--deep-glass); backdrop-filter: blur(10px);
-            border-bottom: var(--border); position: sticky; top: 0; z-index: 100;
-        }
-
-        .slider-wrap {
-            width: 92%; height: 190px; margin: 20px auto;
-            border-radius: 25px; overflow: hidden; border: var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .slides { display: flex; width: 500%; height: 100%; transition: 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95); }
-        .slide { width: 100%; height: 100%; background-size: cover; background-position: center; }
-
-        /* PAGES */
-        .page { display: none; padding: 10px 20px 120px; animation: fadeIn 0.5s; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
-
-        .card {
+        /* GRID JEUX */
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .card-item {
             background: var(--glass); backdrop-filter: blur(15px);
-            border: var(--border); border-radius: 25px; padding: 20px; margin-top: 15px;
+            border: var(--border); border-radius: 20px; padding: 15px;
+            text-align: center; cursor: pointer; transition: 0.3s;
         }
+        .card-item:active { transform: scale(0.95); }
+        .card-item i { font-size: 28px; color: var(--primary-red); margin-bottom: 8px; }
 
-        /* RECHARGE SECTION */
-        .info-row {
-            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;
-            margin-bottom: 10px; border-left: 5px solid var(--primary-red);
-        }
-
-        /* NAVIGATION BAR */
-        .bottom-nav {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 85%; background: rgba(10,10,10,0.8); backdrop-filter: blur(20px);
-            border-radius: 30px; display: flex; justify-content: space-around;
-            padding: 15px 0; border: var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-        }
-        .nav-item { color: rgba(255,255,255,0.4); text-align: center; font-size: 11px; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--primary-red); text-shadow: var(--neon-shadow); }
-        .nav-item i { display: block; font-size: 22px; margin-bottom: 5px; }
-
+        /* Rest of your existing styles */
+        #auth-screen { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); z-index: 10000; display: flex; justify-content: center; align-items: center; }
+        .glass-box { background: var(--glass); backdrop-filter: blur(25px); border: var(--border); padding: 40px 30px; border-radius: 35px; width: 85%; max-width: 380px; text-align: center; }
+        .auth-input { width: 100%; padding: 15px; margin-top: 15px; border-radius: 15px; border: var(--border); background: rgba(0,0,0,0.5); color: #fff; outline: none; box-sizing: border-box; }
+        .btn-glow { width: 100%; padding: 15px; border-radius: 15px; border: none; background: linear-gradient(45deg, var(--primary-red), #b3002a); color: #fff; font-weight: 800; margin-top: 20px; cursor: pointer; box-shadow: var(--neon-shadow); }
+        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: var(--deep-glass); backdrop-filter: blur(10px); border-bottom: var(--border); position: sticky; top: 0; z-index: 100; }
+        .slider-wrap { width: 92%; height: 170px; margin: 20px auto; border-radius: 25px; overflow: hidden; border: var(--border); }
+        .slides { display: flex; width: 500%; height: 100%; transition: 0.8s ease-in-out; }
+        .slide { width: 100%; height: 100%; background-size: cover; background-position: center; }
+        .page { display: none; padding: 10px 20px 120px; }
+        .page.active { display: block; }
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(10,10,10,0.8); backdrop-filter: blur(20px); border-radius: 30px; display: flex; justify-content: space-around; padding: 15px 0; border: var(--border); }
+        .nav-item { color: rgba(255,255,255,0.4); text-align: center; font-size: 11px; cursor: pointer; }
+        .nav-item.active { color: var(--primary-red); }
     </style>
 </head>
 <body>
 
     <div class="bg-vibe"></div>
-    <div class="red-light"></div>
+
+    <div id="game-modal">
+        <div class="modal-content">
+            <h2 id="modal-title" style="color:var(--primary-red)">FREE FIRE</h2>
+            <div id="modal-body">
+                </div>
+            <button class="btn-glow" style="margin-top:20px; background:#333; box-shadow:none" onclick="closeModal()">FÈMEN</button>
+        </div>
+    </div>
 
     <div id="auth-screen">
-        <div class="glass-box" id="auth-main">
-            <h1 style="margin:0; letter-spacing: 2px;">FAKE <span style="color:var(--primary-red)">TOPUP</span></h1>
-            <p style="font-size:12px; opacity:0.6; margin-bottom: 30px;">LUXURY PREMIUM SERVICES</p>
-            
-            <div id="login-form">
-                <input type="text" id="user-input" class="auth-input" placeholder="Non konplè">
-                <input type="password" id="pass-input" class="auth-input" placeholder="PIN (4 chif)">
-                <button class="btn-glow" onclick="initSession()">KONEKTE KOUNYE A</button>
-                <p style="font-size:11px; margin-top:15px; opacity:0.5" onclick="alert('Auto-Login Google Active')">
-                    <i class="fa-brands fa-google"></i> Login ak Google
-                </p>
-            </div>
+        <div class="glass-box">
+            <h1>FAKE <span style="color:var(--primary-red)">TOPUP</span></h1>
+            <input type="text" id="user-input" class="auth-input" placeholder="Non konplè">
+            <input type="password" id="pass-input" class="auth-input" placeholder="PIN (4 chif)">
+            <button class="btn-glow" onclick="initSession()">KONEKTE</button>
         </div>
     </div>
 
     <div id="app-content" style="display:none">
         <header>
-            <div style="font-weight:900; font-size:20px;">F-T <span style="color:var(--primary-red)">PREMIUM</span></div>
-            <div id="client-id" style="font-size:10px; padding:6px 15px; background:rgba(255,0,60,0.15); border-radius:20px; border: 1px solid var(--primary-red);">ID: LOADING</div>
+            <div style="font-weight:900;">F-T <span style="color:var(--primary-red)">PREMIUM</span></div>
+            <div id="client-id" style="font-size:10px; padding:6px 15px; background:rgba(255,0,60,0.15); border-radius:20px; border: 1px solid var(--primary-red);">ID: 0000</div>
         </header>
-
-        <div style="background: var(--primary-red); color:#fff; font-size:10px; text-align:center; padding:4px; font-weight:bold; letter-spacing:1px">
-            OFFRE SPÉCIALE: +20% BONUS SUR CHAQUE RECHARGE!
-        </div>
 
         <div id="home" class="page active">
             <div class="slider-wrap">
@@ -148,106 +110,102 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="card" style="text-align:center">
-                    <i class="fa-solid fa-gem" style="color:var(--primary-red); font-size:25px"></i><br>
-                    <b>Free Fire</b><br><small>165.00 HTG</small>
-                </div>
-                <div class="card" style="text-align:center">
-                    <i class="fa-solid fa-tv" style="color:#fff; font-size:25px"></i><br>
-                    <b>Netflix</b><br><small>500.00 HTG</small>
-                </div>
+            <div class="grid-container">
+                <div class="card-item" onclick="openGame('Free Fire')"><i class="fa-solid fa-gem"></i><br>Free Fire</div>
+                <div class="card-item" onclick="openGame('Netflix')"><i class="fa-solid fa-tv"></i><br>Netflix</div>
+                <div class="card-item" onclick="openGame('Apple')"><i class="fa-brands fa-apple"></i><br>Gift Card Apple</div>
+                <div class="card-item" onclick="openGame('Roblox')"><i class="fa-solid fa-cube"></i><br>Roblox</div>
+                <div class="card-item" onclick="openGame('COD')"><i class="fa-solid fa-gun"></i><br>Call of Duty</div>
+                <div class="card-item" onclick="openGame('Bloodstrike')"><i class="fa-solid fa-droplet"></i><br>Bloodstrike</div>
+                <div class="card-item" onclick="openGame('eFootball')"><i class="fa-solid fa-futbol"></i><br>eFootball</div>
+                <div class="card-item" onclick="openGame('DLS')"><i class="fa-solid fa-shirt"></i><br>DLS 24</div>
             </div>
         </div>
 
         <div id="recharge" class="page">
-            <div class="card" style="text-align:center; background: linear-gradient(135deg, rgba(255,0,60,0.2), transparent);">
+            <div class="card-item" style="margin-top:20px; background:linear-gradient(135deg, rgba(255,0,60,0.2), transparent);">
                 <small>SOLDE DISPONIBLE</small>
-                <h1 style="margin:10px 0; font-size:45px">0.00<span style="font-size:15px"> HTG</span></h1>
+                <h1 style="font-size:40px">0.00 HTG</h1>
             </div>
-
-            <div class="card">
-                <h3 style="color:var(--primary-red); margin-top:0"><i class="fa-solid fa- receipt"></i> DEPÔT NATCASH</h3>
-                <div class="info-row">
-                    <b>509 5511-2990</b><br><small>ENELSON PIERRE</small>
-                </div>
-                <div class="info-row">
-                    <b>509 4241-6107</b><br><small>FAKE TECH</small>
-                </div>
-                
-                <input type="text" class="auth-input" placeholder="Antre Transcode la isit la...">
-                <button class="btn-glow">VERIFIER PAIEMENT</button>
+            <div class="card-item" style="text-align:left; margin-top:15px">
+                <h3 style="color:var(--primary-red); margin:0">DEPÔT NATCASH</h3>
+                <p><b>509 5511-2990</b> (Enelson Pierre)</p>
+                <p><b>509 4241-6107</b> (Fake Tech)</p>
+                <input type="text" class="auth-input" placeholder="Antre Transcode la...">
+                <button class="btn-glow">VERIFIER</button>
             </div>
         </div>
 
         <div id="profile" class="page">
-            <div class="card" style="text-align:center">
-                <div style="width:70px; height:70px; background:var(--primary-red); border-radius:50%; margin:0 auto 15px; display:flex; justify-content:center; align-items:center; font-size:30px">
-                    <i class="fa-solid fa-shield-halved"></i>
+            <div class="card-item">
+                <h2 id="display-user">Utilisateur</h2>
+                <div style="text-align:left; margin-top:20px">
+                    <p onclick="window.location.href='https://wa.me/50934946793'"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> Whatsapp Support 1</p>
+                    <p onclick="window.location.href='https://wa.me/50941951159'"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> Whatsapp Support 2</p>
+                    <p><i class="fa-solid fa-envelope"></i> faketechsupport091@gmail.com</p>
                 </div>
-                <h2 id="display-user" style="margin:0">Utilisateur</h2>
-                <p style="font-size:12px; opacity:0.5">Statut: Premium Verified</p>
-                
-                <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0">
-                
-                <div style="text-align:left; font-size:14px">
-                    <p><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> Admin 1: +509 3494-6793</p>
-                    <p><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> Admin 2: +509 4195-1159</p>
-                </div>
-
                 <button class="btn-glow" style="background:#333; box-shadow:none" onclick="logout()">DEKONEKTE</button>
             </div>
         </div>
 
         <nav class="bottom-nav">
-            <div class="nav-item active" onclick="showPage('home', this)"><i class="fa-solid fa-ghost"></i>Accueil</div>
-            <div class="nav-item" onclick="showPage('recharge', this)"><i class="fa-solid fa-wallet"></i>Recharge</div>
-            <div class="nav-item" onclick="showPage('profile', this)"><i class="fa-solid fa-user-ninja"></i>Compte</div>
+            <div class="nav-item active" onclick="showPage('home', this)"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-item" onclick="showPage('recharge', this)"><i class="fa-solid fa-wallet"></i></div>
+            <div class="nav-item" onclick="showPage('profile', this)"><i class="fa-solid fa-headset"></i></div>
         </nav>
     </div>
 
     <script>
-        // SESSION & AUTH
-        function initSession() {
-            const user = document.getElementById('user-input').value;
-            const pin = document.getElementById('pass-input').value;
+        const gameData = {
+            'Free Fire': [
+                { item: '100 Diamants', price: '165 HTG' },
+                { item: '310 Diamants', price: '450 HTG' },
+                { item: '520 Diamants', price: '750 HTG' },
+                { item: '1060 Diamants', price: '1450 HTG' }
+            ],
+            'Netflix': [
+                { item: 'Abonnement 1 Mois', price: '500 HTG' }
+            ],
+            'Apple': [
+                { item: 'Gift Card 2$', price: '350 GDS' },
+                { item: 'Gift Card 5$', price: '850 GDS' },
+                { item: 'Gift Card 10$', price: '1600 GDS' },
+                { item: 'Gift Card 50$', price: '7500 GDS' }
+            ],
+            'Roblox': [{ item: 'Service', price: 'Bientôt disponible' }],
+            'COD': [{ item: 'Service', price: 'Contactez le support' }],
+            'Bloodstrike': [{ item: 'Service', price: 'Contactez le support' }],
+            'eFootball': [{ item: 'Service', price: 'Bientôt disponible' }],
+            'DLS': [{ item: 'Service', price: 'Bientôt disponible' }]
+        };
 
-            if(user && pin.length >= 4) {
-                const id = "FT-" + Math.floor(Math.random() * 900000 + 100000);
-                localStorage.setItem('session_start', Date.now());
-                localStorage.setItem('user_name', user);
-                localStorage.setItem('user_id', id);
-                
-                renderApp(user, id);
-            } else {
-                alert("Tanpri antre yon non ak yon PIN valab!");
+        function openGame(game) {
+            document.getElementById('modal-title').innerText = game;
+            let html = "";
+            gameData[game].forEach(d => {
+                html += `<div class="price-list-item"><span>${d.item}</span> <b>${d.price}</b></div>`;
+            });
+            document.getElementById('modal-body').innerHTML = html;
+            document.getElementById('game-modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('game-modal').style.display = 'none'; }
+
+        function initSession() {
+            const u = document.getElementById('user-input').value;
+            if(u) {
+                localStorage.setItem('user_name', u);
+                renderApp(u, "FT-" + Math.floor(Math.random()*9000));
             }
         }
 
-        function renderApp(name, id) {
+        function renderApp(n, id) {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('app-content').style.display = 'block';
-            document.getElementById('display-user').innerText = name;
+            document.getElementById('display-user').innerText = n;
             document.getElementById('client-id').innerText = "ID: " + id;
-            
-            // Check Session every 1 minute
-            setInterval(checkExpiry, 60000);
         }
 
-        function checkExpiry() {
-            const start = localStorage.getItem('session_start');
-            if(start && (Date.now() - start > 3600000)) { // 1h
-                alert("Session expirée. Reconnectez-vous.");
-                logout();
-            }
-        }
-
-        function logout() {
-            localStorage.clear();
-            location.reload();
-        }
-
-        // NAVIGATION
         function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
@@ -255,20 +213,19 @@
             el.classList.add('active');
         }
 
-        // AUTO-SLIDER 1s
-        let currentIdx = 0;
+        let cur = 0;
         setInterval(() => {
-            currentIdx++;
-            if(currentIdx > 3) currentIdx = 0;
-            document.getElementById('main-slider').style.transform = `translateX(-${currentIdx * 100}%)`;
+            cur++; if(cur > 3) cur = 0;
+            document.getElementById('main-slider').style.transform = `translateX(-${cur * 100}%)`;
         }, 1000);
 
-        // Check if already logged in
+        function logout() { localStorage.clear(); location.reload(); }
+
         window.onload = () => {
-            const savedUser = localStorage.getItem('user_name');
-            if(savedUser) renderApp(savedUser, localStorage.getItem('user_id'));
+            const u = localStorage.getItem('user_name');
+            if(u) renderApp(u, "FT-8821");
         }
     </script>
 </body>
 </html>
-                                            
+               
