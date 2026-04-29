@@ -1,204 +1,275 @@
 <!DOCTYPE html>
-<html lang="ht">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Topup - Tout-an-YON</title>
+    <title>Fake Topup - Premium Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0b0e1a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --glass-blur: blur(20px);
-            --accent: #00d2ff;
-            --pink: #ff0055;
-            --yellow: #ffcc00;
+            --bg-deep: #050505; /* Noir profond */
+            --card-gray: #1a1a1a; /* Gris foncé */
+            --soft-gray: #2d2d2d; /* Gris moyen */
+            --accent-silver: #e0e0e0; /* Gris clair/Argent */
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: white;
-            font-family: -apple-system, system-ui, sans-serif;
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- LOGO & HEADER --- */
-        header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* --- MENU DU HAUT (TOP NAVBAR) --- */
+        .top-nav {
             position: sticky;
             top: 0;
-            background: var(--bg-color);
-            z-index: 100;
-        }
-
-        .logo-box { display: flex; align-items: center; gap: 10px; }
-        .diamond-icon {
-            width: 35px; height: 35px;
-            background: linear-gradient(135deg, var(--pink), #7000ff);
-            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-            display: flex; justify-content: center; align-items: center;
-        }
-        .logo-text { font-size: 18px; font-weight: 900; text-transform: uppercase; line-height: 1; }
-        .logo-text span { font-size: 10px; color: var(--pink); display: block; letter-spacing: 1px; }
-
-        /* --- PAJ MANAGEMENT --- */
-        .page { display: none; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
-        .page.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- AKÈY (HOME) --- */
-        .search-box { padding: 0 20px; margin-bottom: 20px; }
-        .search-bar {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 12px;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
             display: flex;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.05);
+            justify-content: space-around;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
         }
-        .search-bar input { background: none; border: none; color: white; margin-left: 10px; width: 100%; outline: none; }
 
-        .banner {
-            margin: 0 20px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://image.api.playstation.com/vulcan/ap/rnd/202106/1714/9yX8W30F3iXm7N6pXG4U7U4Z.jpg');
-            background-size: cover;
-            border-radius: 20px;
+        .nav-link {
+            text-align: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-link.active { color: var(--accent-silver); border-bottom: 2px solid var(--accent-silver); padding-bottom: 5px; }
+        .nav-link i { display: block; font-size: 18px; margin-bottom: 4px; }
+
+        /* --- LOGO --- */
+        .header-main {
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
-        .banner button { background: var(--accent); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; margin-top: 10px; }
 
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .product-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; height: 180px; position: relative; border: 1px solid rgba(255,255,255,0.05); }
-        .product-card img { width: 100%; height: 100%; object-fit: cover; }
-        .product-card span { position: absolute; bottom: 10px; left: 10px; font-weight: bold; font-size: 12px; }
-
-        /* --- WALLET & COMPTE --- */
-        .google-btn { width: 90%; margin: 10px auto 20px; background: white; color: #444; padding: 12px; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; cursor: pointer; }
-        
-        .section-label { font-size: 14px; font-weight: bold; color: var(--accent); margin: 20px; display: block; }
-        
-        .card-container { background: var(--card-bg); margin: 0 20px; border-radius: 20px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
-        .account-item { display: flex; align-items: center; gap: 15px; padding: 10px 0; }
-        .account-item i { color: var(--accent); }
-
-        .wallet-main {
-            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-            margin: 20px; border-radius: 25px; padding: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: var(--glass-blur);
+        .logo-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .balance { font-size: 36px; font-weight: bold; margin: 10px 0; }
-        .btn-add { background: linear-gradient(to right, #00d2ff, #3a7bd5); color: white; width: 100%; padding: 15px; border-radius: 15px; border: none; font-weight: bold; cursor: pointer; }
 
-        /* --- NAVBAR --- */
-        .navbar {
-            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
-            width: 90%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
-            border-radius: 25px; display: flex; justify-content: space-around; padding: 12px 0;
-            border: 1px solid rgba(255,255,255,0.1); z-index: 1000;
+        .diamond-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #333, #000);
+            border: 1px solid var(--accent-silver);
+            transform: rotate(45deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        .nav-item { text-align: center; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 10px; cursor: pointer; transition: 0.3s; }
-        .nav-item i { display: block; font-size: 20px; margin-bottom: 4px; }
-        .nav-item.active { color: var(--accent); }
+
+        .diamond-logo i { transform: rotate(-45deg); color: var(--accent-silver); }
+
+        .logo-text { font-size: 20px; font-weight: 800; letter-spacing: 2px; text-align: center; }
+        .logo-text span { font-size: 9px; color: #666; display: block; }
+
+        /* --- PAGES --- */
+        .page { display: none; padding: 20px; animation: slideUp 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- GRID DE BOUTIQUE (ACCUEIL) --- */
+        .grid-services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: var(--card-gray);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .service-card:active { transform: scale(0.95); background: var(--soft-gray); }
+        .service-card i { font-size: 30px; color: var(--accent-silver); margin-bottom: 10px; display: block; }
+        .service-card span { font-size: 13px; font-weight: 600; color: #ccc; }
+
+        /* --- WALLET & TRANSACTIONS --- */
+        .wallet-card {
+            background: linear-gradient(145deg, #111, #1a1a1a);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .balance-label { font-size: 12px; color: #666; text-transform: uppercase; }
+        .balance-value { font-size: 40px; font-weight: 800; margin: 10px 0; color: #fff; }
+
+        .btn-deposit {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .history-title { font-size: 16px; margin: 20px 0 15px; color: #888; }
+        .transaction-item {
+            background: var(--glass);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .status-empty { text-align: center; opacity: 0.3; padding: 40px; font-size: 14px; }
+
+        /* --- FOOTER --- */
+        .footer-info { text-align: center; font-size: 11px; color: #444; margin-top: 40px; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-box">
-            <div class="diamond-icon"><i class="fa-solid fa-gem" style="color:white; font-size:14px;"></i></div>
-            <div class="logo-text">FAKE TOPUP <span>SÈVIS RAPID</span></div>
+    <nav class="top-nav">
+        <div class="nav-link active" onclick="showPage('accueil', this)">
+            <i class="fa-solid fa-house-bolt"></i>Accueil
         </div>
-        <i class="fa-solid fa-gear" style="opacity: 0.5; font-size: 20px;"></i>
-    </header>
+        <div class="nav-link" onclick="showPage('boutique', this)">
+            <i class="fa-solid fa-shop"></i>Boutique
+        </div>
+        <div class="nav-link" onclick="showPage('wallet', this)">
+            <i class="fa-solid fa-wallet"></i>Portefeuille
+        </div>
+        <div class="nav-link" onclick="showPage('compte', this)">
+            <i class="fa-solid fa-circle-user"></i>Profil
+        </div>
+    </nav>
 
-    <div id="home" class="page active">
-        <div class="search-box">
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass" style="opacity: 0.5;"></i>
-                <input type="text" placeholder="Rechercher un jeu...">
+    <div class="header-main">
+        <div class="logo-box">
+            <div class="diamond-logo"><i class="fa-solid fa-bolt"></i></div>
+            <div class="logo-text">FAKE TOPUP <span>SYSTEM PREMIUM</span></div>
+        </div>
+    </div>
+
+    <div id="accueil" class="page active">
+        <div class="wallet-card" style="padding: 20px; text-align: left;">
+            <p style="margin: 0; font-size: 14px;">Bienvenue sur <b>Fake Tech</b></p>
+            <small style="color: #666;">Sélectionnez un service pour commencer.</small>
+        </div>
+
+        <div class="grid-services">
+            <div class="service-card" onclick="showPage('boutique', null)">
+                <i class="fa-brands fa-tiktok"></i>
+                <span>TikTok Coins</span>
+            </div>
+            <div class="service-card" onclick="showPage('boutique', null)">
+                <i class="fa-solid fa-globe"></i>
+                <span>Numéro Int.</span>
+            </div>
+            <div class="service-card" onclick="showPage('boutique', null)">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <span>Recharge Acc.</span>
+            </div>
+            <div class="service-card" onclick="showPage('boutique', null)">
+                <i class="fa-solid fa-ellipsis"></i>
+                <span>Autres</span>
             </div>
         </div>
-        <div class="banner">
-            <h3>Gade film ak serie</h3>
-            <p>Kouri peye yon plan Netflix wap tou jwenn email ak modpass ou</p>
-            <button>Pran yon plan kounya</button>
-        </div>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://wallpapers.com/images/featured/free-fire-j56as76e6p44p80n.jpg">
+    </div>
+
+    <div id="boutique" class="page">
+        <h2 style="font-size: 18px; color: #888;">Services Disponibles</h2>
+        <div class="grid-services">
+            <div class="service-card">
+                <i class="fa-solid fa-gem" style="color: #00d2ff;"></i>
                 <span>Free Fire</span>
             </div>
-            <div class="product-card">
-                <img src="https://images.ctfassets.net/4cd45et68cgf/4nBn7nSpS0fCfs9BRiC6MM/8520745a3323c4c048c054e65ec90061/Netflix-Logo.jpg">
+            <div class="service-card">
+                <i class="fa-brands fa-netflix" style="color: #e50914;"></i>
                 <span>Netflix</span>
+            </div>
+            <div class="service-card">
+                <i class="fa-brands fa-google-play"></i>
+                <span>Google Play</span>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-key"></i>
+                <span>Prox / Accès</span>
             </div>
         </div>
     </div>
 
     <div id="wallet" class="page">
-        <button class="google-btn">
-            <img src="https://img.icons8.com/color/48/000000/google-logo.png" width="20px">
-            Se connecter avec Google
-        </button>
-
-        <span class="section-label">Mon compte</span>
-        <div class="card-container">
-            <div class="account-item">
-                <i class="fa-regular fa-envelope"></i>
-                <div style="margin-left:10px;">
-                    <small style="opacity:0.6; display:block;">Email</small>
-                    <b>utilisateur@gmail.com</b>
-                </div>
-            </div>
-            <div class="account-item">
-                <i class="fa-solid fa-wallet"></i>
-                <div style="margin-left:10px;">
-                    <small style="opacity:0.6; display:block;">Solde</small>
-                    <b style="color:var(--accent);">0.00 HTG</b>
-                </div>
-            </div>
+        <div class="wallet-card">
+            <span class="balance-label">Solde disponible</span>
+            <div class="balance-value">0,00 HTG</div>
+            <button class="btn-deposit" onclick="alert('Redirection vers les modes de paiement Natcash/MonCash...')">
+                <i class="fa-solid fa-plus"></i> RECHARGER LE COMPTE
+            </button>
         </div>
 
-        <div class="wallet-main">
-            <span style="opacity: 0.6; font-size: 13px;">Solde actuel</span>
-            <div class="balance">HTG 0,00</div>
-            <p style="font-size: 11px; opacity: 0.4; margin-bottom: 20px;">Ou poko gen kòb nan bous ou.</p>
-            <button class="btn-add">Ajouter de l'argent</button>
+        <div class="history-title">Historique des transactions</div>
+        <div class="status-empty">
+            <i class="fa-solid fa-receipt" style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+            Aucune transaction effectuée
         </div>
     </div>
 
-    <nav class="navbar">
-        <div class="nav-item active" onclick="showPage('home', this)">
-            <i class="fa-solid fa-house"></i> Accueil
+    <div id="compte" class="page">
+        <div class="service-card" style="text-align: left; display: flex; align-items: center; gap: 20px;">
+            <div style="width: 50px; height: 50px; background: #333; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                <i class="fa-solid fa-user" style="margin: 0; font-size: 20px;"></i>
+            </div>
+            <div>
+                <b style="display: block;">Utilisateur Invité</b>
+                <small style="color: #666;">Connecté via Google</small>
+            </div>
         </div>
-        <div class="nav-item" onclick="showPage('home', this)">
-            <i class="fa-solid fa-cart-shopping"></i> Boutique
+        
+        <div style="margin-top: 20px;">
+            <div class="transaction-item"><span>Paramètres</span> <i class="fa-solid fa-chevron-right"></i></div>
+            <div class="transaction-item"><span>Support Client</span> <i class="fa-solid fa-chevron-right"></i></div>
+            <div class="transaction-item" style="color: #ff4444;"><span>Déconnexion</span></div>
         </div>
-        <div class="nav-item" onclick="showPage('wallet', this)">
-            <i class="fa-solid fa-wallet"></i> Wallet
-        </div>
-        <div class="nav-item" onclick="showPage('wallet', this)">
-            <i class="fa-solid fa-user"></i> Compte
-        </div>
-    </nav>
+    </div>
+
+    <div class="footer-info">
+        &copy; 2026 FAKE TECH SYSTEM - TOUS DROITS RÉSERVÉS
+    </div>
 
     <script>
         function showPage(pageId, element) {
-            // Kache tout paj yo
+            // Cacher toutes les pages
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Montre paj ki klike a
+            // Afficher la page choisie
             document.getElementById(pageId).classList.add('active');
             
-            // Chanje koulè nan navbar
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            element.classList.add('active');
+            // Gérer le menu actif
+            if(element) {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                element.classList.add('active');
+            }
         }
     </script>
-
 </body>
 </html>
+                    
