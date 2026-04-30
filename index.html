@@ -1,306 +1,291 @@
-           <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Tech Premium | Official</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Fake Tech | Premium Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #ff003c;
-            --secondary: #00d4ff;
-            --glass: rgba(255, 255, 255, 0.07);
-            --deep-blur: blur(30px);
+            --accent: #00d4ff;
+            --glass: rgba(255, 255, 255, 0.08);
+            --blur: blur(25px);
             --border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         body, html {
             margin: 0; padding: 0; background: #000;
-            color: #fff; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #fff; font-family: 'Inter', sans-serif;
             overflow-x: hidden; min-height: 100vh;
         }
 
         .bg-vibe {
             position: fixed; inset: 0;
-            background: radial-gradient(circle at top right, #33000c, #000), 
+            background: radial-gradient(circle at top right, #200008, #000), 
                         url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
-            filter: brightness(0.3); z-index: -1;
+            filter: brightness(0.4); z-index: -1;
         }
 
-        /* COMPONENT STYLES */
-        .glass-card { 
-            background: var(--glass); backdrop-filter: var(--deep-blur); 
-            border: var(--border); border-radius: 28px; padding: 25px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .input-group {
-            width: 100%; padding: 16px; margin-top: 12px; border-radius: 14px;
-            border: var(--border); background: rgba(0,0,0,0.4); color: #fff;
-            outline: none; box-sizing: border-box; transition: 0.3s;
-        }
-
-        .input-group:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255,0,60,0.3); }
-
-        .btn-main {
-            width: 100%; padding: 16px; border-radius: 14px; border: none;
-            background: linear-gradient(135deg, var(--primary), #80001e);
-            color: #fff; font-weight: 800; cursor: pointer; margin-top: 15px;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
+        /* STYLES GENERAUX */
+        .glass-card { background: var(--glass); backdrop-filter: var(--blur); border: var(--border); border-radius: 24px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        .input-group { width: 100%; padding: 16px; margin-top: 12px; border-radius: 12px; border: var(--border); background: rgba(0,0,0,0.5); color: #fff; outline: none; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--primary), #900); color: #fff; font-weight: 800; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
 
         /* SCREENS */
-        .screen-overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); 
-            backdrop-filter: blur(15px); z-index: 10000; 
-            display: flex; justify-content: center; align-items: center; 
-        }
-
-        header { 
-            padding: 20px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.7); border-bottom: var(--border); sticky: top;
-        }
-
-        .page { display: none; padding: 20px; padding-bottom: 110px; animation: scaleIn 0.3s ease; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 10000; display: flex; justify-content: center; align-items: center; }
+        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.7); border-bottom: var(--border); position: sticky; top: 0; z-index: 100; }
+        .page { display: none; padding: 20px; padding-bottom: 110px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-        /* GRID SYSTEM */
+        /* GRID */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .item-card { 
-            background: var(--glass); border: var(--border); border-radius: 22px; 
-            padding: 22px; text-align: center; transition: 0.2s;
-        }
+        .card { background: var(--glass); border: var(--border); border-radius: 20px; padding: 20px; text-align: center; }
 
-        .item-card:active { transform: scale(0.92); }
+        /* NAV */
+        .nav-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(15,15,15,0.9); border-radius: 40px; display: flex; justify-content: space-around; padding: 18px; border: var(--border); backdrop-filter: blur(20px); }
+        .nav-icon { color: #555; font-size: 22px; cursor: pointer; }
+        .nav-icon.active { color: var(--primary); }
 
-        .nav-bar { 
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-            width: 80%; background: rgba(20,20,20,0.8); border-radius: 40px; 
-            display: flex; justify-content: space-around; padding: 18px; 
-            border: var(--border); backdrop-filter: blur(20px);
-        }
-
-        .nav-icon { color: #666; font-size: 22px; cursor: pointer; }
-        .nav-icon.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-
-        #redeem-box { 
-            display: none; border: 2px dashed var(--secondary); 
-            padding: 20px; border-radius: 20px; margin-top: 15px; background: rgba(0,212,255,0.05);
-        }
+        /* SPECIAL CODE STYLE */
+        .redeem-code { background: rgba(0,212,255,0.1); border: 2px dashed var(--accent); padding: 15px; border-radius: 15px; font-family: monospace; font-size: 14px; word-break: break-all; margin: 15px 0; }
     </style>
 </head>
 <body>
 
     <div class="bg-vibe"></div>
 
-    <div id="ff-modal" class="screen-overlay" style="display:none;">
-        <div class="glass-card" style="width:90%; max-width:400px; text-align:center;">
-            <h2 style="color:var(--secondary); margin-bottom:10px;">TOPUP GARENA</h2>
-            <div id="ff-step-1">
-                <input type="number" id="ff-player-id" class="input-group" placeholder="Antre ID Player a">
-                <button class="btn-main" style="background:var(--secondary);" onclick="verifyGarenaAccount()">VÉRIFIER PROFIL</button>
+    <div id="admin-screen" class="overlay" style="display:none;">
+        <div class="glass-card" style="width:90%; max-width:450px;">
+            <h2 style="color:var(--accent); text-align:center;">ADMIN PANEL</h2>
+            <div style="background:rgba(0,0,0,0.4); padding:15px; border-radius:15px; margin-bottom:15px;">
+                <p style="font-size:12px; margin:0;">AJOUTER CRÉDIT MANUEL</p>
+                <input type="text" id="adm-target-id" class="input-group" placeholder="ID Kliyan an (eg: FT-1234)">
+                <input type="number" id="adm-amount" class="input-group" placeholder="Kantite Kòb">
+                <button class="btn-main" style="background:var(--accent); color:#000;" onclick="adminAddMoney()">RECHARGE KONT SA</button>
             </div>
-            
-            <div id="ff-profile-info" style="display:none; margin:15px 0; padding:15px; background:rgba(255,255,255,0.05); border-radius:15px;">
-                <p style="margin:0; font-size:14px; opacity:0.7;">PROFIL JWÈ A:</p>
-                <h3 id="garena-name" style="color:var(--secondary); margin:5px 0;">---</h3>
-                <div id="ff-packages" class="grid" style="margin-top:15px;">
-                    <div class="item-card" onclick="processFF(100, 165)">100 💎<br>165 HTG</div>
-                    <div class="item-card" onclick="processFF(310, 450)">310 💎<br>450 HTG</div>
+            <div id="pending-approvals" style="max-height:150px; overflow-y:auto; font-size:11px;">
                 </div>
-            </div>
-
-            <div id="redeem-box">
-                <p style="font-size:12px; color:var(--secondary);">KÒD POU REDEEMPINS.COM :</p>
-                <h2 id="generated-pin" style="letter-spacing:4px; font-weight:900;">----</h2>
-                <button class="btn-main" style="background:#2ecc71;" onclick="copyAndRedirect()">KOPYE & ALE SOU SIT LA</button>
-            </div>
-            <button class="btn-main" style="background:#333; margin-top:10px;" onclick="closeFF()">ANILE</button>
+            <button class="btn-main" style="background:#222;" onclick="document.getElementById('admin-screen').style.display='none'">FÈMEN ADMIN</button>
         </div>
     </div>
 
-    <div id="auth-screen" class="screen-overlay">
+    <div id="auth-screen" class="overlay">
         <div class="glass-card" style="width:85%; max-width:360px;">
-            <h2 style="margin-bottom:5px;">BIENVENUE</h2>
-            <p style="font-size:12px; opacity:0.6; margin-bottom:20px;">Konekte oswa kreye kont ou pou kontinye</p>
-            <input type="text" id="reg-name" class="input-group" placeholder="Non ak Siyati">
+            <h2 style="text-align:center;">AUTHENTIFICATION</h2>
+            <input type="text" id="reg-name" class="input-group" placeholder="Nom complet">
             <input type="number" id="reg-phone" class="input-group" placeholder="WhatsApp (509...)">
-            <input type="password" id="reg-pin" class="input-group" placeholder="PIN Sekirite (4 chif)">
-            <button class="btn-main" onclick="handleAuth()">KOMANSE</button>
-            <p style="font-size:10px; margin-top:15px; color:var(--primary); cursor:pointer" onclick="accessAdmin()">Admin Dashboard (1234)</p>
+            <input type="password" id="reg-pin" class="input-group" placeholder="PIN de Sécurité">
+            <button class="btn-main" onclick="handleAuth()">ENTRER</button>
+            <p style="font-size:10px; margin-top:15px; color:var(--primary); cursor:pointer; text-align:center;" onclick="openAdmin()">Admin Access</p>
         </div>
     </div>
 
     <div id="main-app" style="display:none;">
         <header>
-            <div style="font-weight:900; font-size:18px;">FAKE <span style="color:var(--primary)">TECH</span></div>
-            <div id="u-tag" style="font-size:11px; padding:6px 14px; background:rgba(255,0,60,0.1); border-radius:30px; border:1px solid var(--primary);">ID: --</div>
+            <div style="font-weight:900;">FAKE <span style="color:var(--primary)">TECH</span></div>
+            <div id="u-id-display" style="font-size:10px; border:1px solid var(--primary); padding:5px 12px; border-radius:20px;">ID: --</div>
         </header>
 
         <div id="home" class="page active">
             <div class="grid">
-                <div class="item-card" onclick="openFF()"><i class="fa-solid fa-gem" style="color:var(--primary); font-size:25px;"></i><br><small>Free Fire</small></div>
-                <div class="item-card" onclick="orderService('Netflix')"><i class="fa-solid fa-tv" style="font-size:25px;"></i><br><small>Netflix</small></div>
-                <div class="item-card" onclick="orderService('TikTok')"><i class="fa-brands fa-tiktok" style="font-size:25px;"></i><br><small>TikTok Coins</small></div>
-                <div class="item-card" onclick="orderService('Roblox')"><i class="fa-solid fa-cube" style="font-size:25px;"></i><br><small>Roblox</small></div>
+                <div class="card" onclick="openFF()"><i class="fa-solid fa-gem" style="color:var(--primary)"></i><br>Free Fire</div>
+                <div class="card" onclick="orderService('Netflix')"><i class="fa-solid fa-tv"></i><br>Netflix</div>
+                <div class="card" onclick="orderService('TikTok')"><i class="fa-brands fa-tiktok"></i><br>TikTok</div>
+                <div class="card" onclick="orderService('Roblox')"><i class="fa-solid fa-cube"></i><br>Roblox</div>
             </div>
         </div>
 
         <div id="wallet" class="page">
-            <div class="glass-card" style="text-align:center; margin-bottom:20px; background: linear-gradient(to bottom, rgba(255,0,60,0.1), transparent);">
-                <small style="letter-spacing:1px; opacity:0.7;">BALANS OU</small>
-                <h1 id="user-bal" style="font-size:45px; margin:10px 0;">0.00 <span style="font-size:16px;">HTG</span></h1>
+            <div class="glass-card" style="text-align:center; margin-bottom:20px;">
+                <small>DISPONIBLE</small>
+                <h1 id="u-balance">0.00 HTG</h1>
             </div>
-
             <div class="glass-card">
-                <h3 style="margin-top:0; color:var(--primary);">AJOUTE KÒB</h3>
-                <p style="font-size:12px; margin-bottom:15px;">NatCash/MonCash: <b>5511-2990</b> (Enelson P.)</p>
-                <input type="text" id="p-name" class="input-group" placeholder="Non ki fè peman an">
-                <input type="number" id="p-number" class="input-group" placeholder="Nimewo ki voye kòb la">
-                <input type="number" id="p-trans" class="input-group" placeholder="Transcode (12-15 chif)">
-                <input type="number" id="p-amt" class="input-group" placeholder="Kantite HTG">
-                <button class="btn-main" id="pay-btn" onclick="verifyAutomaticPayment()">VALIDÈ PEMAN</button>
+                <h3 style="margin:0; color:var(--primary)">RECHARGE COMPTE</h3>
+                <input type="number" id="p-trans" class="input-group" placeholder="Transcode (12-15 chiffres)">
+                <input type="number" id="p-amt" class="input-group" placeholder="Montant HTG">
+                <button class="btn-main" onclick="requestRecharge()">ENVOYER DEMANDE</button>
             </div>
         </div>
 
         <nav class="nav-bar">
-            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-ghost"></i></div>
             <div class="nav-icon" onclick="showPage('wallet', this)"><i class="fa-solid fa-wallet"></i></div>
-            <div class="nav-icon" onclick="orderService('Support')"><i class="fa-solid fa-headset"></i></div>
         </nav>
     </div>
 
+    <div id="ff-modal" class="overlay" style="display:none;">
+        <div class="glass-card" style="width:90%; max-width:380px; text-align:center;">
+            <h2 style="color:var(--accent);">GARENA TOPUP</h2>
+            <div id="ff-init">
+                <input type="number" id="ff-id" class="input-group" placeholder="ID Player">
+                <button class="btn-main" style="background:var(--accent); color:#000;" onclick="verifyFF()">VÉRIFIER ID</button>
+            </div>
+            <div id="ff-buy" style="display:none;">
+                <p id="ff-player-name" style="color:var(--accent); font-weight:bold;"></p>
+                <div class="grid">
+                    <div class="card" onclick="buyFF(100, 165)">100 💎<br>165 HTG</div>
+                    <div class="card" onclick="buyFF(310, 450)">310 💎<br>450 HTG</div>
+                </div>
+            </div>
+            <div id="ff-result" style="display:none;">
+                <div class="redeem-code" id="final-code">EDFDCB7F-CE2B-4D1D-8C7B-BFC417EBF75D</div>
+                <button class="btn-main" style="background:#2ecc71;" onclick="copyCode()">COPIER LE CODE</button>
+                <button class="btn-main" style="background:#f39c12;" onclick="window.location.href='https://redeempins.com'">ALLER SUR REDEEMPINS</button>
+            </div>
+            <button class="btn-main" style="background:#333; margin-top:10px;" onclick="closeFF()">FERMER</button>
+        </div>
+    </div>
+
     <script>
-        let session = JSON.parse(localStorage.getItem('ft_session')) || null;
-        let transHistory = JSON.parse(localStorage.getItem('ft_trans')) || [];
-        const supportNum = "50941951159";
+        // DATABASE SIMULATION
+        let db = JSON.parse(localStorage.getItem('ft_db_v7')) || { 
+            users: {}, 
+            pending: [], 
+            usedCodes: ["123456789012"] 
+        };
+        let currentUser = null;
+        const support = "50941951159";
 
         function handleAuth() {
             const n = document.getElementById('reg-name').value;
-            const p = document.getElementById('reg-phone').value;
+            const ph = document.getElementById('reg-phone').value;
             const pi = document.getElementById('reg-pin').value;
-            if(n && p && pi.length === 4) {
-                session = { name: n, phone: p, balance: 0, id: "FT-"+Math.floor(1000+Math.random()*9000) };
-                localStorage.setItem('ft_session', JSON.stringify(session));
-                startApp();
-            } else { alert("Remplir tout fòm yo kòrèkteman!"); }
+            if(n && ph && pi.length >= 4) {
+                const id = "FT-" + Math.floor(1000 + Math.random() * 9000);
+                currentUser = { id, name: n, phone: ph, balance: 0 };
+                db.users[id] = currentUser;
+                save();
+                renderApp();
+            }
         }
 
-        function startApp() {
+        function renderApp() {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('u-tag').innerText = "ID: " + session.id;
-            updateBalance();
+            document.getElementById('u-id-display').innerText = "ID: " + currentUser.id;
+            updateUI();
         }
 
-        function updateBalance() {
-            document.getElementById('user-bal').innerText = session.balance.toFixed(2) + " HTG";
+        function updateUI() {
+            document.getElementById('u-balance').innerText = currentUser.balance.toFixed(2) + " HTG";
         }
 
-        // AUTOMATIC PAYMENT LOGIC
-        function verifyAutomaticPayment() {
+        // WALLET & WHATSAPP LOGIC
+        function requestRecharge() {
             const trans = document.getElementById('p-trans').value;
-            const amt = parseFloat(document.getElementById('p-amt').value);
-            const num = document.getElementById('p-number').value;
-            const btn = document.getElementById('pay-btn');
+            const amt = document.getElementById('p-amt').value;
 
             if(trans.length < 12 || trans.length > 15) {
-                alert("❌ Transcode la dwe gen 12 a 15 chif!");
-                return;
-            }
-            if(transHistory.includes(trans)) {
-                alert("❌ Fwod detekte: Transcode sa itilize deja!");
+                alert("❌ Transcode invalide (12-15 chiffres)!");
                 return;
             }
 
-            btn.innerText = "VERIFIKASYON REZO...";
-            btn.disabled = true;
-
-            setTimeout(() => {
-                session.balance += amt;
-                transHistory.push(trans);
-                localStorage.setItem('ft_session', JSON.stringify(session));
-                localStorage.setItem('ft_trans', JSON.stringify(transHistory));
-                updateBalance();
-                
-                btn.innerText = "VALIDÈ PEMAN";
-                btn.disabled = false;
-                alert(`✅ Bravo! ${amt} HTG ajoute sou kont ou.`);
-                
-                // Mesaj Konfimasyon Admin
-                const msg = `💰 DEPÔT RÉUSSI\nKliyan: ${session.name}\nID: ${session.id}\nMontant: ${amt} HTG\nTranscode: ${trans}\nExpéditeur: ${num}`;
-                window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
-            }, 2500);
+            // Mesaj WhatsApp Style
+            const msg = `⚡ *NOUVELLE DEMANDE DE RECHARGE* ⚡\n\n👤 *Client:* ${currentUser.name}\n🆔 *ID:* ${currentUser.id}\n💰 *Montant:* ${amt} HTG\n🔢 *Transcode:* \`${trans}\`\n\n_Veuillez valider le paiement pour créditer le compte._`;
+            
+            db.pending.push({ id: currentUser.id, trans, amt: parseFloat(amt), name: currentUser.name });
+            save();
+            
+            window.location.href = `https://wa.me/${support}?text=${encodeURIComponent(msg)}`;
         }
 
-        // GARENA LOGIC
+        // ADMIN LOGIC
+        function openAdmin() {
+            const p = prompt("PASSWORD ADMIN:");
+            if(p === "1234") {
+                document.getElementById('admin-screen').style.display = 'flex';
+                renderAdminList();
+            }
+        }
+
+        function renderAdminList() {
+            const list = document.getElementById('pending-approvals');
+            list.innerHTML = db.pending.map((t, index) => `
+                <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:5px;">
+                    ${t.name} (${t.id}) - ${t.amt} HTG<br>Code: ${t.trans}<br>
+                    <button onclick="approve(${index})" style="background:green; color:white; border:none; padding:4px; border-radius:5px; cursor:pointer;">APWOUVE</button>
+                </div>
+            `).join('');
+        }
+
+        function approve(index) {
+            const t = db.pending[index];
+            if(db.users[t.id]) {
+                db.users[t.id].balance += t.amt;
+                if(currentUser.id === t.id) currentUser.balance = db.users[t.id].balance;
+                db.pending.splice(index, 1);
+                save();
+                renderAdminList();
+                updateUI();
+                alert("✅ Kont la kòkòday! Lajan an ajoute.");
+            }
+        }
+
+        function adminAddMoney() {
+            const targetId = document.getElementById('adm-target-id').value;
+            const amt = parseFloat(document.getElementById('adm-amount').value);
+            if(db.users[targetId]) {
+                db.users[targetId].balance += amt;
+                if(currentUser.id === targetId) currentUser.balance = db.users[targetId].balance;
+                save();
+                updateUI();
+                alert(`✅ ${amt} HTG ajoute pou ${targetId}`);
+            } else { alert("ID sa pa egziste!"); }
+        }
+
+        // FREE FIRE REDEEMPINS STYLE
         function openFF() { document.getElementById('ff-modal').style.display = 'flex'; }
         function closeFF() { document.getElementById('ff-modal').style.display = 'none'; }
 
-        function verifyGarenaAccount() {
-            const id = document.getElementById('ff-player-id').value;
+        function verifyFF() {
+            const id = document.getElementById('ff-id').value;
             if(id.length > 5) {
-                document.getElementById('ff-step-1').style.display = 'none';
-                document.getElementById('ff-profile-info').style.display = 'block';
-                document.getElementById('garena-name').innerText = "ID_"+id+"_VERIFIED";
-            } else { alert("ID sa pa egziste sou Garena!"); }
-        }
-
-        function processFF(dm, price) {
-            if(session.balance < price) {
-                alert("❌ Ou pa gen ase kòb. Al recharge balans ou!");
-                return;
+                document.getElementById('ff-init').style.display = 'none';
+                document.getElementById('ff-buy').style.display = 'block';
+                document.getElementById('ff-player-name').innerText = "PLAYER: " + id + "_GARENA";
             }
-            session.balance -= price;
-            localStorage.setItem('ft_session', JSON.stringify(session));
-            updateBalance();
-
-            const pin = "FFP-" + Math.random().toString(36).substr(2, 9).toUpperCase();
-            document.getElementById('ff-packages').style.display = 'none';
-            document.getElementById('redeem-box').style.display = 'block';
-            document.getElementById('generated-pin').innerText = pin;
         }
 
-        function copyAndRedirect() {
-            const pin = document.getElementById('generated-pin').innerText;
-            navigator.clipboard.writeText(pin);
-            alert("Kòd Kopye! Kole l sou redeempins.com kounye a.");
-            window.location.href = "https://redeempins.com";
+        function buyFF(dm, price) {
+            if(currentUser.balance < price) { alert("Balance Insuffisante!"); return; }
+            currentUser.balance -= price;
+            db.users[currentUser.id].balance = currentUser.balance;
+            save();
+            updateUI();
+
+            // Format kòd RedeemPins ou mande a
+            const generatedCode = genRedeemCode();
+            document.getElementById('ff-buy').style.display = 'none';
+            document.getElementById('ff-result').style.display = 'block';
+            document.getElementById('final-code').innerText = generatedCode;
         }
 
-        // SERVICES & SUPPORT
-        function orderService(service) {
-            let msg = "";
-            if(service === 'Netflix') {
-                msg = `Bonjour Support,\nJe viens de commander un profil Netflix.\nNom: ${session.name}\nID Client: ${session.id}\nStatut: Paiement Automatique Validé.`;
-            } else if(service === 'TikTok') {
-                msg = `Mwen bezwen recharge TikTok mwen.\nKliyan: ${session.name}\nID: ${session.id}`;
-            } else if(service === 'Support') {
-                msg = `SOUÈT ÈD\nKliyan: ${session.name}\nID: ${session.id}\nNimewo: ${session.phone}`;
-            } else {
-                msg = `SÈVIS EN ATTENTE: ${service}\nKliyan: ${session.name}\nID: ${session.id}`;
-            }
-            window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
+        function genRedeemCode() {
+            const s = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).toUpperCase();
+            return `${s()}${s()}-${s()}-${s()}-${s()}-${s()}${s()}${s()}`;
         }
 
+        function copyCode() {
+            navigator.clipboard.writeText(document.getElementById('final-code').innerText);
+            alert("Code Copié!");
+        }
+
+        function orderService(s) {
+            const msg = `*COMMANDE ${s.toUpperCase()}*\nClient: ${currentUser.name}\nID: ${currentUser.id}\nStatut: Paiement en attente.`;
+            window.location.href = `https://wa.me/${support}?text=${encodeURIComponent(msg)}`;
+        }
+
+        function save() { localStorage.setItem('ft_db_v7', JSON.stringify(db)); }
         function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-icon').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.nav-icon').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
         }
-
-        function accessAdmin() {
-            const p = prompt("PIN ADMIN:");
-            if(p === "1234") {
-                alert(`ADMIN STATUS:\nTotal Users: 1 (Session Aktif)\nTotal Transcodes: ${transHistory.length}\nSystem: Operational`);
-            }
-        }
-
-        window.onload = () => { if(session) startApp(); };
     </script>
 </body>
 </html>
-                             
+                                            
