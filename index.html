@@ -1,16 +1,16 @@
-   <!DOCTYPE html>
+         <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Tech | Premium Services</title>
+    <title>Fake Tech | V9 Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #ff003c;
             --accent: #00d4ff;
             --glass: rgba(255, 255, 255, 0.08);
-            --blur: blur(25px);
+            --blur: blur(30px);
             --border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -24,139 +24,132 @@
             position: fixed; inset: 0;
             background: radial-gradient(circle at top right, #200008, #000), 
                         url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
-            filter: brightness(0.4); z-index: -1;
+            filter: brightness(0.35); z-index: -1;
         }
 
-        /* STYLES GENERAUX */
-        .glass-card { background: var(--glass); backdrop-filter: var(--blur); border: var(--border); border-radius: 24px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-        .input-group { width: 100%; padding: 16px; margin-top: 12px; border-radius: 12px; border: var(--border); background: rgba(0,0,0,0.5); color: #fff; outline: none; box-sizing: border-box; }
-        .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--primary), #900); color: #fff; font-weight: 800; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
+        .glass-card { background: var(--glass); backdrop-filter: var(--blur); border: var(--border); border-radius: 24px; padding: 20px; margin-bottom: 15px; }
+        .input-group { width: 100%; padding: 16px; margin-top: 10px; border-radius: 12px; border: var(--border); background: rgba(0,0,0,0.5); color: #fff; outline: none; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--primary), #900); color: #fff; font-weight: 800; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
 
-        /* SCREENS */
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 10000; display: flex; justify-content: center; align-items: center; }
-        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.7); border-bottom: var(--border); position: sticky; top: 0; z-index: 100; }
-        .page { display: none; padding: 20px; padding-bottom: 110px; animation: fadeIn 0.3s ease; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 10000; display: none; justify-content: center; align-items: center; }
+        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.8); border-bottom: var(--border); position: sticky; top: 0; z-index: 100; }
+        .page { display: none; padding: 20px; padding-bottom: 120px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* GRID */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { background: var(--glass); border: var(--border); border-radius: 20px; padding: 20px; text-align: center; }
+        /* HISTORY & LOGS */
+        .history-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border-left: 4px solid var(--primary); margin-bottom: 10px; font-size: 13px; position: relative; }
+        .history-item.deposit { border-left-color: #00ffcc; }
+        .time-badge { font-size: 10px; opacity: 0.5; display: block; margin-bottom: 4px; }
 
         /* NAV */
-        .nav-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(15,15,15,0.9); border-radius: 40px; display: flex; justify-content: space-around; padding: 18px; border: var(--border); backdrop-filter: blur(20px); }
-        .nav-icon { color: #555; font-size: 22px; cursor: pointer; }
+        .nav-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; background: rgba(10,10,10,0.9); border-radius: 40px; display: flex; justify-content: space-around; padding: 15px; border: var(--border); backdrop-filter: blur(20px); }
+        .nav-icon { color: #555; font-size: 18px; cursor: pointer; text-align: center; }
         .nav-icon.active { color: var(--primary); }
+        .nav-icon span { display: block; font-size: 9px; margin-top: 4px; }
 
-        /* SPECIAL CODE STYLE */
-        .redeem-code { background: rgba(0,212,255,0.1); border: 2px dashed var(--accent); padding: 15px; border-radius: 15px; font-family: monospace; font-size: 14px; word-break: break-all; margin: 15px 0; }
+        .support-box { border: 1px solid var(--accent); background: rgba(0,212,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
     <div class="bg-vibe"></div>
 
-    <div id="admin-screen" class="overlay" style="display:none;">
-        <div class="glass-card" style="width:90%; max-width:450px;">
-            <h2 style="color:var(--accent); text-align:center;">ADMIN PANEL</h2>
-            <div style="background:rgba(0,0,0,0.4); padding:15px; border-radius:15px; margin-bottom:15px;">
-                <p style="font-size:12px; margin:0;">AJOUTER CRÉDIT MANUEL</p>
-                <input type="text" id="adm-target-id" class="input-group" placeholder="ID Kliyan an (eg: FT-1234)">
-                <input type="number" id="adm-amount" class="input-group" placeholder="Kantite Kòb">
-                <button class="btn-main" style="background:var(--accent); color:#000;" onclick="adminAddMoney()">RECHARGE KONT SA</button>
+    <div id="admin-screen" class="overlay">
+        <div class="glass-card" style="width:90%; max-width:500px; max-height: 85vh; overflow-y: auto;">
+            <h2 style="color:var(--accent); text-align:center;">GLOBAL ADMIN LOGS</h2>
+            
+            <div style="background:rgba(0,0,0,0.5); padding:15px; border-radius:15px; margin-bottom:20px;">
+                <p style="font-size:11px; margin:0 0 10px 0; color:var(--accent);">AJOUTER CRÉDIT (MANUEL)</p>
+                <input type="text" id="adm-target-id" class="input-group" placeholder="ID Kliyan (FT-XXXX)">
+                <input type="number" id="adm-amount" class="input-group" placeholder="Montant en Gdes/HTG">
+                <button class="btn-main" style="background:var(--accent); color:#000;" onclick="adminAddMoney()">CREDITER LE COMPTE</button>
             </div>
-            <div id="pending-approvals" style="max-height:150px; overflow-y:auto; font-size:11px;">
-                </div>
-            <button class="btn-main" style="background:#222;" onclick="document.getElementById('admin-screen').style.display='none'">FÈMEN ADMIN</button>
+
+            <h4 style="margin:20px 0 10px 0; border-bottom: 1px solid var(--glass);">LISTE DES TRANSACTIONS</h4>
+            <div id="admin-global-logs"></div>
+
+            <button class="btn-main" style="background:#222; margin-top:20px;" onclick="document.getElementById('admin-screen').style.display='none'">FERMER</button>
         </div>
     </div>
 
-    <div id="auth-screen" class="overlay">
-        <div class="glass-card" style="width:85%; max-width:360px;">
-            <h2 style="text-align:center;">AUTHENTIFICATION</h2>
-            <input type="text" id="reg-name" class="input-group" placeholder="Nom complet">
-            <input type="number" id="reg-phone" class="input-group" placeholder="WhatsApp (509...)">
+    <div id="auth-screen" class="overlay" style="display:flex;">
+        <div class="glass-card" style="width:85%; max-width:350px; text-align:center;">
+            <h2 style="margin-bottom:0;">FAKE TECH</h2>
+            <p style="font-size:10px; opacity:0.5; margin-bottom:20px;">PREMIUM SERVICES</p>
+            <input type="text" id="reg-name" class="input-group" placeholder="Nom Complet">
             <input type="password" id="reg-pin" class="input-group" placeholder="PIN de Sécurité">
-            <button class="btn-main" onclick="handleAuth()">ENTRER</button>
-            <p style="font-size:10px; margin-top:15px; color:var(--primary); cursor:pointer; text-align:center;" onclick="openAdmin()">Admin Access</p>
+            <button class="btn-main" onclick="handleAuth()">ACCÉDER</button>
+            <p onclick="openAdmin()" style="font-size:10px; color:var(--primary); cursor:pointer; margin-top:20px;">Access Admin Dashboard</p>
         </div>
     </div>
 
     <div id="main-app" style="display:none;">
         <header>
-            <div style="font-weight:900;">FAKE <span style="color:var(--primary)">TECH</span></div>
-            <div id="u-id-display" style="font-size:10px; border:1px solid var(--primary); padding:5px 12px; border-radius:20px;">ID: --</div>
+            <div style="font-weight:900; letter-spacing:1px;">FAKE <span style="color:var(--primary)">TECH</span></div>
+            <div id="u-id-display" style="font-size:10px; border:1px solid var(--primary); padding:5px 12px; border-radius:20px; color:var(--primary);">ID: --</div>
         </header>
 
         <div id="home" class="page active">
-            <div class="grid">
-                <div class="card" onclick="openFF()"><i class="fa-solid fa-gem" style="color:var(--primary)"></i><br>Free Fire</div>
-                <div class="card" onclick="orderService('Netflix')"><i class="fa-solid fa-tv"></i><br>Netflix</div>
-                <div class="card" onclick="orderService('TikTok')"><i class="fa-brands fa-tiktok"></i><br>TikTok</div>
-                <div class="card" onclick="orderService('Roblox')"><i class="fa-solid fa-cube"></i><br>Roblox</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <div class="glass-card" style="text-align:center;" onclick="buyFF_Action()">
+                    <i class="fa-solid fa-gem" style="color:var(--primary); font-size:25px; margin-bottom:10px;"></i><br>Free Fire
+                </div>
+                <div class="glass-card" style="text-align:center;" onclick="orderNetflix()">
+                    <i class="fa-solid fa-tv" style="font-size:25px; margin-bottom:10px;"></i><br>Netflix
+                </div>
+            </div>
+
+            <div class="support-box">
+                <h4 style="margin:0 0 10px 0; color:var(--accent);"><i class="fa-solid fa-circle-info"></i> CENTRE DE SUPPORT</h4>
+                <p style="font-size:12px; margin:5px 0;">Nimewo WhatsApp: <b>+509 4195-1159</b></p>
+                <p style="font-size:12px; margin:5px 0;">Disponibilite: 24/7 pou tout pwoblèm ou.</p>
+                <button class="btn-main" style="padding:10px; font-size:11px; background:var(--accent); color:#000;" onclick="contactSupport()">KONTAKTE NOU</button>
             </div>
         </div>
 
         <div id="wallet" class="page">
-            <div class="glass-card" style="text-align:center; margin-bottom:20px;">
-                <small>DISPONIBLE</small>
-                <h1 id="u-balance">0.00 HTG</h1>
+            <div class="glass-card" style="text-align:center; background:rgba(255,0,60,0.05);">
+                <small style="opacity:0.6;">MON PORTEFEUILLE</small>
+                <h1 id="u-balance" style="font-size:40px; margin:10px 0;">0.00 HTG</h1>
             </div>
+            
             <div class="glass-card">
-                <h3 style="margin:0; color:var(--primary)">RECHARGE COMPTE</h3>
+                <h3 style="margin:0 0 5px 0; color:var(--primary);">RECHARGE AUTOMATIQUE</h3>
+                <p style="font-size:12px; margin-bottom:15px; opacity:0.8;">
+                    Fè transfè sou: <br>
+                    <b>509 5511-2990</b> (Enelson Pierre)
+                </p>
                 <input type="number" id="p-trans" class="input-group" placeholder="Transcode (12-15 chiffres)">
                 <input type="number" id="p-amt" class="input-group" placeholder="Montant HTG">
-                <button class="btn-main" onclick="requestRecharge()">ENVOYER DEMANDE</button>
+                <button class="btn-main" onclick="requestRecharge()">VALIDER MA RECHARGE</button>
             </div>
+        </div>
+
+        <div id="history" class="page">
+            <h3 style="margin-top:0;">HISTORIQUE DE COMPTE</h3>
+            <div id="user-history-list"></div>
         </div>
 
         <nav class="nav-bar">
-            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-ghost"></i></div>
-            <div class="nav-icon" onclick="showPage('wallet', this)"><i class="fa-solid fa-wallet"></i></div>
+            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-house"></i><span>Accueil</span></div>
+            <div class="nav-icon" onclick="showPage('wallet', this)"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
+            <div class="nav-icon" onclick="showPage('history', this)"><i class="fa-solid fa-clock-rotate-left"></i><span>History</span></div>
         </nav>
     </div>
 
-    <div id="ff-modal" class="overlay" style="display:none;">
-        <div class="glass-card" style="width:90%; max-width:380px; text-align:center;">
-            <h2 style="color:var(--accent);">GARENA TOPUP</h2>
-            <div id="ff-init">
-                <input type="number" id="ff-id" class="input-group" placeholder="ID Player">
-                <button class="btn-main" style="background:var(--accent); color:#000;" onclick="verifyFF()">VÉRIFIER ID</button>
-            </div>
-            <div id="ff-buy" style="display:none;">
-                <p id="ff-player-name" style="color:var(--accent); font-weight:bold;"></p>
-                <div class="grid">
-                    <div class="card" onclick="buyFF(100, 165)">100 💎<br>165 HTG</div>
-                    <div class="card" onclick="buyFF(310, 450)">310 💎<br>450 HTG</div>
-                </div>
-            </div>
-            <div id="ff-result" style="display:none;">
-                <div class="redeem-code" id="final-code">EDFDCB7F-CE2B-4D1D-8C7B-BFC417EBF75D</div>
-                <button class="btn-main" style="background:#2ecc71;" onclick="copyCode()">COPIER LE CODE</button>
-                <button class="btn-main" style="background:#f39c12;" onclick="window.location.href='https://redeempins.com'">ALLER SUR REDEEMPINS</button>
-            </div>
-            <button class="btn-main" style="background:#333; margin-top:10px;" onclick="closeFF()">FERMER</button>
-        </div>
-    </div>
-
     <script>
-        // DATABASE SIMULATION
-        let db = JSON.parse(localStorage.getItem('ft_db_v7')) || { 
-            users: {}, 
-            pending: [], 
-            usedCodes: ["123456789012"] 
-        };
-        let currentUser = null;
-        const support = "50941951159";
+        let db = JSON.parse(localStorage.getItem('ft_v9_db')) || { users: {}, globalLogs: [] };
+        let user = null;
+        const supportNum = "50941951159";
 
         function handleAuth() {
             const n = document.getElementById('reg-name').value;
-            const ph = document.getElementById('reg-phone').value;
             const pi = document.getElementById('reg-pin').value;
-            if(n && ph && pi.length >= 4) {
+            if(n && pi) {
                 const id = "FT-" + Math.floor(1000 + Math.random() * 9000);
-                currentUser = { id, name: n, phone: ph, balance: 0 };
-                db.users[id] = currentUser;
+                if(!db.users[id]) db.users[id] = { id, name: n, balance: 0, history: [] };
+                user = db.users[id];
                 save();
                 renderApp();
             }
@@ -165,102 +158,68 @@
         function renderApp() {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('u-id-display').innerText = "ID: " + currentUser.id;
+            document.getElementById('u-id-display').innerText = "ID: " + user.id;
             updateUI();
         }
 
         function updateUI() {
-            document.getElementById('u-balance').innerText = currentUser.balance.toFixed(2) + " HTG";
+            document.getElementById('u-balance').innerText = user.balance.toFixed(2) + " HTG";
+            renderUserHistory();
         }
 
-        // WALLET & WHATSAPP LOGIC
+        function save() { localStorage.setItem('ft_v9_db', JSON.stringify(db)); }
+
+        // LOGGING (DATE + HEURE)
+        function addLog(type, desc, amount, userId) {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('fr-FR');
+            const timeStr = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
+            const fullStamp = `${dateStr} à ${timeStr}`;
+
+            const logEntry = { 
+                timestamp: fullStamp, 
+                type, 
+                desc, 
+                amount, 
+                userId, 
+                userName: db.users[userId].name 
+            };
+
+            db.users[userId].history.unshift(logEntry);
+            db.globalLogs.unshift(logEntry);
+            save();
+        }
+
+        // ACTIONS
         function requestRecharge() {
             const trans = document.getElementById('p-trans').value;
             const amt = document.getElementById('p-amt').value;
-
-            if(trans.length < 12 || trans.length > 15) {
-                alert("❌ Transcode invalide (12-15 chiffres)!");
-                return;
-            }
-
-            // Mesaj WhatsApp Style
-            const msg = `⚡ *NOUVELLE DEMANDE DE RECHARGE* ⚡\n\n👤 *Client:* ${currentUser.name}\n🆔 *ID:* ${currentUser.id}\n💰 *Montant:* ${amt} HTG\n🔢 *Transcode:* \`${trans}\`\n\n_Veuillez valider le paiement pour créditer le compte._`;
-            
-            db.pending.push({ id: currentUser.id, trans, amt: parseFloat(amt), name: currentUser.name });
-            save();
-            
-            window.location.href = `https://wa.me/${support}?text=${encodeURIComponent(msg)}`;
+            if(trans.length >= 12 && amt > 0) {
+                const msg = `⚡ *DEMANDE DE RECHARGE*\n\n👤 *Client:* ${user.name}\n🆔 *ID:* ${user.id}\n🔢 *Transcode:* \`${trans}\`\n💰 *Montant:* ${amt} HTG\n🏦 *Destinataire:* Enelson Pierre (5511-2990)`;
+                window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
+            } else { alert("Kòrèkte fòma transcode la!"); }
         }
 
-        // ADMIN LOGIC
-        function openAdmin() {
-            const p = prompt("PASSWORD ADMIN:");
-            if(p === "1234") {
-                document.getElementById('admin-screen').style.display = 'flex';
-                renderAdminList();
-            }
-        }
-
-        function renderAdminList() {
-            const list = document.getElementById('pending-approvals');
-            list.innerHTML = db.pending.map((t, index) => `
-                <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:5px;">
-                    ${t.name} (${t.id}) - ${t.amt} HTG<br>Code: ${t.trans}<br>
-                    <button onclick="approve(${index})" style="background:green; color:white; border:none; padding:4px; border-radius:5px; cursor:pointer;">APWOUVE</button>
-                </div>
-            `).join('');
-        }
-
-        function approve(index) {
-            const t = db.pending[index];
-            if(db.users[t.id]) {
-                db.users[t.id].balance += t.amt;
-                if(currentUser.id === t.id) currentUser.balance = db.users[t.id].balance;
-                db.pending.splice(index, 1);
-                save();
-                renderAdminList();
+        function orderNetflix() {
+            const price = 500; // Pri ou mande a
+            if(user.balance >= price) {
+                user.balance -= price;
+                addLog('purchase', 'Achat Netflix (1 Mois)', -price, user.id);
                 updateUI();
-                alert("✅ Kont la kòkòday! Lajan an ajoute.");
-            }
+                const msg = `📺 *COMMANDE NETFLIX*\n\n👤 *Client:* ${user.name}\n🆔 *ID:* ${user.id}\n💰 *Prix:* 500 GDS\n✅ *Statut:* Paiement Validé.\n\n_Veuillez envoyer mes accès._`;
+                window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
+            } else { alert("Balance ou pa ase. Pri Netflix la se 500 GDS."); }
         }
 
-        function adminAddMoney() {
-            const targetId = document.getElementById('adm-target-id').value;
-            const amt = parseFloat(document.getElementById('adm-amount').value);
-            if(db.users[targetId]) {
-                db.users[targetId].balance += amt;
-                if(currentUser.id === targetId) currentUser.balance = db.users[targetId].balance;
-                save();
+        function buyFF_Action() {
+            const price = 165;
+            if(user.balance >= price) {
+                user.balance -= price;
+                const code = genRedeemCode();
+                addLog('purchase', `Free Fire 100💎 (PIN: ${code})`, -price, user.id);
                 updateUI();
-                alert(`✅ ${amt} HTG ajoute pou ${targetId}`);
-            } else { alert("ID sa pa egziste!"); }
-        }
-
-        // FREE FIRE REDEEMPINS STYLE
-        function openFF() { document.getElementById('ff-modal').style.display = 'flex'; }
-        function closeFF() { document.getElementById('ff-modal').style.display = 'none'; }
-
-        function verifyFF() {
-            const id = document.getElementById('ff-id').value;
-            if(id.length > 5) {
-                document.getElementById('ff-init').style.display = 'none';
-                document.getElementById('ff-buy').style.display = 'block';
-                document.getElementById('ff-player-name').innerText = "PLAYER: " + id + "_GARENA";
-            }
-        }
-
-        function buyFF(dm, price) {
-            if(currentUser.balance < price) { alert("Balance Insuffisante!"); return; }
-            currentUser.balance -= price;
-            db.users[currentUser.id].balance = currentUser.balance;
-            save();
-            updateUI();
-
-            // Format kòd RedeemPins ou mande a
-            const generatedCode = genRedeemCode();
-            document.getElementById('ff-buy').style.display = 'none';
-            document.getElementById('ff-result').style.display = 'block';
-            document.getElementById('final-code').innerText = generatedCode;
+                alert("Acha reyisi! Gade istorik ou pou kòd la.");
+            } else { alert("Balance ou twò piti!"); }
         }
 
         function genRedeemCode() {
@@ -268,24 +227,65 @@
             return `${s()}${s()}-${s()}-${s()}-${s()}-${s()}${s()}${s()}`;
         }
 
-        function copyCode() {
-            navigator.clipboard.writeText(document.getElementById('final-code').innerText);
-            alert("Code Copié!");
+        // RENDERING
+        function renderUserHistory() {
+            const list = document.getElementById('user-history-list');
+            list.innerHTML = user.history.map(h => `
+                <div class="history-item ${h.amount > 0 ? 'deposit' : ''}">
+                    <span class="time-badge">${h.timestamp}</span>
+                    <b>${h.desc}</b><br>
+                    <span style="color:${h.amount > 0 ? '#00ffcc' : 'var(--primary)'}">
+                        ${h.amount > 0 ? '+' : ''}${h.amount} HTG
+                    </span>
+                </div>
+            `).join('');
         }
 
+        function renderAdminLogs() {
+            const list = document.getElementById('admin-global-logs');
+            list.innerHTML = db.globalLogs.map(l => `
+                <div class="history-item" style="border-left-color:${l.amount > 0 ? '#00ffcc' : 'orange'}">
+                    <span class="time-badge">${l.timestamp} - ID: ${l.userId}</span>
+                    <b>${l.userName}</b>: ${l.desc} | <b>${l.amount} HTG</b>
+                </div>
+            `).join('');
+        }
+
+        // ADMIN ACCESS
+        function openAdmin() {
+            if(prompt("ADMIN PASSWORD:") === "1234") {
+                document.getElementById('admin-screen').style.display = 'flex';
+                renderAdminLogs();
+            }
+        }
+
+        function adminAddMoney() {
+            const target = document.getElementById('adm-target-id').value;
+            const amt = parseFloat(document.getElementById('adm-amount').value);
+            if(db.users[target]) {
+                db.users[target].balance += amt;
+                if(user.id === target) user.balance = db.users[target].balance;
+                addLog('deposit', 'Crédit Ajouté par Admin', amt, target);
+                alert("Crédit ajouté!");
+                updateUI();
+                renderAdminLogs();
+            } else { alert("Client introuvable!"); }
+        }
+
+        function contactSupport() { orderService('Support'); }
         function orderService(s) {
-            const msg = `*COMMANDE ${s.toUpperCase()}*\nClient: ${currentUser.name}\nID: ${currentUser.id}\nStatut: Paiement en attente.`;
-            window.location.href = `https://wa.me/${support}?text=${encodeURIComponent(msg)}`;
+            window.location.href = `https://wa.me/${supportNum}?text=Support%20Fake%20Tech%20ID:%20${user.id}`;
         }
 
-        function save() { localStorage.setItem('ft_db_v7', JSON.stringify(db)); }
         function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-icon').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.nav-icon').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
+            if(id === 'history') updateUI();
         }
     </script>
 </body>
 </html>
-                                            
+          
+                  
