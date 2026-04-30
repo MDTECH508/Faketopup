@@ -1,267 +1,306 @@
-                        <!DOCTYPE html>
+           <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Tech Premium - V6 Final</title>
+    <title>Fake Tech Premium | Official</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #ff003c;
-            --glass: rgba(255, 255, 255, 0.05);
-            --deep: rgba(0, 0, 0, 0.9);
-            --border: 1px solid rgba(255, 255, 255, 0.1);
-            --shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+            --secondary: #00d4ff;
+            --glass: rgba(255, 255, 255, 0.07);
+            --deep-blur: blur(30px);
+            --border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         body, html {
             margin: 0; padding: 0; background: #000;
-            color: #fff; font-family: 'Poppins', sans-serif;
-            overflow-x: hidden; height: 100vh;
+            color: #fff; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden; min-height: 100vh;
         }
 
         .bg-vibe {
             position: fixed; inset: 0;
-            background: url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
-            filter: brightness(0.2) blur(10px); z-index: -1;
+            background: radial-gradient(circle at top right, #33000c, #000), 
+                        url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
+            filter: brightness(0.3); z-index: -1;
         }
 
-        /* UTILS */
-        .glass-box { background: var(--glass); backdrop-filter: blur(25px); border: var(--border); border-radius: 30px; padding: 25px; }
-        .auth-input { width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; border: var(--border); background: rgba(0,0,0,0.6); color: #fff; outline: none; box-sizing: border-box; }
-        .btn-glow { width: 100%; padding: 15px; border-radius: 15px; border: none; background: linear-gradient(45deg, var(--primary), #990024); color: #fff; font-weight: bold; cursor: pointer; box-shadow: var(--shadow); margin-top: 15px; }
-        
-        /* NAVIGATION */
-        header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.8); border-bottom: var(--border); position: sticky; top: 0; z-index: 1000; }
-        .page { display: none; padding: 20px; padding-bottom: 120px; animation: fadeIn 0.4s ease; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* COMPONENT STYLES */
+        .glass-card { 
+            background: var(--glass); backdrop-filter: var(--deep-blur); 
+            border: var(--border); border-radius: 28px; padding: 25px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
 
-        /* GRID */
-        .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { background: var(--glass); border: var(--border); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .card:active { transform: scale(0.95); background: rgba(255,255,255,0.1); }
+        .input-group {
+            width: 100%; padding: 16px; margin-top: 12px; border-radius: 14px;
+            border: var(--border); background: rgba(0,0,0,0.4); color: #fff;
+            outline: none; box-sizing: border-box; transition: 0.3s;
+        }
 
-        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(15,15,15,0.9); border-radius: 30px; display: flex; justify-content: space-around; padding: 15px; border: var(--border); backdrop-filter: blur(15px); z-index: 1000; }
-        .nav-item { color: #555; font-size: 22px; cursor: pointer; }
-        .nav-item.active { color: var(--primary); text-shadow: var(--shadow); }
+        .input-group:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255,0,60,0.3); }
+
+        .btn-main {
+            width: 100%; padding: 16px; border-radius: 14px; border: none;
+            background: linear-gradient(135deg, var(--primary), #80001e);
+            color: #fff; font-weight: 800; cursor: pointer; margin-top: 15px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
 
         /* SCREENS */
-        .full-screen { position: fixed; inset: 0; background: var(--deep); backdrop-filter: blur(20px); z-index: 9999; display: flex; justify-content: center; align-items: center; }
-        #code-area { border: 2px dashed var(--primary); padding: 15px; border-radius: 15px; margin-top: 15px; display: none; background: rgba(0,0,0,0.5); }
+        .screen-overlay { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(15px); z-index: 10000; 
+            display: flex; justify-content: center; align-items: center; 
+        }
+
+        header { 
+            padding: 20px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.7); border-bottom: var(--border); sticky: top;
+        }
+
+        .page { display: none; padding: 20px; padding-bottom: 110px; animation: scaleIn 0.3s ease; }
+        .active { display: block; }
+
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* GRID SYSTEM */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .item-card { 
+            background: var(--glass); border: var(--border); border-radius: 22px; 
+            padding: 22px; text-align: center; transition: 0.2s;
+        }
+
+        .item-card:active { transform: scale(0.92); }
+
+        .nav-bar { 
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
+            width: 80%; background: rgba(20,20,20,0.8); border-radius: 40px; 
+            display: flex; justify-content: space-around; padding: 18px; 
+            border: var(--border); backdrop-filter: blur(20px);
+        }
+
+        .nav-icon { color: #666; font-size: 22px; cursor: pointer; }
+        .nav-icon.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+
+        #redeem-box { 
+            display: none; border: 2px dashed var(--secondary); 
+            padding: 20px; border-radius: 20px; margin-top: 15px; background: rgba(0,212,255,0.05);
+        }
     </style>
 </head>
 <body>
 
     <div class="bg-vibe"></div>
 
-    <div id="ff-modal" class="full-screen" style="display:none;">
-        <div class="glass-box" style="width:85%; max-width:380px; text-align:center;">
-            <h2 style="color:var(--primary); margin:0;">FREE FIRE TOPUP</h2>
-            <div id="ff-content">
-                <input type="number" id="ff-id" class="auth-input" placeholder="Antre ID Player">
-                <button class="btn-glow" style="background:#00a2ff; font-size:12px;" onclick="verifyFF()">VÉRIFIER ID SUR GARENA</button>
-                <div id="ff-player-name" style="margin:10px; color:#00ffcc; font-weight:bold;"></div>
-                
-                <div id="ff-packages" style="display:none;">
-                    <div class="card" style="margin-top:10px;" onclick="generateCode(100, 165)">100 💎 - 165 HTG</div>
-                    <div class="card" style="margin-top:5px;" onclick="generateCode(310, 450)">310 💎 - 450 HTG</div>
-                </div>
-
-                <div id="code-area">
-                    <small>KÒD REDEEMPINS OU:</small>
-                    <h2 id="final-code" style="letter-spacing:3px;">--------</h2>
-                    <button class="btn-glow" style="background:green;" onclick="copyCode()">KOPYE KÒD</button>
-                    <button class="btn-glow" style="background:#f39c12;" onclick="window.location.href='https://redeempins.com'">REDEEM KOUNYE A</button>
+    <div id="ff-modal" class="screen-overlay" style="display:none;">
+        <div class="glass-card" style="width:90%; max-width:400px; text-align:center;">
+            <h2 style="color:var(--secondary); margin-bottom:10px;">TOPUP GARENA</h2>
+            <div id="ff-step-1">
+                <input type="number" id="ff-player-id" class="input-group" placeholder="Antre ID Player a">
+                <button class="btn-main" style="background:var(--secondary);" onclick="verifyGarenaAccount()">VÉRIFIER PROFIL</button>
+            </div>
+            
+            <div id="ff-profile-info" style="display:none; margin:15px 0; padding:15px; background:rgba(255,255,255,0.05); border-radius:15px;">
+                <p style="margin:0; font-size:14px; opacity:0.7;">PROFIL JWÈ A:</p>
+                <h3 id="garena-name" style="color:var(--secondary); margin:5px 0;">---</h3>
+                <div id="ff-packages" class="grid" style="margin-top:15px;">
+                    <div class="item-card" onclick="processFF(100, 165)">100 💎<br>165 HTG</div>
+                    <div class="item-card" onclick="processFF(310, 450)">310 💎<br>450 HTG</div>
                 </div>
             </div>
-            <button class="btn-glow" style="background:#333; box-shadow:none;" onclick="closeFF()">FÈMEN</button>
-        </div>
-    </div>
 
-    <div id="auth-screen" class="full-screen">
-        <div class="glass-box" style="width:85%; max-width:350px;">
-            <h2 id="auth-title">KONEKSYON</h2>
-            <input type="text" id="user-name" class="auth-input" placeholder="Non konplè">
-            <input type="number" id="user-phone" class="auth-input" placeholder="WhatsApp (509...)">
-            <input type="password" id="user-pin" class="auth-input" placeholder="PIN 4 chif">
-            <button class="btn-glow" onclick="initSession()">KOMANSE</button>
-            <p style="font-size:10px; margin-top:20px; color:var(--primary); cursor:pointer" onclick="openAdmin()">Admin Access (1234)</p>
-        </div>
-    </div>
-
-    <div id="admin-panel" class="full-screen" style="display:none;">
-        <div class="glass-box" style="width:90%; max-width:500px; text-align:left;">
-            <h3 style="color:var(--primary); text-align:center;">DATABASE CONTROL</h3>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                <div class="card">Users<br><b id="adm-u">0</b></div>
-                <div class="card">Total<br><b id="adm-m">0.00</b></div>
+            <div id="redeem-box">
+                <p style="font-size:12px; color:var(--secondary);">KÒD POU REDEEMPINS.COM :</p>
+                <h2 id="generated-pin" style="letter-spacing:4px; font-weight:900;">----</h2>
+                <button class="btn-main" style="background:#2ecc71;" onclick="copyAndRedirect()">KOPYE & ALE SOU SIT LA</button>
             </div>
-            <div id="adm-logs" style="height:150px; overflow-y:auto; background:#000; padding:10px; border-radius:10px; margin-top:15px; font-size:10px; border:var(--border);"></div>
-            <button class="btn-glow" style="background:#333;" onclick="document.getElementById('admin-panel').style.display='none'">FÈMEN</button>
+            <button class="btn-main" style="background:#333; margin-top:10px;" onclick="closeFF()">ANILE</button>
         </div>
     </div>
 
-    <div id="app" style="display:none;">
+    <div id="auth-screen" class="screen-overlay">
+        <div class="glass-card" style="width:85%; max-width:360px;">
+            <h2 style="margin-bottom:5px;">BIENVENUE</h2>
+            <p style="font-size:12px; opacity:0.6; margin-bottom:20px;">Konekte oswa kreye kont ou pou kontinye</p>
+            <input type="text" id="reg-name" class="input-group" placeholder="Non ak Siyati">
+            <input type="number" id="reg-phone" class="input-group" placeholder="WhatsApp (509...)">
+            <input type="password" id="reg-pin" class="input-group" placeholder="PIN Sekirite (4 chif)">
+            <button class="btn-main" onclick="handleAuth()">KOMANSE</button>
+            <p style="font-size:10px; margin-top:15px; color:var(--primary); cursor:pointer" onclick="accessAdmin()">Admin Dashboard (1234)</p>
+        </div>
+    </div>
+
+    <div id="main-app" style="display:none;">
         <header>
-            <div style="font-weight:900;">FAKE <span style="color:var(--primary)">TECH</span></div>
-            <div id="client-id" style="font-size:10px; border:1px solid var(--primary); padding:5px 12px; border-radius:20px;">ID: --</div>
+            <div style="font-weight:900; font-size:18px;">FAKE <span style="color:var(--primary)">TECH</span></div>
+            <div id="u-tag" style="font-size:11px; padding:6px 14px; background:rgba(255,0,60,0.1); border-radius:30px; border:1px solid var(--primary);">ID: --</div>
         </header>
 
         <div id="home" class="page active">
-            <div class="service-grid">
-                <div class="card" onclick="openFFModal()"><i class="fa-solid fa-gem" style="color:var(--primary)"></i><br>Free Fire</div>
-                <div class="card" onclick="orderService('Netflix')"><i class="fa-solid fa-tv"></i><br>Netflix</div>
-                <div class="card" onclick="orderService('TikTok')"><i class="fa-brands fa-tiktok"></i><br>TikTok</div>
-                <div class="card" onclick="orderService('Roblox')"><i class="fa-solid fa-cube"></i><br>Roblox</div>
-                <div class="card" onclick="orderService('Bloodstrike')"><i class="fa-solid fa-gun"></i><br>Bloodstrike</div>
-                <div class="card" onclick="orderService('Apple')"><i class="fa-brands fa-apple"></i><br>Apple Card</div>
+            <div class="grid">
+                <div class="item-card" onclick="openFF()"><i class="fa-solid fa-gem" style="color:var(--primary); font-size:25px;"></i><br><small>Free Fire</small></div>
+                <div class="item-card" onclick="orderService('Netflix')"><i class="fa-solid fa-tv" style="font-size:25px;"></i><br><small>Netflix</small></div>
+                <div class="item-card" onclick="orderService('TikTok')"><i class="fa-brands fa-tiktok" style="font-size:25px;"></i><br><small>TikTok Coins</small></div>
+                <div class="item-card" onclick="orderService('Roblox')"><i class="fa-solid fa-cube" style="font-size:25px;"></i><br><small>Roblox</small></div>
             </div>
         </div>
 
         <div id="wallet" class="page">
-            <div class="glass-box" style="text-align:center; margin-bottom:20px;">
-                <small style="opacity:0.6">BALANCE AUTOMATIQUE</small>
-                <h1 id="main-balance" style="font-size:45px; margin:10px 0;">0.00 <span style="font-size:15px">HTG</span></h1>
+            <div class="glass-card" style="text-align:center; margin-bottom:20px; background: linear-gradient(to bottom, rgba(255,0,60,0.1), transparent);">
+                <small style="letter-spacing:1px; opacity:0.7;">BALANS OU</small>
+                <h1 id="user-bal" style="font-size:45px; margin:10px 0;">0.00 <span style="font-size:16px;">HTG</span></h1>
             </div>
-            <div class="glass-box">
-                <h4 style="margin:0; color:var(--primary)">DEPÔT NATCASH</h4>
-                <p style="font-size:11px;">Agent: <b>5511-2990</b> (Enelson P.)</p>
-                <input type="number" id="t-code" class="auth-input" placeholder="Transcode (12-15 chif)">
-                <input type="number" id="t-amt" class="auth-input" placeholder="Kantite HTG">
-                <button class="btn-glow" id="btn-recharge" onclick="autoAddMoney()">RECHARGE KOUNYE A</button>
+
+            <div class="glass-card">
+                <h3 style="margin-top:0; color:var(--primary);">AJOUTE KÒB</h3>
+                <p style="font-size:12px; margin-bottom:15px;">NatCash/MonCash: <b>5511-2990</b> (Enelson P.)</p>
+                <input type="text" id="p-name" class="input-group" placeholder="Non ki fè peman an">
+                <input type="number" id="p-number" class="input-group" placeholder="Nimewo ki voye kòb la">
+                <input type="number" id="p-trans" class="input-group" placeholder="Transcode (12-15 chif)">
+                <input type="number" id="p-amt" class="input-group" placeholder="Kantite HTG">
+                <button class="btn-main" id="pay-btn" onclick="verifyAutomaticPayment()">VALIDÈ PEMAN</button>
             </div>
         </div>
 
-        <nav class="bottom-nav">
-            <div class="nav-item active" onclick="showPage('home', this)"><i class="fa-solid fa-house-chimney"></i></div>
-            <div class="nav-item" onclick="showPage('wallet', this)"><i class="fa-solid fa-wallet"></i></div>
+        <nav class="nav-bar">
+            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-icon" onclick="showPage('wallet', this)"><i class="fa-solid fa-wallet"></i></div>
+            <div class="nav-icon" onclick="orderService('Support')"><i class="fa-solid fa-headset"></i></div>
         </nav>
     </div>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ft_db')) || { users: [], money: 0, codes: [] };
-        let user = null;
-        const support = "50941951159";
+        let session = JSON.parse(localStorage.getItem('ft_session')) || null;
+        let transHistory = JSON.parse(localStorage.getItem('ft_trans')) || [];
+        const supportNum = "50941951159";
 
-        function initSession() {
-            const n = document.getElementById('user-name').value;
-            const ph = document.getElementById('user-phone').value;
-            const pi = document.getElementById('user-pin').value;
-
-            if(n && ph && pi.length === 4) {
-                user = { name: n, phone: ph, balance: 0, id: "FT-"+Math.floor(1000+Math.random()*9000) };
-                db.users.push(user);
-                save();
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-                document.getElementById('client-id').innerText = "ID: " + user.id;
-                updateUI();
-            } else { alert("Remplir tout fòm yo!"); }
+        function handleAuth() {
+            const n = document.getElementById('reg-name').value;
+            const p = document.getElementById('reg-phone').value;
+            const pi = document.getElementById('reg-pin').value;
+            if(n && p && pi.length === 4) {
+                session = { name: n, phone: p, balance: 0, id: "FT-"+Math.floor(1000+Math.random()*9000) };
+                localStorage.setItem('ft_session', JSON.stringify(session));
+                startApp();
+            } else { alert("Remplir tout fòm yo kòrèkteman!"); }
         }
 
-        function updateUI() {
-            document.getElementById('main-balance').innerText = user.balance.toFixed(2) + " HTG";
+        function startApp() {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('u-tag').innerText = "ID: " + session.id;
+            updateBalance();
         }
 
-        // AUTO PAYMENT LOGIC (ANTI-FRAUDE)
-        function autoAddMoney() {
-            const code = document.getElementById('t-code').value;
-            const amt = parseFloat(document.getElementById('t-amt').value);
-            const btn = document.getElementById('btn-recharge');
+        function updateBalance() {
+            document.getElementById('user-bal').innerText = session.balance.toFixed(2) + " HTG";
+        }
 
-            if(code.length < 12 || code.length > 15 || isNaN(amt)) {
-                alert("❌ Transcode dwe gen 12 a 15 chif!");
+        // AUTOMATIC PAYMENT LOGIC
+        function verifyAutomaticPayment() {
+            const trans = document.getElementById('p-trans').value;
+            const amt = parseFloat(document.getElementById('p-amt').value);
+            const num = document.getElementById('p-number').value;
+            const btn = document.getElementById('pay-btn');
+
+            if(trans.length < 12 || trans.length > 15) {
+                alert("❌ Transcode la dwe gen 12 a 15 chif!");
                 return;
             }
-            if(db.codes.includes(code)) {
-                alert("❌ Fraude détectée: Kòd sa itilize deja!");
+            if(transHistory.includes(trans)) {
+                alert("❌ Fwod detekte: Transcode sa itilize deja!");
                 return;
             }
 
-            btn.innerText = "VERIFICATION EN COURS...";
+            btn.innerText = "VERIFIKASYON REZO...";
             btn.disabled = true;
 
             setTimeout(() => {
-                user.balance += amt;
-                db.money += amt;
-                db.codes.push(code);
-                save();
-                updateUI();
-                btn.innerText = "RECHARGE KOUNYE A";
+                session.balance += amt;
+                transHistory.push(trans);
+                localStorage.setItem('ft_session', JSON.stringify(session));
+                localStorage.setItem('ft_trans', JSON.stringify(transHistory));
+                updateBalance();
+                
+                btn.innerText = "VALIDÈ PEMAN";
                 btn.disabled = false;
-                alert(`✅ ${amt} HTG ajoute! Sistèm nan valide transaksyon ${code} la otomatikman.`);
-                addLog(`Dépôt: ${user.name} | ${amt} HTG | Code: ${code}`);
-            }, 2000);
+                alert(`✅ Bravo! ${amt} HTG ajoute sou kont ou.`);
+                
+                // Mesaj Konfimasyon Admin
+                const msg = `💰 DEPÔT RÉUSSI\nKliyan: ${session.name}\nID: ${session.id}\nMontant: ${amt} HTG\nTranscode: ${trans}\nExpéditeur: ${num}`;
+                window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
+            }, 2500);
         }
 
-        // FREE FIRE LOGIC
-        function openFFModal() { document.getElementById('ff-modal').style.display = 'flex'; }
+        // GARENA LOGIC
+        function openFF() { document.getElementById('ff-modal').style.display = 'flex'; }
         function closeFF() { document.getElementById('ff-modal').style.display = 'none'; }
 
-        function verifyFF() {
-            const id = document.getElementById('ff-id').value;
+        function verifyGarenaAccount() {
+            const id = document.getElementById('ff-player-id').value;
             if(id.length > 5) {
-                document.getElementById('ff-player-name').innerText = "✅ Player Found: " + id + "_Garena";
-                document.getElementById('ff-packages').style.display = 'block';
-            }
+                document.getElementById('ff-step-1').style.display = 'none';
+                document.getElementById('ff-profile-info').style.display = 'block';
+                document.getElementById('garena-name').innerText = "ID_"+id+"_VERIFIED";
+            } else { alert("ID sa pa egziste sou Garena!"); }
         }
 
-        function generateCode(dm, price) {
-            if(user.balance < price) {
-                alert("❌ Balans ou twò piti!");
+        function processFF(dm, price) {
+            if(session.balance < price) {
+                alert("❌ Ou pa gen ase kòb. Al recharge balans ou!");
                 return;
             }
-            user.balance -= price;
-            save();
-            updateUI();
-            const pin = "FF-" + Math.random().toString(36).substr(2, 10).toUpperCase();
+            session.balance -= price;
+            localStorage.setItem('ft_session', JSON.stringify(session));
+            updateBalance();
+
+            const pin = "FFP-" + Math.random().toString(36).substr(2, 9).toUpperCase();
             document.getElementById('ff-packages').style.display = 'none';
-            document.getElementById('code-area').style.display = 'block';
-            document.getElementById('final-code').innerText = pin;
+            document.getElementById('redeem-box').style.display = 'block';
+            document.getElementById('generated-pin').innerText = pin;
         }
 
-        function copyCode() {
-            navigator.clipboard.writeText(document.getElementById('final-code').innerText);
-            alert("Kòd Kopye!");
+        function copyAndRedirect() {
+            const pin = document.getElementById('generated-pin').innerText;
+            navigator.clipboard.writeText(pin);
+            alert("Kòd Kopye! Kole l sou redeempins.com kounye a.");
+            window.location.href = "https://redeempins.com";
         }
 
-        // WHATSAPP SERVICES
+        // SERVICES & SUPPORT
         function orderService(service) {
             let msg = "";
             if(service === 'Netflix') {
-                msg = `Bonjour Support,\nJe souhaite un abonnement Netflix (1 mois).\nNom: ${user.name}\nID Client: ${user.id}\nPaiement: Validé automatiquement.\nMerci d'envoyer l'Email, Mot de passe et Code profil.`;
+                msg = `Bonjour Support,\nJe viens de commander un profil Netflix.\nNom: ${session.name}\nID Client: ${session.id}\nStatut: Paiement Automatique Validé.`;
             } else if(service === 'TikTok') {
-                msg = `Bonjour, je veux recharger mon compte TikTok avec ma balance Fake Tech.\nClient: ${user.name}\nID: ${user.id}`;
+                msg = `Mwen bezwen recharge TikTok mwen.\nKliyan: ${session.name}\nID: ${session.id}`;
+            } else if(service === 'Support') {
+                msg = `SOUÈT ÈD\nKliyan: ${session.name}\nID: ${session.id}\nNimewo: ${session.phone}`;
             } else {
-                msg = `Bonjour, je suis intéressé par le service ${service} qui est en attente.\nClient: ${user.name}\nID: ${user.id}`;
+                msg = `SÈVIS EN ATTENTE: ${service}\nKliyan: ${session.name}\nID: ${session.id}`;
             }
-            window.location.href = `https://wa.me/${support}?text=${encodeURIComponent(msg)}`;
+            window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
         }
-
-        // ADMIN ACCESS
-        function openAdmin() {
-            const p = prompt("PIN ADMIN:");
-            if(p === "1234") {
-                document.getElementById('admin-panel').style.display = 'flex';
-                document.getElementById('adm-u').innerText = db.users.length;
-                document.getElementById('adm-m').innerText = db.money.toFixed(2) + " HTG";
-            }
-        }
-
-        function addLog(txt) {
-            const l = document.getElementById('adm-logs');
-            l.innerHTML = `<div>> ${txt}</div>` + l.innerHTML;
-        }
-
-        function save() { localStorage.setItem('ft_db', JSON.stringify(db)); }
 
         function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.nav-icon').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
         }
+
+        function accessAdmin() {
+            const p = prompt("PIN ADMIN:");
+            if(p === "1234") {
+                alert(`ADMIN STATUS:\nTotal Users: 1 (Session Aktif)\nTotal Transcodes: ${transHistory.length}\nSystem: Operational`);
+            }
+        }
+
+        window.onload = () => { if(session) startApp(); };
     </script>
 </body>
 </html>
+                             
