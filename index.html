@@ -1,9 +1,9 @@
-         <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Tech | V9 Premium</title>
+    <title>Fake YT Tech | Elite Top-Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -15,277 +15,255 @@
         }
 
         body, html {
-            margin: 0; padding: 0; background: #000;
+            margin: 0; padding: 0; background: #0b0e14;
             color: #fff; font-family: 'Inter', sans-serif;
-            overflow-x: hidden; min-height: 100vh;
+            min-height: 100vh;
         }
 
-        .bg-vibe {
-            position: fixed; inset: 0;
-            background: radial-gradient(circle at top right, #200008, #000), 
-                        url('https://i.pinimg.com/originals/eb/3a/7b/eb3a7b6d1947e44a49186675003666f2.jpg') center/cover;
-            filter: brightness(0.35); z-index: -1;
+        /* LOGIN IMPROVEMENT */
+        .login-box {
+            background: linear-gradient(145deg, rgba(20,20,20,0.9), rgba(0,0,0,0.9));
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(255,0,60,0.2);
+            padding: 40px 25px; border-radius: 30px;
+            text-align: center; width: 85%; max-width: 400px;
         }
 
-        .glass-card { background: var(--glass); backdrop-filter: var(--blur); border: var(--border); border-radius: 24px; padding: 20px; margin-bottom: 15px; }
+        .login-logo {
+            width: 80px; height: 80px; background: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; font-size: 35px; box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* GRID SYSTEM */
+        .package-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .package-card {
+            background: var(--glass); border: var(--border); border-radius: 20px;
+            padding: 20px; text-align: center; position: relative; overflow: hidden;
+            transition: 0.3s;
+        }
+        .package-card:active { transform: scale(0.95); border-color: var(--accent); }
+        .package-card i { font-size: 24px; color: var(--accent); margin-bottom: 10px; }
+        .price-tag { font-weight: 900; color: #00ffcc; font-size: 18px; margin-top: 5px; }
+
+        /* UI COMPONENTS */
+        .glass-card { background: var(--glass); backdrop-filter: var(--blur); border: var(--border); border-radius: 24px; padding: 20px; margin: 15px; }
         .input-group { width: 100%; padding: 16px; margin-top: 10px; border-radius: 12px; border: var(--border); background: rgba(0,0,0,0.5); color: #fff; outline: none; box-sizing: border-box; }
         .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--primary), #900); color: #fff; font-weight: 800; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-
+        
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 10000; display: none; justify-content: center; align-items: center; }
-        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.8); border-bottom: var(--border); position: sticky; top: 0; z-index: 100; }
-        .page { display: none; padding: 20px; padding-bottom: 120px; animation: fadeIn 0.3s ease; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page { display: none; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
 
-        /* HISTORY & LOGS */
-        .history-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border-left: 4px solid var(--primary); margin-bottom: 10px; font-size: 13px; position: relative; }
-        .history-item.deposit { border-left-color: #00ffcc; }
-        .time-badge { font-size: 10px; opacity: 0.5; display: block; margin-bottom: 4px; }
-
-        /* NAV */
-        .nav-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; background: rgba(10,10,10,0.9); border-radius: 40px; display: flex; justify-content: space-around; padding: 15px; border: var(--border); backdrop-filter: blur(20px); }
-        .nav-icon { color: #555; font-size: 18px; cursor: pointer; text-align: center; }
-        .nav-icon.active { color: var(--primary); }
-        .nav-icon span { display: block; font-size: 9px; margin-top: 4px; }
-
-        .support-box { border: 1px solid var(--accent); background: rgba(0,212,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 15px; }
+        /* NAV BAR */
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; background: rgba(15,15,15,0.95); border-radius: 50px; display: flex; justify-content: space-around; padding: 15px; border: var(--border); z-index: 999; }
+        .nav-icon { color: #666; font-size: 20px; text-align: center; cursor: pointer; }
+        .nav-icon.active { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+        .nav-icon span { display: block; font-size: 10px; margin-top: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="bg-vibe"></div>
-
-    <div id="admin-screen" class="overlay">
-        <div class="glass-card" style="width:90%; max-width:500px; max-height: 85vh; overflow-y: auto;">
-            <h2 style="color:var(--accent); text-align:center;">GLOBAL ADMIN LOGS</h2>
-            
-            <div style="background:rgba(0,0,0,0.5); padding:15px; border-radius:15px; margin-bottom:20px;">
-                <p style="font-size:11px; margin:0 0 10px 0; color:var(--accent);">AJOUTER CRÉDIT (MANUEL)</p>
-                <input type="text" id="adm-target-id" class="input-group" placeholder="ID Kliyan (FT-XXXX)">
-                <input type="number" id="adm-amount" class="input-group" placeholder="Montant en Gdes/HTG">
-                <button class="btn-main" style="background:var(--accent); color:#000;" onclick="adminAddMoney()">CREDITER LE COMPTE</button>
-            </div>
-
-            <h4 style="margin:20px 0 10px 0; border-bottom: 1px solid var(--glass);">LISTE DES TRANSACTIONS</h4>
-            <div id="admin-global-logs"></div>
-
-            <button class="btn-main" style="background:#222; margin-top:20px;" onclick="document.getElementById('admin-screen').style.display='none'">FERMER</button>
-        </div>
-    </div>
-
     <div id="auth-screen" class="overlay" style="display:flex;">
-        <div class="glass-card" style="width:85%; max-width:350px; text-align:center;">
-            <h2 style="margin-bottom:0;">FAKE TECH</h2>
-            <p style="font-size:10px; opacity:0.5; margin-bottom:20px;">PREMIUM SERVICES</p>
-            <input type="text" id="reg-name" class="input-group" placeholder="Nom Complet">
-            <input type="password" id="reg-pin" class="input-group" placeholder="PIN de Sécurité">
-            <button class="btn-main" onclick="handleAuth()">ACCÉDER</button>
-            <p onclick="openAdmin()" style="font-size:10px; color:var(--primary); cursor:pointer; margin-top:20px;">Access Admin Dashboard</p>
+        <div class="login-box">
+            <div class="login-logo"><i class="fa-solid fa-bolt"></i></div>
+            <h1 style="margin:0; font-size:24px; letter-spacing:2px;">FAKE YT <span style="color:var(--primary)">TECH</span></h1>
+            <p style="font-size:12px; opacity:0.6; margin-bottom:30px;">Konekte pou komanse fè Top-Up</p>
+            <input type="text" id="reg-name" class="input-group" placeholder="Non ou">
+            <input type="password" id="reg-pin" class="input-group" placeholder="PIN Sekirite">
+            <button class="btn-main" onclick="handleAuth()">Antre Kounye a</button>
+            <p onclick="openAdmin()" style="margin-top:20px; font-size:10px; color:var(--primary); cursor:pointer;">ADMIN DASHBOARD</p>
         </div>
     </div>
 
     <div id="main-app" style="display:none;">
-        <header>
-            <div style="font-weight:900; letter-spacing:1px;">FAKE <span style="color:var(--primary)">TECH</span></div>
-            <div id="u-id-display" style="font-size:10px; border:1px solid var(--primary); padding:5px 12px; border-radius:20px; color:var(--primary);">ID: --</div>
+        <header style="padding:20px; display:flex; justify-content:space-between; align-items:center; border-bottom:var(--border);">
+            <div style="font-weight:900;">FAKE YT <span style="color:var(--primary)">TECH</span></div>
+            <div id="u-balance-top" style="color:var(--accent); font-weight:bold;">0 HTG</div>
         </header>
 
         <div id="home" class="page active">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                <div class="glass-card" style="text-align:center;" onclick="buyFF_Action()">
-                    <i class="fa-solid fa-gem" style="color:var(--primary); font-size:25px; margin-bottom:10px;"></i><br>Free Fire
+            <div class="glass-card" style="margin-top:20px; border-left:4px solid var(--accent);">
+                <small>Player ID Verification</small>
+                <input type="number" id="player-id-check" class="input-group" placeholder="Antre ID Free Fire ou a">
+            </div>
+
+            <h4 style="margin:20px 15px 5px;">DIAMOND PACKAGES (100 = 165 HTG)</h4>
+            <div class="package-grid">
+                <div class="package-card" onclick="buyService('FF', 100, 165)">
+                    <i class="fa-solid fa-gem"></i><br>100💎<div class="price-tag">165 HTG</div>
                 </div>
-                <div class="glass-card" style="text-align:center;" onclick="orderNetflix()">
-                    <i class="fa-solid fa-tv" style="font-size:25px; margin-bottom:10px;"></i><br>Netflix
+                <div class="package-card" onclick="buyService('FF', 310, 510)">
+                    <i class="fa-solid fa-gem"></i><br>310💎<div class="price-tag">510 HTG</div>
+                </div>
+                <div class="package-card" onclick="buyService('FF', 520, 850)">
+                    <i class="fa-solid fa-gem"></i><br>520💎<div class="price-tag">850 HTG</div>
+                </div>
+                <div class="package-card" onclick="buyService('FF', 1060, 1750)">
+                    <i class="fa-solid fa-gem"></i><br>1060💎<div class="price-tag">1750 HTG</div>
                 </div>
             </div>
 
-            <div class="support-box">
-                <h4 style="margin:0 0 10px 0; color:var(--accent);"><i class="fa-solid fa-circle-info"></i> CENTRE DE SUPPORT</h4>
-                <p style="font-size:12px; margin:5px 0;">Nimewo WhatsApp: <b>+509 4195-1159</b></p>
-                <p style="font-size:12px; margin:5px 0;">Disponibilite: 24/7 pou tout pwoblèm ou.</p>
-                <button class="btn-main" style="padding:10px; font-size:11px; background:var(--accent); color:#000;" onclick="contactSupport()">KONTAKTE NOU</button>
+            <h4 style="margin:20px 15px 5px;">APPLE GIFT CARDS</h4>
+            <div class="package-grid">
+                <div class="package-card" onclick="buyService('GIFT', 2, 330)">
+                    <i class="fa-brands fa-apple"></i><br>$2 Card<div class="price-tag">330 HTG</div>
+                </div>
+                <div class="package-card" onclick="buyService('GIFT', 5, 825)">
+                    <i class="fa-brands fa-apple"></i><br>$5 Card<div class="price-tag">825 HTG</div>
+                </div>
+                <div class="package-card" onclick="buyService('GIFT', 10, 1650)">
+                    <i class="fa-brands fa-apple"></i><br>$10 Card<div class="price-tag">1650 HTG</div>
+                </div>
+                <div class="package-card" onclick="buyService('GIFT', 20, 3300)">
+                    <i class="fa-brands fa-apple"></i><br>$20 Card<div class="price-tag">3300 HTG</div>
+                </div>
             </div>
         </div>
 
         <div id="wallet" class="page">
-            <div class="glass-card" style="text-align:center; background:rgba(255,0,60,0.05);">
-                <small style="opacity:0.6;">MON PORTEFEUILLE</small>
-                <h1 id="u-balance" style="font-size:40px; margin:10px 0;">0.00 HTG</h1>
+            <div class="glass-card" style="text-align:center;">
+                <p style="margin:0; opacity:0.6;">Balans ou</p>
+                <h1 id="u-balance-main" style="font-size:45px; margin:10px 0;">0.00 HTG</h1>
             </div>
-            
             <div class="glass-card">
-                <h3 style="margin:0 0 5px 0; color:var(--primary);">RECHARGE AUTOMATIQUE</h3>
-                <p style="font-size:12px; margin-bottom:15px; opacity:0.8;">
-                    Fè transfè sou: <br>
-                    <b>509 5511-2990</b> (Enelson Pierre)
-                </p>
-                <input type="number" id="p-trans" class="input-group" placeholder="Transcode (12-15 chiffres)">
-                <input type="number" id="p-amt" class="input-group" placeholder="Montant HTG">
-                <button class="btn-main" onclick="requestRecharge()">VALIDER MA RECHARGE</button>
+                <h3 style="color:var(--accent);">RECHARGE NATCASH</h3>
+                <p style="font-size:13px;">Voye kòb la sou: <b>509 5511-2990</b> (Enelson Pierre)</p>
+                <input type="number" id="p-trans" class="input-group" placeholder="Transcode (12-15 chif)">
+                <input type="number" id="p-amt" class="input-group" placeholder="Montan ou voye a">
+                <button class="btn-main" onclick="requestRecharge()">Verifye Peman</button>
             </div>
         </div>
 
         <div id="history" class="page">
-            <h3 style="margin-top:0;">HISTORIQUE DE COMPTE</h3>
-            <div id="user-history-list"></div>
+            <h3 style="margin:20px;">ISTORIK AK KÒD YO</h3>
+            <div id="user-history-list" style="padding:0 15px;"></div>
         </div>
 
         <nav class="nav-bar">
-            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-house"></i><span>Accueil</span></div>
+            <div class="nav-icon active" onclick="showPage('home', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-icon" onclick="showPage('wallet', this)"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
             <div class="nav-icon" onclick="showPage('history', this)"><i class="fa-solid fa-clock-rotate-left"></i><span>History</span></div>
         </nav>
     </div>
 
+    <div id="admin-screen" class="overlay">
+        <div class="glass-card" style="width:90%; max-width:500px; max-height:80vh; overflow-y:auto;">
+            <h2 style="color:var(--primary); text-align:center;">ADMIN PANEL</h2>
+            <input type="text" id="adm-id" class="input-group" placeholder="ID Kliyan (eg: FT-1234)">
+            <input type="number" id="adm-amt" class="input-group" placeholder="Montan">
+            <button class="btn-main" onclick="adminAddMoney()">Ajoute Kòb</button>
+            <hr style="opacity:0.1; margin:20px 0;">
+            <div id="admin-logs"></div>
+            <button class="btn-main" style="background:#222;" onclick="closeAdmin()">Fèmen</button>
+        </div>
+    </div>
+
     <script>
-        let db = JSON.parse(localStorage.getItem('ft_v9_db')) || { users: {}, globalLogs: [] };
+        // BAZ DE DONE KÒD YO
+        const codesDB = {
+            FF: ["8DEDDC47-327D-4C1B-991F-6D0C8339AEC9", "7AABB22-11CC-4D2B-882F-5D0C1234ABC"],
+            GIFT2: ["APPLE-GIFT-2USD-X92J", "APPLE-GIFT-2USD-P01L"],
+            GIFT5: ["APPLE-GIFT-5USD-L92K", "APPLE-GIFT-5USD-M02P"],
+            GIFT10: ["APPLE-GIFT-10USD-B12Q"],
+            GIFT20: ["APPLE-GIFT-20USD-Z09W"]
+        };
+
+        let db = JSON.parse(localStorage.getItem('fakeyt_db')) || { users: {}, globalLogs: [] };
         let user = null;
-        const supportNum = "50941951159";
 
         function handleAuth() {
             const n = document.getElementById('reg-name').value;
-            const pi = document.getElementById('reg-pin').value;
-            if(n && pi) {
-                const id = "FT-" + Math.floor(1000 + Math.random() * 9000);
-                if(!db.users[id]) db.users[id] = { id, name: n, balance: 0, history: [] };
-                user = db.users[id];
-                save();
-                renderApp();
-            }
+            if(!n) return alert("Mete non ou!");
+            const id = "FT-" + Math.floor(1000 + Math.random() * 9000);
+            if(!db.users[id]) db.users[id] = { id, name: n, balance: 0, history: [] };
+            user = db.users[id];
+            save();
+            renderApp();
         }
 
         function renderApp() {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('u-id-display').innerText = "ID: " + user.id;
             updateUI();
         }
 
         function updateUI() {
-            document.getElementById('u-balance').innerText = user.balance.toFixed(2) + " HTG";
-            renderUserHistory();
+            document.getElementById('u-balance-top').innerText = user.balance + " HTG";
+            document.getElementById('u-balance-main').innerText = user.balance.toFixed(2) + " HTG";
+            renderHistory();
         }
 
-        function save() { localStorage.setItem('ft_v9_db', JSON.stringify(db)); }
+        function buyService(type, val, price) {
+            const playerID = document.getElementById('player-id-check').value;
+            if(!playerID && type === 'FF') return alert("Ou dwe mete ID Free Fire a anvan!");
+            
+            if(user.balance < price) return alert("Balans ou pa ase!");
 
-        // LOGGING (DATE + HEURE)
-        function addLog(type, desc, amount, userId) {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('fr-FR');
-            const timeStr = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
-            const fullStamp = `${dateStr} à ${timeStr}`;
-
-            const logEntry = { 
-                timestamp: fullStamp, 
-                type, 
-                desc, 
-                amount, 
-                userId, 
-                userName: db.users[userId].name 
-            };
-
-            db.users[userId].history.unshift(logEntry);
-            db.globalLogs.unshift(logEntry);
+            user.balance -= price;
+            let codeKey = type === 'GIFT' ? 'GIFT'+val : 'FF';
+            let finalCode = codesDB[codeKey] ? codesDB[codeKey][0] : "KONTAKTE SUPPORT";
+            
+            const now = new Date().toLocaleString('fr-FR');
+            const log = { date: now, desc: `${val} ${type === 'FF'?'💎':'$ Card'} (ID: ${playerID||'N/A'})`, amount: -price, code: finalCode };
+            
+            user.history.unshift(log);
+            db.globalLogs.unshift({ ...log, userName: user.name, userID: user.id });
             save();
+            updateUI();
+            alert("✅ Acha Reyisi! Al nan Istorik pou kopye kòd ou.");
         }
 
-        // ACTIONS
         function requestRecharge() {
             const trans = document.getElementById('p-trans').value;
             const amt = document.getElementById('p-amt').value;
-            if(trans.length >= 12 && amt > 0) {
-                const msg = `⚡ *DEMANDE DE RECHARGE*\n\n👤 *Client:* ${user.name}\n🆔 *ID:* ${user.id}\n🔢 *Transcode:* \`${trans}\`\n💰 *Montant:* ${amt} HTG\n🏦 *Destinataire:* Enelson Pierre (5511-2990)`;
-                window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
-            } else { alert("Kòrèkte fòma transcode la!"); }
+            if(trans.length < 12) return alert("Transcode a twò kout!");
+            const msg = `⚡ *DEMANDE RECHARGE*\nKliyan: ${user.name}\nID: ${user.id}\nTranscode: ${trans}\nMontant: ${amt} HTG`;
+            window.location.href = `https://wa.me/50941951159?text=${encodeURIComponent(msg)}`;
         }
 
-        function orderNetflix() {
-            const price = 500; // Pri ou mande a
-            if(user.balance >= price) {
-                user.balance -= price;
-                addLog('purchase', 'Achat Netflix (1 Mois)', -price, user.id);
-                updateUI();
-                const msg = `📺 *COMMANDE NETFLIX*\n\n👤 *Client:* ${user.name}\n🆔 *ID:* ${user.id}\n💰 *Prix:* 500 GDS\n✅ *Statut:* Paiement Validé.\n\n_Veuillez envoyer mes accès._`;
-                window.location.href = `https://wa.me/${supportNum}?text=${encodeURIComponent(msg)}`;
-            } else { alert("Balance ou pa ase. Pri Netflix la se 500 GDS."); }
-        }
-
-        function buyFF_Action() {
-            const price = 165;
-            if(user.balance >= price) {
-                user.balance -= price;
-                const code = genRedeemCode();
-                addLog('purchase', `Free Fire 100💎 (PIN: ${code})`, -price, user.id);
-                updateUI();
-                alert("Acha reyisi! Gade istorik ou pou kòd la.");
-            } else { alert("Balance ou twò piti!"); }
-        }
-
-        function genRedeemCode() {
-            const s = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).toUpperCase();
-            return `${s()}${s()}-${s()}-${s()}-${s()}-${s()}${s()}${s()}`;
-        }
-
-        // RENDERING
-        function renderUserHistory() {
+        function renderHistory() {
             const list = document.getElementById('user-history-list');
             list.innerHTML = user.history.map(h => `
-                <div class="history-item ${h.amount > 0 ? 'deposit' : ''}">
-                    <span class="time-badge">${h.timestamp}</span>
+                <div class="glass-card" style="margin:10px 0; border-left:3px solid ${h.amount>0?'#00ffcc':''}">
+                    <small style="opacity:0.5">${h.date}</small><br>
                     <b>${h.desc}</b><br>
-                    <span style="color:${h.amount > 0 ? '#00ffcc' : 'var(--primary)'}">
-                        ${h.amount > 0 ? '+' : ''}${h.amount} HTG
-                    </span>
+                    <span style="color:${h.amount>0?'#00ffcc':'#ff003c'}">${h.amount} HTG</span>
+                    ${h.code ? `<div style="background:rgba(0,0,0,0.4); padding:10px; margin-top:10px; border-radius:10px; font-family:monospace; font-size:12px; color:var(--accent)">KÒD: ${h.code}</div>` : ''}
                 </div>
             `).join('');
         }
 
-        function renderAdminLogs() {
-            const list = document.getElementById('admin-global-logs');
-            list.innerHTML = db.globalLogs.map(l => `
-                <div class="history-item" style="border-left-color:${l.amount > 0 ? '#00ffcc' : 'orange'}">
-                    <span class="time-badge">${l.timestamp} - ID: ${l.userId}</span>
-                    <b>${l.userName}</b>: ${l.desc} | <b>${l.amount} HTG</b>
-                </div>
-            `).join('');
-        }
-
-        // ADMIN ACCESS
-        function openAdmin() {
-            if(prompt("ADMIN PASSWORD:") === "1234") {
-                document.getElementById('admin-screen').style.display = 'flex';
+        function adminAddMoney() {
+            const id = document.getElementById('adm-id').value;
+            const amt = parseFloat(document.getElementById('adm-amt').value);
+            if(db.users[id]) {
+                db.users[id].balance += amt;
+                db.globalLogs.unshift({ date: new Date().toLocaleString(), desc: "Recharge Admin", amount: amt, userName: db.users[id].name, userID: id });
+                save();
+                alert("Kòb la ajoute!");
                 renderAdminLogs();
             }
         }
 
-        function adminAddMoney() {
-            const target = document.getElementById('adm-target-id').value;
-            const amt = parseFloat(document.getElementById('adm-amount').value);
-            if(db.users[target]) {
-                db.users[target].balance += amt;
-                if(user.id === target) user.balance = db.users[target].balance;
-                addLog('deposit', 'Crédit Ajouté par Admin', amt, target);
-                alert("Crédit ajouté!");
-                updateUI();
-                renderAdminLogs();
-            } else { alert("Client introuvable!"); }
+        function renderAdminLogs() {
+            const logDiv = document.getElementById('admin-logs');
+            logDiv.innerHTML = db.globalLogs.map(l => `
+                <div style="font-size:11px; padding:5px; border-bottom:1px solid rgba(255,255,255,0.05)">
+                    ${l.date} - ${l.userName} (${l.userID}): ${l.amount} HTG
+                </div>
+            `).join('');
         }
 
-        function contactSupport() { orderService('Support'); }
-        function orderService(s) {
-            window.location.href = `https://wa.me/${supportNum}?text=Support%20Fake%20Tech%20ID:%20${user.id}`;
-        }
-
+        function openAdmin() { if(prompt("PIN ADMIN:") === "1234") { document.getElementById('admin-screen').style.display='flex'; renderAdminLogs(); } }
+        function closeAdmin() { document.getElementById('admin-screen').style.display='none'; }
+        function save() { localStorage.setItem('fakeyt_db', JSON.stringify(db)); }
         function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.nav-icon').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
-            if(id === 'history') updateUI();
         }
     </script>
 </body>
 </html>
-          
-                  
