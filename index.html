@@ -1,222 +1,1468 @@
-            <!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="ht">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake YT Tech | V16 Ghost</title>
+    <title>Recharge Mobil Haiti - Digicel, Natcom, Voilà</title>
+    <meta name="description" content="Recharge mobil rapid, sekirite, ak pre ba - Digicel, Natcom, Voilà">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2300d4ff'>📱</text></svg>">
     <style>
         :root {
-            --neon-pink: #ff003c;
-            --neon-blue: #00d4ff;
-            --bg-dark: #02050a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --shimmer: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            --primary: #00d4ff;
+            --secondary: #ff003c;
+            --success: #00ff88;
+            --warning: #ffa500;
+            --danger: #ff4444;
+            --dark: #0a0c15;
+            --darker: #050608;
+            --card: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
         }
 
-        body, html {
-            margin: 0; padding: 0; background: var(--bg-dark);
-            background-image: url('https://6ec794d163623879956ebac39f2475e9.jpg'); /* Imaj Central */
-            background-attachment: fixed;
-            background-size: cover;
-            color: #fff; font-family: 'Inter', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- SKELETON & SHIMMER --- */
-        .skeleton { position: relative; overflow: hidden; background: #111; border-radius: 20px; }
-        .skeleton::after {
-            content: ""; position: absolute; inset: 0;
-            background: var(--shimmer);
-            animation: shimmer 1.5s infinite;
+        /* ========== LAYOUT ========== */
+        body { display: flex; flex-direction: column; }
+
+        .app-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--dark);
+            position: relative;
+            min-height: 100vh;
         }
-        @keyframes shimmer { 100% { transform: translateX(100%); } }
 
-        /* --- GLOW BLOOM EFFECT --- */
-        .glow-bloom {
-            box-shadow: 0 0 15px var(--neon-pink), 0 0 30px rgba(255, 0, 60, 0.2);
-            transition: 0.3s;
+        /* ========== HEADER ========== */
+        .header {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 60, 0.1));
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
         }
-        .glow-bloom:hover { box-shadow: 0 0 25px var(--neon-pink), 0 0 50px rgba(255, 0, 60, 0.4); }
 
-        /* --- AUTH --- */
-        .auth-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); display: flex; justify-content: center; align-items: center; }
-        .auth-card { width: 85%; max-width: 380px; padding: 40px 25px; border-radius: 30px; border: 1px solid rgba(0,212,255,0.2); text-align: center; }
-
-        /* --- SERVICE CARDS --- */
-        .service-card {
-            height: 140px; margin: 15px; border-radius: 25px; position: relative;
-            overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+        .header-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .service-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.7; }
-        .service-card:hover img { transform: scale(1.1); opacity: 1; }
-        .service-card h3 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; background: rgba(0,0,0,0.3); font-size: 22px; font-weight: 900; }
 
-        /* --- UI --- */
-        header { padding: 25px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .input-box { width: 100%; padding: 18px; margin: 10px 0; border-radius: 15px; background: rgba(0,0,0,0.7); border: 1px solid var(--neon-blue); color: #fff; outline: none; }
-        .cyber-btn { width: 100%; padding: 18px; border-radius: 15px; border: none; background: var(--neon-pink); color: #fff; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+        .header-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
 
-        nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; height: 70px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
-        .nav-item { color: #666; font-size: 24px; }
-        .nav-item.active { color: var(--neon-blue); filter: drop-shadow(0 0 8px var(--neon-blue)); }
+        /* ========== PAGES ========== */
+        .page {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-in;
+        }
 
-        #admin-panel { position: fixed; inset: 0; background: #000; z-index: 11000; display: none; padding: 25px; overflow-y: auto; }
-        .page { display: none; animation: fadeIn 0.4s ease; padding-bottom: 110px; }
-        .active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== AUTH PAGE ========== */
+        .auth-page {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 40px 25px;
+            width: 100%;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px;
+            border-radius: 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), #00a8cc);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .auth-footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
+
+        /* ========== HOME PAGE ========== */
+        .balance-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 0, 60, 0.15));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .balance-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .balance-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .balance-actions .btn {
+            flex: 1;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .providers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .provider-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .provider-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .provider-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+        }
+
+        .provider-card:hover::before {
+            opacity: 1;
+        }
+
+        .provider-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .provider-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .provider-status {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ========== RECHARGE PAGE ========== */
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 20px 0 15px 0;
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .country-code {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            width: 80px;
+            text-align: center;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .phone-input-group .form-input {
+            flex: 1;
+        }
+
+        .preset-amounts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .amount-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .amount-btn:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .amount-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+
+        .custom-amount-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .custom-amount-group .form-input {
+            flex: 1;
+        }
+
+        .fee-info {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .fee-row.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 8px;
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ========== PAYMENT METHOD ========== */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .payment-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .payment-method.active .payment-radio {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        .payment-radio::after {
+            content: '✓';
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .payment-method.active .payment-radio::after {
+            opacity: 1;
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .payment-detail {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .payment-icon {
+            font-size: 24px;
+        }
+
+        /* ========== BOTTOM NAV ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            height: 70px;
+            background: rgba(10, 12, 21, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 500;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            flex: 1;
+            height: 100%;
+            justify-content: center;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 350px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 24px;
+            padding: 5px;
+        }
+
+        /* ========== SUCCESS/ERROR ========== */
+        .alert {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            color: var(--danger);
+        }
+
+        .alert-warning {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            color: var(--warning);
+        }
+
+        .alert-info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--primary);
+        }
+
+        /* ========== TRANSACTION HISTORY ========== */
+        .transaction-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-icon {
+            font-size: 24px;
+            margin-right: 12px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-provider {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .transaction-phone {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .transaction-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* ========== LOADING ========== */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 360px) {
+            .app-container { font-size: 13px; }
+            .header-title { font-size: 20px; }
+            .balance-amount { font-size: 28px; }
+            .providers-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="auth-screen" class="auth-overlay">
+<div class="app-container">
+    
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-title">📱 RECHARGE</div>
+        <div class="header-subtitle">Rapid • Sekirite • Konfiyan</div>
+    </div>
+
+    <!-- ALERT MESSAGES -->
+    <div class="alert alert-success" id="alertSuccess"></div>
+    <div class="alert alert-error" id="alertError"></div>
+    <div class="alert alert-warning" id="alertWarning"></div>
+    <div class="alert alert-info" id="alertInfo"></div>
+
+    <!-- PAGE: AUTH -->
+    <div id="authPage" class="page auth-page active">
         <div class="auth-card">
-            <h1 id="logo-admin-trigger" style="color:var(--neon-blue); letter-spacing:8px; margin:0; cursor:pointer;" ondblclick="openAdminPortal()">FAKE YT</h1>
-            <p style="font-size:10px; opacity:0.5; margin-bottom:30px;">SECURE TOP-UP SYSTEM</p>
+            <h2 style="margin-bottom: 25px; text-align: center;">Bienveni</h2>
             
-            <input type="email" id="auth-email" class="input-box" placeholder="Email (Gmail)">
-            <input type="password" id="auth-pass" class="input-box" placeholder="Modpas">
-            
-            <button class="cyber-btn glow-bloom" onclick="handleAuth()">LOGIN / JOIN</button>
-            <p style="font-size:11px; margin-top:20px; opacity:0.6;">Sistèm nan ap rekonèt imel ou otomatikman.</p>
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchAuthTab('login')">KONEKTE</button>
+                <button class="tab-btn" onclick="switchAuthTab('signup')">KREYE KONT</button>
+            </div>
+
+            <form id="authForm" onsubmit="handleAuth(event)">
+                <div class="form-group">
+                    <label class="form-label">📧 Email</label>
+                    <input type="email" id="authEmail" class="form-input" placeholder="vòt@egzanp.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">🔐 Modpas</label>
+                    <input type="password" id="authPassword" class="form-input" placeholder="Miniman 8 karaktè" required>
+                </div>
+
+                <div id="nameField" class="form-group" style="display: none;">
+                    <label class="form-label">👤 Non</label>
+                    <input type="text" id="authName" class="form-input" placeholder="Vòt non konple">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span id="authBtnText">KONEKTE</span>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                ✓ Sekirite AES-256 | ✓ HTTPS | ✓ Pa gen Tracking
+            </div>
         </div>
     </div>
 
-    <div id="main-app" style="display:none;">
-        <header>
-            <div style="font-weight:900; font-size:20px; color:var(--neon-pink);">FAKE YT <span style="color:#fff;">TECH</span></div>
-            <div id="u-bal" style="background:var(--neon-blue); color:#000; padding:5px 15px; border-radius:20px; font-weight:bold; font-size:14px;">0 HTG</div>
-        </header>
-
-        <div id="skeleton-loader" style="padding: 15px;">
-            <div class="skeleton" style="height: 120px; margin-bottom: 15px;"></div>
-            <div class="skeleton" style="height: 140px; margin-bottom: 15px;"></div>
-            <div class="skeleton" style="height: 140px; margin-bottom: 15px;"></div>
-        </div>
-
-        <div id="app-content" style="display:none;">
-            <div id="p-home" class="page active-page">
-                <div class="service-card" onclick="openStore('FF')">
-                    <img src="https://e8e9e64656c33f2d5ab73935fb92dceb.jpg">
-                    <h3>FREE FIRE</h3>
-                </div>
-                <div class="service-card" onclick="openStore('GIFT')">
-                    <img src="https://8be93e0e1449fc808c712c30feba2202.jpg">
-                    <h3>GIFT CARDS</h3>
-                </div>
-                <div class="service-card" onclick="openStore('NETFLIX')">
-                    <img src="https://d80946d649927ca4a96d2dfbb2a66671.jpg">
-                    <h3>NETFLIX</h3>
-                </div>
-            </div>
-
-            <div id="p-wallet" class="page">
-                <div style="text-align:center; padding:40px;">
-                    <small style="opacity:0.5;">SOLDE TOTAL</small>
-                    <h1 id="big-bal" style="font-size:50px; margin:0; color:var(--neon-blue);">0.00 HTG</h1>
-                </div>
-                <div style="margin:20px; padding:25px; border-radius:30px; background:rgba(255,255,255,0.05); border:1px dashed var(--neon-blue);">
-                    <p>Natcash: <b>5511-2990</b> (Enelson Pierre)</p>
-                    <input type="number" id="t-code" class="input-box" placeholder="Transcode">
-                    <input type="number" id="t-amt" class="input-box" placeholder="Montant">
-                    <button class="cyber-btn glow-bloom" onclick="contactSupport()">RECHARGE KONT</button>
-                </div>
-            </div>
-
-            <div id="p-history" class="page">
-                <h3 style="margin:20px;">ISTORIK</h3>
-                <div id="hist-list" style="padding:0 20px;"></div>
+    <!-- PAGE: HOME -->
+    <div id="homePage" class="page">
+        <div class="balance-card">
+            <div class="balance-label">Balans Kont</div>
+            <div class="balance-amount" id="balanceAmount">0.00 HTG</div>
+            <div class="balance-actions">
+                <button class="btn btn-secondary" onclick="showModal('addFundsModal')">➕ Ajoute Fon</button>
+                <button class="btn btn-secondary" onclick="showPage('historyPage')">📊 Istorik</button>
             </div>
         </div>
 
-        <nav>
-            <div class="nav-item active" onclick="nav('p-home', this)"><i class="fa-solid fa-ghost"></i></div>
-            <div class="nav-item" onclick="nav('p-wallet', this)"><i class="fa-solid fa-wallet"></i></div>
-            <div class="nav-item" onclick="nav('p-history', this)"><i class="fa-solid fa-clock-rotate-left"></i></div>
-        </nav>
+        <div class="section-title">Chwazi Fournisè</div>
+        <div class="providers-grid">
+            <div class="provider-card" onclick="startRecharge('digicel')">
+                <div class="provider-icon">🔴</div>
+                <div class="provider-name">Digicel</div>
+                <div class="provider-status">Haiti • Rapid</div>
+            </div>
+            <div class="provider-card" onclick="startRecharge('natcom')">
+                <div class="provider-icon">🟠</div>
+                <div class="provider-name">Natcom</div>
+                <div class="provider-status">Haiti • Ekonomik</div>
+            </div>
+            <div class="provider-card" onclick="startRecharge('voila')">
+                <div class="provider-icon">🟣</div>
+                <div class="provider-name">Voilà</div>
+                <div class="provider-status">Haiti • Rapid</div>
+            </div>
+            <div class="provider-card" onclick="startRecharge('haiti-tel')">
+                <div class="provider-icon">🔵</div>
+                <div class="provider-name">Haiti-Tèl</div>
+                <div class="provider-status">Haiti • 24/7</div>
+            </div>
+        </div>
     </div>
 
-    <div id="admin-panel">
-        <h2 style="color:var(--neon-pink);">SYSTEM OVERRIDE</h2>
-        <div style="padding:20px; border-radius:20px; background:rgba(255,255,255,0.05);">
-            <input type="email" id="adm-email" class="input-box" placeholder="Email Kliyan">
-            <input type="number" id="adm-amt" class="input-box" placeholder="Montant">
-            <button class="cyber-btn" style="background:#00ff88; color:#000;" onclick="adminAdd()">VALIDER RECHAJ</button>
+    <!-- PAGE: RECHARGE -->
+    <div id="rechargePage" class="page">
+        <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary);" id="rechargeProvider">DIGICEL</h3>
+
+        <div class="section-title">📞 Nimewo Telefòn</div>
+        <div class="phone-input-group">
+            <div class="country-code">🇭🇹 +509</div>
+            <input type="tel" id="phoneNumber" class="form-input" placeholder="47XXXXXX" maxlength="8" pattern="[0-9]{8}">
         </div>
-        <button class="cyber-btn" style="margin-top:20px; background:#333;" onclick="document.getElementById('admin-panel').style.display='none'">EXIT</button>
+
+        <div class="section-title">💰 Montant</div>
+        <div class="preset-amounts">
+            <button class="amount-btn" onclick="selectAmount(100)">100 HTG</button>
+            <button class="amount-btn" onclick="selectAmount(200)">200 HTG</button>
+            <button class="amount-btn" onclick="selectAmount(500)">500 HTG</button>
+            <button class="amount-btn" onclick="selectAmount(1000)">1000 HTG</button>
+        </div>
+
+        <div class="custom-amount-group">
+            <input type="number" id="customAmount" class="form-input" placeholder="Montant Pesonil">
+            <button class="amount-btn" onclick="selectCustomAmount()" style="flex: 0; width: 50px; padding: 0; display: flex; align-items: center; justify-content: center;">➕</button>
+        </div>
+
+        <div class="fee-info">
+            <div class="fee-row">
+                <span>Montant Recharge:</span>
+                <span id="feeAmount">0 HTG</span>
+            </div>
+            <div class="fee-row">
+                <span>Frè (2.5%):</span>
+                <span id="feePercentage">0 HTG</span>
+            </div>
+            <div class="fee-row total">
+                <span>Total:</span>
+                <span id="feeTotal">0 HTG</span>
+            </div>
+        </div>
+
+        <div class="section-title">💳 Metòd Peyman</div>
+        <div class="payment-methods">
+            <div class="payment-method active" onclick="selectPaymentMethod('natcash')">
+                <div class="payment-radio"></div>
+                <div class="payment-icon">💵</div>
+                <div class="payment-info">
+                    <div class="payment-name">Natcash</div>
+                    <div class="payment-detail">Mobile Money • Imedyat</div>
+                </div>
+            </div>
+            <div class="payment-method" onclick="selectPaymentMethod('digicel-money')">
+                <div class="payment-radio"></div>
+                <div class="payment-icon">📲</div>
+                <div class="payment-info">
+                    <div class="payment-name">Digicel Money</div>
+                    <div class="payment-detail">Mobile Money • 24/7</div>
+                </div>
+            </div>
+            <div class="payment-method" onclick="selectPaymentMethod('bank-transfer')">
+                <div class="payment-radio"></div>
+                <div class="payment-icon">🏦</div>
+                <div class="payment-info">
+                    <div class="payment-name">Transfè Bidje</div>
+                    <div class="payment-detail">Bidje Vireyman • 1-2 Zè</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: auto; margin-bottom: 85px;" onclick="proceedToPayment()">
+            <span id="proceedBtnText">KONTINYE PEYMAN</span>
+        </button>
     </div>
 
-    <script>
-        let db = JSON.parse(localStorage.getItem('ft_v16_db')) || { users: {} };
-        let user = null;
+    <!-- PAGE: HISTORY -->
+    <div id="historyPage" class="page">
+        <div class="section-title">Tranzaksyon Dènyè</div>
+        <div id="historyList" style="padding-bottom: 85px;"></div>
+    </div>
 
-        function handleAuth() {
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-pass').value;
-            if(!email.includes('@')) return alert("Email invalid!");
+    <!-- PAGE: PROFILE -->
+    <div id="profilePage" class="page">
+        <div style="text-align: center; padding: 20px 0;">
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 40px;">👤</div>
+            <h3 id="profileName" style="margin-bottom: 5px;">Vòt Non</h3>
+            <p id="profileEmail" style="color: var(--text-muted); font-size: 13px;"></p>
+        </div>
 
-            if(!db.users[email]) {
-                db.users[email] = { email, pass, balance: 0, history: [] };
-            }
-            user = db.users[email];
-            save();
-            document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            
-            // Simile Skeleton Loader
-            setTimeout(() => {
-                document.getElementById('skeleton-loader').style.display = 'none';
-                document.getElementById('app-content').style.display = 'block';
-                updateUI();
-            }, 1800);
-        }
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 15px; padding: 15px; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <span style="color: var(--text-muted);">Member Depi:</span>
+                <span id="memberSince" style="font-weight: 600;"></span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <span style="color: var(--text-muted);">Total Tranzaksyon:</span>
+                <span id="totalTransactions" style="font-weight: 600;">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Total Depans:</span>
+                <span id="totalSpent" style="font-weight: 600; color: var(--primary);">0 HTG</span>
+            </div>
+        </div>
 
-        function updateUI() {
-            document.getElementById('u-bal').innerText = user.balance.toFixed(0) + " HTG";
-            document.getElementById('big-bal').innerText = user.balance.toFixed(2) + " HTG";
-            document.getElementById('hist-list').innerHTML = user.history.map(h => `
-                <div style="padding:15px; background:rgba(255,255,255,0.05); border-radius:15px; margin-bottom:10px; border-left:3px solid var(--neon-blue);">
-                    <small style="opacity:0.4">${h.date}</small><br><b>${h.desc}</b><br>
-                    <code style="color:var(--neon-blue)">${h.pin}</code>
-                </div>
-            `).join('');
-        }
+        <button class="btn btn-secondary" style="margin-bottom: 15px;" onclick="showModal('changePasswordModal')">🔐 Chanje Modpas</button>
+        <button class="btn btn-secondary" style="margin-bottom: 15px;" onclick="downloadReceipt()">📥 Telechaje Resèt</button>
+        <button class="btn btn-secondary" style="background: rgba(255, 68, 68, 0.1); border-color: rgba(255, 68, 68, 0.3); color: var(--danger);" onclick="logout()">🚪 Dekonekte</button>
 
-        function openAdminPortal() {
-            if(prompt("ACCESS CODE:") === "1234") {
-                document.getElementById('admin-panel').style.display = 'block';
-            }
-        }
+        <div style="text-align: center; margin-top: 30px; padding: 20px; color: var(--text-muted); font-size: 11px; border-top: 1px solid var(--border);">
+            <p>Recharge Mobile Haiti v1.0</p>
+            <p>© 2026 Tout Dwa Rezève</p>
+            <p><a href="#" style="color: var(--primary); text-decoration: none;">Kondisyon Sèvis</a> • <a href="#" style="color: var(--primary); text-decoration: none;">Siyalji Prive</a></p>
+        </div>
+    </div>
 
-        function adminAdd() {
-            const email = document.getElementById('adm-email').value;
-            const amt = parseFloat(document.getElementById('adm-amt').value);
-            if(db.users[email]) {
-                db.users[email].balance += amt;
-                save();
-                alert("DONE!");
-                if(user.email === email) updateUI();
-            } else { alert("User not found!"); }
-        }
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPage('homePage')">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-label">Akèy</div>
+        </div>
+        <div class="nav-item" onclick="showPage('historyPage')">
+            <div class="nav-icon">📊</div>
+            <div class="nav-label">Istorik</div>
+        </div>
+        <div class="nav-item" onclick="showPage('profilePage')">
+            <div class="nav-icon">👤</div>
+            <div class="nav-label">Pwofil</div>
+        </div>
+    </div>
 
-        function nav(id, el) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-            document.getElementById(id).classList.add('active-page');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
-        }
+</div>
 
-        function contactSupport() {
-            const c = document.getElementById('t-code').value;
-            const a = document.getElementById('t-amt').value;
-            const msg = `⚡ *RECHARGE V16*\nUser: ${user.email}\nAmt: ${a} HTG\nCode: ${c}\nTime: ${new Date().toLocaleString()}`;
-            window.location.href = `https://wa.me/50941951159?text=${encodeURIComponent(msg)}`;
-        }
+<!-- MODALS -->
 
-        function save() { localStorage.setItem('ft_v16_db', JSON.stringify(db)); }
+<!-- Add Funds Modal -->
+<div id="addFundsModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="hideModal('addFundsModal')">✕</button>
+        <h3 class="modal-title">Ajoute Fon</h3>
         
-        // Soti nan store la (pou simplifie, mwen pa mete tout kòd store la pou espas, men li mache menm jan ak v15)
-        function openStore(cat) { alert("Sistèm Store " + cat + " ap chaje..."); }
-    </script>
+        <div class="section-title">Chwazi Metòd</div>
+        <div class="payment-methods" style="margin-bottom: 20px;">
+            <div class="payment-method active" onclick="selectFundMethod('natcash')">
+                <div class="payment-radio"></div>
+                <div class="payment-icon">💵</div>
+                <div class="payment-info">
+                    <div class="payment-name">Natcash</div>
+                    <div class="payment-detail">5511-2990</div>
+                </div>
+            </div>
+            <div class="payment-method" onclick="selectFundMethod('digicel-money')">
+                <div class="payment-radio"></div>
+                <div class="payment-icon">📲</div>
+                <div class="payment-info">
+                    <div class="payment-name">Digicel Money</div>
+                    <div class="payment-detail">Nimewo: *123#</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Montant</label>
+            <input type="number" id="fundAmount" class="form-input" placeholder="500">
+        </div>
+
+        <button class="btn btn-primary" onclick="processFundTransfer()">FINI TRANSFÈ</button>
+    </div>
+</div>
+
+<!-- Payment Processing Modal -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content" style="text-align: center;">
+        <button class="modal-close" onclick="hideModal('paymentModal')">✕</button>
+        <h3 class="modal-title" id="paymentTitle">Valide Peyman</h3>
+        
+        <div id="paymentSummary" style="background: var(--card); border: 1px solid var(--border); border-radius: 15px; padding: 20px; margin-bottom: 20px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span style="color: var(--text-muted);">Fournisè:</span>
+                <span id="paymentProvider" style="font-weight: 600;">-</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span style="color: var(--text-muted);">Nimewo:</span>
+                <span id="paymentPhone" style="font-weight: 600;">-</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span style="color: var(--text-muted);">Montant:</span>
+                <span id="paymentAmount" style="font-weight: 600; color: var(--primary);">-</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px;">
+                <span style="color: var(--text-muted);">Total Soti:</span>
+                <span id="paymentTotal" style="font-weight: 700; color: var(--primary);">-</span>
+            </div>
+        </div>
+
+        <div class="section-title">Etap Peyman</div>
+        
+        <div id="paymentInstructions" style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 12px; padding: 15px; text-align: left; margin-bottom: 20px; font-size: 13px; line-height: 1.6;">
+        </div>
+
+        <button class="btn btn-primary" onclick="confirmPayment()">KONFIME PEYMAN</button>
+        <button class="btn btn-secondary" style="margin-top: 10px;" onclick="hideModal('paymentModal')">ANILE</button>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="hideModal('changePasswordModal')">✕</button>
+        <h3 class="modal-title">Chanje Modpas</h3>
+        
+        <div class="form-group">
+            <label class="form-label">Modpas Aktwel</label>
+            <input type="password" id="currentPassword" class="form-input" placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Nouvo Modpas</label>
+            <input type="password" id="newPassword" class="form-input" placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Konfime Modpas</label>
+            <input type="password" id="confirmPassword" class="form-input" placeholder="••••••••">
+        </div>
+
+        <button class="btn btn-primary" onclick="changePassword()">METE A JOU</button>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // ========== STATE MANAGEMENT ==========
+    const state = {
+        user: null,
+        selectedProvider: null,
+        selectedAmount: null,
+        selectedPaymentMethod: 'natcash',
+        selectedFundMethod: 'natcash'
+    };
+
+    const API_BASE = 'https://api.recharge-haiti.ht'; // Production API
+    const DB_KEY = 'recharge_haiti_app_v1';
+
+    // Provider Information
+    const providers = {
+        digicel: {
+            name: 'Digicel',
+            icon: '🔴',
+            fee: 0.025, // 2.5%
+            min: 100,
+            max: 50000,
+            icon_emoji: '🔴'
+        },
+        natcom: {
+            name: 'Natcom',
+            icon: '🟠',
+            fee: 0.025,
+            min: 100,
+            max: 50000,
+            icon_emoji: '🟠'
+        },
+        voila: {
+            name: 'Voilà',
+            icon: '🟣',
+            fee: 0.025,
+            min: 100,
+            max: 50000,
+            icon_emoji: '🟣'
+        },
+        'haiti-tel': {
+            name: 'Haiti-Tèl',
+            icon: '🔵',
+            fee: 0.025,
+            min: 100,
+            max: 50000,
+            icon_emoji: '🔵'
+        }
+    };
+
+    // Payment Methods
+    const paymentMethods = {
+        natcash: {
+            name: 'Natcash',
+            account: '5511-2990',
+            holder: 'Enelson Pierre',
+            instructions: `
+                <strong>Etap 1:</strong> Ale nan agent Natcash ki pi pre ou<br>
+                <strong>Etap 2:</strong> Di yo "Mi vle fè youn depo"<br>
+                <strong>Etap 3:</strong> Ba yo email: <span style="color: var(--primary);" id="paymentEmail"></span><br>
+                <strong>Etap 4:</strong> Depo <span style="color: var(--primary);" id="paymentDepositAmount"></span> HTG<br>
+                <strong>Etap 5:</strong> Ba nou nimewo resèt la pou konfime tranzaksyon
+            `
+        },
+        'digicel-money': {
+            name: 'Digicel Money',
+            account: '*500#',
+            instructions: `
+                <strong>Etap 1:</strong> Tape *500# nan telefòn ou<br>
+                <strong>Etap 2:</strong> Chwazi "Transfè Kach"<br>
+                <strong>Etap 3:</strong> Mete: <strong>5000-0001</strong><br>
+                <strong>Etap 4:</strong> Mete <span style="color: var(--primary);" id="paymentDepositAmount2"></span> HTG<br>
+                <strong>Etap 5:</strong> Tèmine transfè a
+            `
+        },
+        'bank-transfer': {
+            name: 'Transfè Bidje',
+            account: 'BAN-123456789',
+            instructions: `
+                <strong>Etap 1:</strong> Ale nan bidje ou<br>
+                <strong>Etap 2:</strong> Mande yon transfè lokal<br>
+                <strong>Etap 3:</strong> Konpoze: <strong>BAN-123456789</strong><br>
+                <strong>Etap 4:</strong> Mete <span style="color: var(--primary);" id="paymentDepositAmount3"></span> HTG<br>
+                <strong>Etap 5:</strong> Konfime ak email: <span style="color: var(--primary);" id="paymentEmail2"></span>
+            `
+        }
+    };
+
+    // ========== INITIALIZATION ==========
+    function init() {
+        loadUser();
+        if (!state.user) {
+            showPage('authPage');
+        } else {
+            showPage('homePage');
+            updateUI();
+        }
+    }
+
+    // ========== AUTHENTICATION ==========
+    function switchAuthTab(tab) {
+        const isLogin = tab === 'login';
+        document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', (i === 0) === isLogin);
+        });
+        document.getElementById('nameField').style.display = isLogin ? 'none' : 'block';
+        document.getElementById('authBtnText').textContent = isLogin ? 'KONEKTE' : 'KREYE KONT';
+    }
+
+    function handleAuth(e) {
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+        const name = document.getElementById('authName').value || 'User';
+        const isLogin = !document.getElementById('nameField').style.display || document.getElementById('nameField').style.display === 'none';
+
+        // Validation
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            showAlert('error', '❌ Email invalide');
+            return;
+        }
+        if (password.length < 8) {
+            showAlert('error', '❌ Modpas dwe gen minimam 8 karaktè');
+            return;
+        }
+
+        // Simulate API Call
+        simulateAuth(email, password, name, isLogin);
+    }
+
+    function simulateAuth(email, password, name, isLogin) {
+        // In production, this would be a real API call
+        // Security: Never send password in plain text in production
+        // Use HTTPS and proper OAuth/JWT tokens
+
+        if (isLogin) {
+            // Simulate login
+            state.user = {
+                id: 'user_' + Date.now(),
+                email: email,
+                name: name,
+                balance: 5000, // Demo balance
+                createdAt: new Date().toISOString(),
+                transactions: []
+            };
+        } else {
+            // Simulate signup
+            state.user = {
+                id: 'user_' + Date.now(),
+                email: email,
+                name: name,
+                balance: 0,
+                createdAt: new Date().toISOString(),
+                transactions: []
+            };
+        }
+
+        saveUser();
+        showAlert('success', `✅ ${isLogin ? 'Koneksyon' : 'Kreye Kont'} Siksè!`);
+        setTimeout(() => {
+            showPage('homePage');
+            updateUI();
+        }, 1500);
+    }
+
+    // ========== USER MANAGEMENT ==========
+    function saveUser() {
+        localStorage.setItem(DB_KEY, JSON.stringify(state.user));
+    }
+
+    function loadUser() {
+        const saved = localStorage.getItem(DB_KEY);
+        if (saved) {
+            state.user = JSON.parse(saved);
+        }
+    }
+
+    function logout() {
+        if (confirm('Ou Sigwen ou Vle Dekonekte?')) {
+            state.user = null;
+            localStorage.removeItem(DB_KEY);
+            showPage('authPage');
+            document.getElementById('authForm').reset();
+        }
+    }
+
+    function changePassword() {
+        const current = document.getElementById('currentPassword').value;
+        const newPass = document.getElementById('newPassword').value;
+        const confirm = document.getElementById('confirmPassword').value;
+
+        if (current.length < 8) {
+            showAlert('error', '❌ Modpas aktwel enkòrèk');
+            return;
+        }
+        if (newPass.length < 8) {
+            showAlert('error', '❌ Nouvo modpas dwe gen minimam 8 karaktè');
+            return;
+        }
+        if (newPass !== confirm) {
+            showAlert('error', '❌ Modpas pa konvini');
+            return;
+        }
+
+        // In production, this would be an API call
+        showAlert('success', '✅ Modpas Mete a Jou');
+        hideModal('changePasswordModal');
+    }
+
+    // ========== UI UPDATES ==========
+    function updateUI() {
+        if (!state.user) return;
+
+        document.getElementById('balanceAmount').textContent = state.user.balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' HTG';
+        document.getElementById('profileName').textContent = state.user.name;
+        document.getElementById('profileEmail').textContent = state.user.email;
+        document.getElementById('memberSince').textContent = new Date(state.user.createdAt).toLocaleDateString('ht-HT');
+        document.getElementById('totalTransactions').textContent = state.user.transactions ? state.user.transactions.length : 0;
+        
+        const totalSpent = state.user.transactions ? state.user.transactions.reduce((sum, t) => sum + t.amount, 0) : 0;
+        document.getElementById('totalSpent').textContent = totalSpent.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' HTG';
+
+        updateHistoryList();
+    }
+
+    function updateHistoryList() {
+        const historyList = document.getElementById('historyList');
+        if (!state.user.transactions || state.user.transactions.length === 0) {
+            historyList.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px 0;">Pa gen Tranzaksyon Ankò</p>';
+            return;
+        }
+
+        historyList.innerHTML = state.user.transactions.map(tx => `
+            <div class="transaction-item">
+                <div class="transaction-icon">${providers[tx.provider]?.icon_emoji || '📱'}</div>
+                <div class="transaction-details">
+                    <div class="transaction-provider">${providers[tx.provider]?.name || 'Unknown'}</div>
+                    <div class="transaction-phone">+509 ${tx.phone}</div>
+                </div>
+                <div>
+                    <div class="transaction-amount">${tx.amount.toLocaleString('en-US', {minimumFractionDigits: 2})} HTG</div>
+                    <div class="transaction-time">${new Date(tx.timestamp).toLocaleDateString('ht-HT')}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // ========== RECHARGE FLOW ==========
+    function startRecharge(provider) {
+        state.selectedProvider = provider;
+        document.getElementById('rechargeProvider').textContent = providers[provider].name.toUpperCase();
+        document.getElementById('phoneNumber').value = '';
+        document.getElementById('customAmount').value = '';
+        document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+        state.selectedAmount = null;
+        updateFeeDisplay();
+        showPage('rechargePage');
+    }
+
+    function selectAmount(amount) {
+        state.selectedAmount = amount;
+        document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('customAmount').value = '';
+        updateFeeDisplay();
+    }
+
+    function selectCustomAmount() {
+        const amount = parseFloat(document.getElementById('customAmount').value);
+        if (!amount || amount < providers[state.selectedProvider].min) {
+            showAlert('error', `❌ Montant minimam: ${providers[state.selectedProvider].min} HTG`);
+            return;
+        }
+        if (amount > providers[state.selectedProvider].max) {
+            showAlert('error', `❌ Montant maksimam: ${providers[state.selectedProvider].max} HTG`);
+            return;
+        }
+        state.selectedAmount = amount;
+        document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+        updateFeeDisplay();
+    }
+
+    function updateFeeDisplay() {
+        if (!state.selectedAmount) {
+            document.getElementById('feeAmount').textContent = '0 HTG';
+            document.getElementById('feePercentage').textContent = '0 HTG';
+            document.getElementById('feeTotal').textContent = '0 HTG';
+            return;
+        }
+
+        const fee = state.selectedAmount * providers[state.selectedProvider].fee;
+        const total = state.selectedAmount + fee;
+
+        document.getElementById('feeAmount').textContent = state.selectedAmount.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' HTG';
+        document.getElementById('feePercentage').textContent = fee.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' HTG';
+        document.getElementById('feeTotal').textContent = total.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' HTG';
+    }
+
+    function selectPaymentMethod(method) {
+        state.selectedPaymentMethod = method;
+        document.querySelectorAll('.payment-method').forEach(pm => pm.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    function proceedToPayment() {
+        const phone = document.getElementById('phoneNumber').value;
+
+        if (!phone || phone.length !== 8 || !/^\d+$/.test(phone)) {
+            showAlert('error', '❌ Mete yon nimewo valide (8 chif)');
+            return;
+        }
+
+        if (!state.selectedAmount) {
+            showAlert('error', '❌ Chwazi yon montant');
+            return;
+        }
+
+        const fee = state.selectedAmount * providers[state.selectedProvider].fee;
+        const total = state.selectedAmount + fee;
+
+        if (state.user.balance < total) {
+            showAlert('error', `❌ Balans insifi. Ou Bezwen ${(total - state.user.balance).toLocaleString('en-US', {minimumFractionDigits: 2})} HTG ankò`);
+            return;
+        }
+
+        // Prepare payment display
+        const method = paymentMethods[state.selectedPaymentMethod];
+        document.getElementById('paymentTitle').textContent = 'Valide Peyman - ' + method.name;
+        document.getElementById('paymentProvider').textContent = providers[state.selectedProvider].name;
+        document.getElementById('paymentPhone').textContent = '+509 ' + phone;
+        document.getElementById('paymentAmount').textContent = state.selectedAmount.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' HTG';
+        document.getElementById('paymentTotal').textContent = total.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' HTG';
+
+        // Update instructions
+        const instructionsDiv = document.getElementById('paymentInstructions');
+        instructionsDiv.innerHTML = method.instructions;
+        document.getElementById('paymentEmail').textContent = state.user.email;
+        document.getElementById('paymentEmail2').textContent = state.user.email;
+        document.getElementById('paymentDepositAmount').textContent = total.toLocaleString('en-US', {minimumFractionDigits: 2});
+        document.getElementById('paymentDepositAmount2').textContent = total.toLocaleString('en-US', {minimumFractionDigits: 2});
+        document.getElementById('paymentDepositAmount3').textContent = total.toLocaleString('en-US', {minimumFractionDigits: 2});
+
+        showModal('paymentModal');
+    }
+
+    function confirmPayment() {
+        const fee = state.selectedAmount * providers[state.selectedProvider].fee;
+        const total = state.selectedAmount + fee;
+
+        // Process transaction
+        state.user.balance -= total;
+        state.user.transactions.push({
+            id: 'txn_' + Date.now(),
+            provider: state.selectedProvider,
+            phone: document.getElementById('phoneNumber').value,
+            amount: state.selectedAmount,
+            fee: fee,
+            total: total,
+            method: state.selectedPaymentMethod,
+            status: 'completed',
+            timestamp: new Date().toISOString()
+        });
+
+        saveUser();
+        hideModal('paymentModal');
+        showAlert('success', `✅ Recharge Siksè!\nKòb ${state.selectedAmount} HTG soti pou ${providers[state.selectedProvider].name}`);
+
+        setTimeout(() => {
+            updateUI();
+            showPage('homePage');
+        }, 2000);
+    }
+
+    // ========== FUND TRANSFER ==========
+    function selectFundMethod(method) {
+        state.selectedFundMethod = method;
+        document.querySelectorAll('#addFundsModal .payment-method').forEach(pm => pm.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    function processFundTransfer() {
+        const amount = parseFloat(document.getElementById('fundAmount').value);
+
+        if (!amount || amount < 100) {
+            showAlert('error', '❌ Montant minimam 100 HTG');
+            return;
+        }
+
+        const method = paymentMethods[state.selectedFundMethod];
+        const message = `Transfer am pou ${state.user.email} - ${amount.toLocaleString('en-US', {minimumFractionDigits: 2})} HTG`;
+
+        // In production, this would redirect to payment gateway or show transfer instructions
+        showAlert('info', `📝 Transferansyon ${method.name} a:\n\n${message}`);
+        
+        hideModal('addFundsModal');
+        document.getElementById('fundAmount').value = '';
+    }
+
+    function downloadReceipt() {
+        if (!state.user.transactions || state.user.transactions.length === 0) {
+            showAlert('warning', '⚠️ Pa gen Tranzaksyon pou Telechaje');
+            return;
+        }
+
+        let csv = 'Date,Fournisè,Nimewo,Montant,Frè,Total,Metòd\n';
+        state.user.transactions.forEach(tx => {
+            csv += `${new Date(tx.timestamp).toLocaleDateString('ht-HT')},${providers[tx.provider].name},+509${tx.phone},${tx.amount},${tx.fee},${tx.total},${paymentMethods[tx.method].name}\n`;
+        });
+
+        const link = document.createElement('a');
+        link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+        link.download = `recharge-haiti-${state.user.email}-${new Date().toISOString().split('T')[0]}.csv`;
+        link.click();
+
+        showAlert('success', '✅ Resèt Telechaje');
+    }
+
+    // ========== NAVIGATION & MODALS ==========
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        if (pageId === 'homePage') document.querySelectorAll('.nav-item')[0].classList.add('active');
+        else if (pageId === 'historyPage') document.querySelectorAll('.nav-item')[1].classList.add('active');
+        else if (pageId === 'profilePage') document.querySelectorAll('.nav-item')[2].classList.add('active');
+    }
+
+    function showModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+    }
+
+    function hideModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
+
+    // ========== ALERTS ==========
+    function showAlert(type, message) {
+        const alertEl = document.getElementById(`alert${type.charAt(0).toUpperCase() + type.slice(1)}`);
+        alertEl.textContent = message;
+        alertEl.classList.add('show');
+
+        setTimeout(() => {
+            alertEl.classList.remove('show');
+        }, 4000);
+    }
+
+    // ========== START APP ==========
+    window.addEventListener('DOMContentLoaded', init);
+</script>
+
 </body>
 </html>
